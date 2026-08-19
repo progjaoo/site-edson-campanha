@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Newspaper, ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 import { Noticia } from "@/types";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -33,22 +33,19 @@ export function NewsSection({ initialNoticias }: NewsSectionProps) {
   }, [initialNoticias]);
 
   return (
-    <AnimatedSection id="noticias" className="py-20 bg-white relative">
+    <AnimatedSection id="noticias" className="py-20 lg:py-28 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Título da Seção */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/10 text-brand-blue font-bold text-xs uppercase tracking-wider">
-              <Newspaper className="w-3.5 h-3.5" />
-              <span>Informativo</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="w-2 h-10 bg-brand-lime inline-block" />
-              <h2 className="font-condensed font-black italic text-4xl sm:text-5xl text-brand-blue tracking-tight uppercase">
-                Fique por dentro!
-              </h2>
-            </div>
+        {/* Título da Seção com Marcação Verde (17px width × 163px height) */}
+        <div className="mb-12">
+          <div className="flex items-start gap-4 sm:gap-6">
+            {/* Marcação Verde #93FD04: w-[17px] h-[163px] */}
+            <span className="w-[17px] h-[90px] bg-[#93FD04] rounded-sm block shrink-0 mt-1" />
+            
+            <h2 className="font-archivo font-extrabold italic text-4xl sm:text-6xl md:text-7xl lg:text-[50px] leading-[0.92] text-[#1256CE] tracking-tight uppercase">
+              Fique por <br />
+              dentro
+            </h2>
           </div>
         </div>
 
@@ -76,10 +73,10 @@ export function NewsSection({ initialNoticias }: NewsSectionProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group flex flex-col justify-between bg-brand-light rounded-2xl overflow-hidden border border-gray-200/70 hover:border-brand-blue/40 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                className="group flex flex-col justify-between bg-brand-light rounded-2xl overflow-hidden border border-gray-200/70 hover:border-[#1256CE]/40 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
                 {/* Imagem de Capa */}
-                <Link href={`/noticias/${item.slug}`} className="relative h-48 w-full block overflow-hidden bg-brand-navy">
+                <Link href={`/noticias/${item.slug}`} className="relative h-48 w-full block overflow-hidden bg-[#003967]">
                   <Image
                     src={item.imagemUrl || "/images/fotos-galeria/foto-galeria.svg"}
                     alt={item.titulo}
@@ -87,7 +84,7 @@ export function NewsSection({ initialNoticias }: NewsSectionProps) {
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   {item.categoria && (
-                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-brand-navy/80 backdrop-blur-md text-brand-yellow font-bold text-xs uppercase tracking-wider">
+                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-[#003967]/80 backdrop-blur-md text-[#FBE502] font-bold text-xs uppercase tracking-wider">
                       {item.categoria}
                     </span>
                   )}
@@ -97,12 +94,12 @@ export function NewsSection({ initialNoticias }: NewsSectionProps) {
                 <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                   <div className="space-y-2">
                     <div className="flex items-center gap-1.5 text-xs text-gray-500">
-                      <Calendar className="w-3.5 h-3.5" />
+                      <Calendar className="w-3.5 h-3.5 text-[#1256CE]" />
                       <span>{formatDate(item.dataPublicacao)}</span>
                     </div>
 
                     <Link href={`/noticias/${item.slug}`}>
-                      <h3 className="font-archivo font-bold text-base sm:text-lg text-brand-dark group-hover:text-brand-blue transition-colors line-clamp-2 leading-snug">
+                      <h3 className="font-archivo font-bold text-base sm:text-lg text-brand-dark group-hover:text-[#1256CE] transition-colors line-clamp-2 leading-snug">
                         {item.titulo}
                       </h3>
                     </Link>
@@ -117,7 +114,7 @@ export function NewsSection({ initialNoticias }: NewsSectionProps) {
                   {/* Link Leia Mais */}
                   <Link
                     href={`/noticias/${item.slug}`}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-blue group-hover:text-brand-navy transition-colors uppercase tracking-wider pt-2 border-t border-gray-200"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1256CE] group-hover:text-[#003967] transition-colors uppercase tracking-wider pt-2 border-t border-gray-200"
                   >
                     <span>Ler matéria completa</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />

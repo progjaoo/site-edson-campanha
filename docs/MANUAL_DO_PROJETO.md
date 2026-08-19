@@ -108,3 +108,16 @@ git push -u origin main
 # 3. Na Vercel
 # Importe o repositório do GitHub e clique em "Deploy".
 ```
+
+NAS SEÇÕES, NO TITULO
+"Mudança requer fé e coragem" fonte archivo EXTRABOLD ITALIC - 89 de tamanho
+texto abaixo menor: Veja como nossa história carrega tudo isso! - fonte archivo - bold - tamanho 30
+
+NAS SEÇÕES, NO TITULO
+"Acompanhe minhas redes" - font archivo - extrabold - tamanho 89
+
+NAS SEÇÕES, NO TITULO
+"Fique por dentro" - font archivo - extrabold - tamanho 89
+
+
+- Nessa seção precisamos ajustar igual ao designer fez, você fez correto, porém a foto dele deve ser centralizada,  um pouco maior e as 4 redes sociais ficarem na altura do peito dele, 

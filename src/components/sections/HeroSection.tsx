@@ -47,7 +47,7 @@ export function HeroSection() {
             {/* Subtítulo: Archivo Bold tamanho 30 */}
             <motion.p
               variants={fadeInUp}
-              className="font-archivo font-bold text-lg sm:text-2xl lg:text-[28px] xl:text-[30px] lg:leading-[38px] text-white max-w-xl mx-auto lg:mx-0"
+              className="font-archivo font-bold text-lg sm:text-2xl lg:text-[20px] xl:text-[20px] lg:leading-[30px] text-white max-w-xl mx-auto lg:mx-0"
             >
               Com coragem, confiança e competência, vamos libertar o nosso estado da violência e colocá-lo no caminho do desenvolvimento outra vez.
             </motion.p>

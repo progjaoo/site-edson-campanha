@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Instagram, Facebook, Youtube, Video } from "lucide-react";
+import { Instagram, Facebook, Youtube } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 
 // Ícone personalizado para TikTok
@@ -47,12 +47,14 @@ export function SocialSection() {
     <AnimatedSection id="redes" className="pt-16 pb-0 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Título Superior com barra verde e texto em itálico azul */}
+        {/* Título Superior com Marcação Verde (17px width × 163px height) e quebra de linha */}
         <div className="mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-3">
-            <span className="w-2.5 sm:w-3 h-10 sm:h-12 bg-[#93FD04] rounded-sm block shrink-0" />
-            <h2 className="font-condensed font-black italic text-4xl sm:text-5xl md:text-6xl text-[#1256CE] tracking-tight uppercase leading-none">
-              Acompanhe <br className="sm:hidden" />
+          <div className="flex items-start gap-4 sm:gap-6">
+            {/* Marcação Verde #93FD04: w-[17px] h-[90px] */}
+            <span className="w-[17px] h-[90px] bg-[#93FD04] rounded-sm block shrink-0 mt-1" />
+            
+            <h2 className="font-archivo font-extrabold italic text-4xl sm:text-6xl md:text-7xl lg:text-[50px] leading-[0.90] text-[#1256CE] tracking-tight uppercase">
+              Acompanhe <br />
               minhas redes
             </h2>
           </div>
