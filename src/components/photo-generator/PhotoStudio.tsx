@@ -18,32 +18,50 @@ import { PhotoFormat } from "@/types";
 import { FormatSelector } from "./FormatSelector";
 import { cn } from "@/lib/utils";
 
-const FRAMES = [
-  {
-    id: "eu-apoio",
-    name: "#EuApoio Albertassi",
-    src: "/images/molduras/moldura-euapoio.png",
-  },
-  {
-    id: "padrao",
-    name: "Albertassi 15088",
-    src: "/images/molduras/moldura-padrao.png",
-  },
-];
-
-const FORMAT_SPECS: Record<
+const FORMAT_CONFIGS: Record<
   PhotoFormat,
-  { width: number; height: number; aspect: string }
+  {
+    name: string;
+    width: number;
+    height: number;
+    aspect: string;
+    frameSrc: string;
+    description: string;
+    fileNamePrefix: string;
+  }
 > = {
-  avatar: { width: 1080, height: 1080, aspect: "aspect-square" },
-  feed: { width: 1080, height: 1440, aspect: "aspect-[3/4]" },
-  story: { width: 1080, height: 1920, aspect: "aspect-[9/16]" },
+  avatar: {
+    name: "Avatar / Perfil",
+    width: 1080,
+    height: 1080,
+    aspect: "aspect-square",
+    frameSrc: "/images/molduras/Avatar.png",
+    description: "1080 × 1080 px (Quadrado para WhatsApp e Perfil)",
+    fileNamePrefix: "avatar",
+  },
+  feed: {
+    name: "Postagem / Feed",
+    width: 1080,
+    height: 1350,
+    aspect: "aspect-[4/5]",
+    frameSrc: "/images/molduras/Postagem.png",
+    description: "1080 × 1350 px (Retrato 4:5 para Feed do Instagram)",
+    fileNamePrefix: "postagem-feed",
+  },
+  story: {
+    name: "Stories / Status",
+    width: 1080,
+    height: 1920,
+    aspect: "aspect-[9/16]",
+    frameSrc: "/images/molduras/Stories.png",
+    description: "1080 × 1920 px (Vertical 9:16 para Stories e WhatsApp)",
+    fileNamePrefix: "stories-status",
+  },
 };
 
 export function PhotoStudio() {
   const [userImageSrc, setUserImageSrc] = useState<string | null>(null);
   const [selectedFormat, setSelectedFormat] = useState<PhotoFormat>("avatar");
-  const [selectedFrame, setSelectedFrame] = useState(FRAMES[0].id);
 
   // Transform states (pan, zoom, rotation)
   const [zoom, setZoom] = useState(1);
@@ -60,15 +78,19 @@ export function PhotoStudio() {
 
   // Loaded image objects
   const userImgObj = useRef<HTMLImageElement | null>(null);
-  const frameImgObjs = useRef<Record<string, HTMLImageElement>>({});
+  const frameImgObjs = useRef<Record<PhotoFormat, HTMLImageElement | null>>({
+    avatar: null,
+    feed: null,
+    story: null,
+  });
 
-  // Preload frame images
+  // Preload all 3 frame images
   useEffect(() => {
-    FRAMES.forEach((frame) => {
+    (Object.keys(FORMAT_CONFIGS) as PhotoFormat[]).forEach((fmt) => {
       const img = new Image();
-      img.src = frame.src;
+      img.src = FORMAT_CONFIGS[fmt].frameSrc;
       img.onload = () => {
-        frameImgObjs.current[frame.id] = img;
+        frameImgObjs.current[fmt] = img;
         drawCanvases();
       };
     });
@@ -103,28 +125,25 @@ export function PhotoStudio() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const spec = FORMAT_SPECS[selectedFormat];
-    canvas.width = spec.width;
-    canvas.height = spec.height;
+    const config = FORMAT_CONFIGS[selectedFormat];
+    canvas.width = config.width;
+    canvas.height = config.height;
 
-    // Clear
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Background fill (Navy Blue)
+    // 1. Fundo Padrão Azul da Campanha (#003967) para fotos sem fundo / transparentes
     ctx.fillStyle = "#003967";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 1. Draw user photo
+    // 2. Desenhar a foto enviada pelo usuário
     if (userImgObj.current) {
       const img = userImgObj.current;
       ctx.save();
 
-      // For avatar/circular layout, we draw the photo
+      // Translação central + pan do usuário
       ctx.translate(canvas.width / 2 + position.x, canvas.height / 2 + position.y);
       ctx.rotate((rotation * Math.PI) / 180);
       ctx.scale(zoom, zoom);
 
-      // Fit image cover style
+      // Enquadramento estilo 'cover' preenchendo o canvas
       const imgRatio = img.width / img.height;
       const canvasRatio = canvas.width / canvas.height;
       let drawW, drawH;
@@ -141,33 +160,31 @@ export function PhotoStudio() {
       ctx.restore();
     }
 
-    // 2. Draw selected Frame Overlay
-    const activeFrameImg = frameImgObjs.current[selectedFrame];
+    // 3. Desenhar a Moldura Oficial fixada na BASE inferior do Canvas
+    const activeFrameImg = frameImgObjs.current[selectedFormat];
     if (activeFrameImg) {
       ctx.save();
-      if (selectedFormat === "avatar") {
-        ctx.drawImage(activeFrameImg, 0, 0, canvas.width, canvas.height);
-      } else if (selectedFormat === "feed") {
-        // Draw centered frame with badge at bottom
-        const frameSize = canvas.width;
-        const offsetY = (canvas.height - frameSize) / 2;
-        ctx.drawImage(activeFrameImg, 0, offsetY, frameSize, frameSize);
-      } else if (selectedFormat === "story") {
-        // Story vertical layout: frame in upper/center area
-        const frameSize = canvas.width * 1.05;
-        const offsetX = (canvas.width - frameSize) / 2;
-        const offsetY = canvas.height * 0.18;
-        ctx.drawImage(activeFrameImg, offsetX, offsetY, frameSize, frameSize);
-      }
+      const frameAspect = activeFrameImg.width / activeFrameImg.height;
+      const frameDrawWidth = canvas.width;
+      const frameDrawHeight = canvas.width / frameAspect;
+      const frameOffsetY = canvas.height - frameDrawHeight;
+
+      ctx.drawImage(
+        activeFrameImg,
+        0,
+        frameOffsetY,
+        frameDrawWidth,
+        frameDrawHeight
+      );
       ctx.restore();
     }
-  }, [selectedFormat, selectedFrame, zoom, position, rotation]);
+  }, [selectedFormat, zoom, position, rotation]);
 
   useEffect(() => {
     drawCanvases();
   }, [drawCanvases, userImageSrc]);
 
-  // Drag handlers
+  // Drag handlers (Mouse)
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
     isDraggingRef.current = true;
     dragStartRef.current = { x: e.clientX - position.x, y: e.clientY - position.y };
@@ -220,7 +237,7 @@ export function PhotoStudio() {
     const canvas = editCanvasRef.current;
     if (!canvas) return;
 
-    // Trigger confetti!
+    // Confetes de comemoração!
     confetti({
       particleCount: 100,
       spread: 70,
@@ -228,8 +245,9 @@ export function PhotoStudio() {
       colors: ["#FBE502", "#1256CE", "#93FD04", "#FFFFFF"],
     });
 
+    const prefix = FORMAT_CONFIGS[selectedFormat].fileNamePrefix;
     const link = document.createElement("a");
-    link.download = `edson-albertassi-${selectedFormat}-${Date.now()}.png`;
+    link.download = `edson-albertassi-15088-${prefix}.png`;
     link.href = canvas.toDataURL("image/png");
     link.click();
   };
@@ -242,11 +260,12 @@ export function PhotoStudio() {
     try {
       canvas.toBlob(async (blob) => {
         if (!blob) return;
-        const file = new File([blob], "edson-albertassi-apoio.png", { type: "image/png" });
+        const prefix = FORMAT_CONFIGS[selectedFormat].fileNamePrefix;
+        const file = new File([blob], `edson-albertassi-${prefix}.png`, { type: "image/png" });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           await navigator.share({
             title: "Eu Apoio Edson Albertassi 15088",
-            text: "Criei minha foto de apoio ao Edson Albertassi! Faça a sua também!",
+            text: "Criei minha foto oficial de apoio ao Edson Albertassi! Faça a sua também!",
             files: [file],
           });
         } else {
@@ -272,7 +291,7 @@ export function PhotoStudio() {
       {!userImageSrc ? (
         <div
           onClick={() => fileInputRef.current?.click()}
-          className="border-3 border-dashed border-white/30 hover:border-brand-yellow rounded-3xl p-12 sm:p-20 text-center bg-white/5 hover:bg-white/10 transition-all cursor-pointer group max-w-2xl mx-auto shadow-2xl"
+          className="border-3 border-dashed border-white/30 hover:border-[#FBE502] rounded-3xl p-12 sm:p-20 text-center bg-white/5 hover:bg-white/10 transition-all cursor-pointer group max-w-2xl mx-auto shadow-2xl"
         >
           <input
             ref={fileInputRef}
@@ -281,18 +300,18 @@ export function PhotoStudio() {
             onChange={handleFileChange}
             className="hidden"
           />
-          <div className="w-20 h-20 rounded-full bg-brand-yellow text-brand-dark flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+          <div className="w-20 h-20 rounded-full bg-[#FBE502] text-black flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
             <Upload className="w-10 h-10" />
           </div>
           <h3 className="font-condensed font-black text-2xl sm:text-3xl text-white uppercase tracking-tight mb-2">
             Escolha sua Foto
           </h3>
-          <p className="text-white/70 text-sm sm:text-base max-w-md mx-auto mb-6">
+          <p className="text-white/80 text-sm sm:text-base max-w-md mx-auto mb-6">
             Arraste sua foto para cá ou clique para selecionar do celular ou computador.
           </p>
           <button
             type="button"
-            className="px-8 py-3.5 rounded-full bg-brand-yellow text-brand-dark font-extrabold text-sm uppercase tracking-wider shadow-lg hover:bg-white transition-colors"
+            className="px-8 py-3.5 rounded-full bg-[#FBE502] text-black font-archivo font-black text-sm uppercase tracking-wider shadow-lg hover:bg-white transition-colors"
           >
             Selecionar Imagem
           </button>
@@ -304,14 +323,14 @@ export function PhotoStudio() {
           {/* Lado Esquerdo: Canvas Interativo de Edição */}
           <div className="lg:col-span-7 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
             <div className="flex items-center justify-between">
-              <span className="text-xs uppercase font-bold text-brand-yellow tracking-wider flex items-center gap-1.5">
+              <span className="text-xs uppercase font-bold text-[#FBE502] tracking-wider flex items-center gap-1.5">
                 <Move className="w-4 h-4" />
-                Arraste e ajuste o enquadramento
+                Arraste e ajuste sua foto
               </span>
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="text-xs font-semibold text-white/80 hover:text-brand-yellow flex items-center gap-1.5 transition-colors"
+                className="text-xs font-semibold text-white/80 hover:text-[#FBE502] flex items-center gap-1.5 transition-colors"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
                 Trocar Foto
@@ -325,8 +344,8 @@ export function PhotoStudio() {
               />
             </div>
 
-            {/* O Canvas Principal */}
-            <div className="relative flex justify-center items-center bg-brand-dark/60 rounded-2xl overflow-hidden p-2 border border-white/10">
+            {/* O Canvas Principal com a Moldura Oficial Fixada na Base */}
+            <div className="relative flex justify-center items-center bg-[#003967] rounded-2xl overflow-hidden p-2 border border-white/10 shadow-inner">
               <canvas
                 ref={editCanvasRef}
                 onMouseDown={handleMouseDown}
@@ -337,8 +356,8 @@ export function PhotoStudio() {
                 onTouchEnd={handleTouchEnd}
                 onWheel={handleWheel}
                 className={cn(
-                  "max-w-full max-h-[460px] object-contain rounded-xl cursor-grab active:cursor-grabbing shadow-2xl transition-transform",
-                  FORMAT_SPECS[selectedFormat].aspect
+                  "max-w-full max-h-[480px] object-contain rounded-xl cursor-grab active:cursor-grabbing shadow-2xl transition-all",
+                  FORMAT_CONFIGS[selectedFormat].aspect
                 )}
               />
             </div>
@@ -355,7 +374,7 @@ export function PhotoStudio() {
                   step="0.05"
                   value={zoom}
                   onChange={(e) => setZoom(parseFloat(e.target.value))}
-                  className="w-full accent-brand-yellow h-2 bg-white/20 rounded-lg cursor-pointer"
+                  className="w-full accent-[#FBE502] h-2 bg-white/20 rounded-lg cursor-pointer"
                 />
                 <ZoomIn className="w-4 h-4 text-white/60" />
                 <span className="w-12 text-right">{Math.round(zoom * 100)}%</span>
@@ -387,43 +406,49 @@ export function PhotoStudio() {
             </div>
           </div>
 
-          {/* Lado Direito: Escolha de Moldura e Download */}
+          {/* Lado Direito: Escolha do Formato e Download */}
           <div className="lg:col-span-5 space-y-6">
             
-            {/* Escolha da Moldura */}
+            {/* Escolha do Formato com Moldura em tempo real */}
             <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl space-y-4">
               <h3 className="font-condensed font-black text-xl text-white uppercase tracking-tight">
-                Escolha a Moldura
+                Formatos Disponíveis
               </h3>
 
-              <div className="grid grid-cols-2 gap-3">
-                {FRAMES.map((frame) => {
-                  const isCurrent = selectedFrame === frame.id;
+              <div className="space-y-3">
+                {(Object.keys(FORMAT_CONFIGS) as PhotoFormat[]).map((fmt) => {
+                  const config = FORMAT_CONFIGS[fmt];
+                  const isCurrent = selectedFormat === fmt;
                   return (
                     <button
-                      key={frame.id}
+                      key={fmt}
                       type="button"
-                      onClick={() => setSelectedFrame(frame.id)}
+                      onClick={() => setSelectedFormat(fmt)}
                       className={cn(
-                        "relative p-3 rounded-2xl border-2 text-left transition-all duration-200 overflow-hidden",
+                        "w-full flex items-center gap-4 p-3 rounded-2xl border-2 text-left transition-all duration-200",
                         isCurrent
-                          ? "border-brand-yellow bg-brand-yellow/15 shadow-md scale-102"
+                          ? "border-[#FBE502] bg-[#FBE502]/15 shadow-md scale-102"
                           : "border-white/15 bg-white/5 hover:bg-white/10"
                       )}
                     >
-                      <div className="aspect-square relative rounded-lg overflow-hidden mb-2 bg-brand-navy">
+                      <div className="w-16 h-16 relative rounded-lg overflow-hidden bg-[#003967] shrink-0 border border-white/20 flex items-end">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                          src={frame.src}
-                          alt={frame.name}
-                          className="w-full h-full object-contain p-1"
+                          src={config.frameSrc}
+                          alt={config.name}
+                          className="w-full object-contain"
                         />
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-white line-clamp-1">
-                          {frame.name}
-                        </span>
-                        {isCurrent && <Check className="w-4 h-4 text-brand-yellow" />}
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-bold text-white">
+                            {config.name}
+                          </span>
+                          {isCurrent && <Check className="w-4 h-4 text-[#FBE502]" />}
+                        </div>
+                        <p className="text-xs text-white/70 line-clamp-1 mt-0.5">
+                          {config.description}
+                        </p>
                       </div>
                     </button>
                   );
@@ -434,18 +459,18 @@ export function PhotoStudio() {
             {/* Card de Download e Compartilhamento */}
             <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl space-y-4">
               <h3 className="font-condensed font-black text-xl text-white uppercase tracking-tight flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-brand-yellow" />
+                <Sparkles className="w-5 h-5 text-[#FBE502]" />
                 Baixar sua Arte
               </h3>
               <p className="text-xs text-white/70">
-                Sua arte será gerada em alta definição (1080px) pronta para compartilhar nas suas redes sociais.
+                Formato selecionado: <strong className="text-[#FBE502]">{FORMAT_CONFIGS[selectedFormat].name} ({FORMAT_CONFIGS[selectedFormat].width}×{FORMAT_CONFIGS[selectedFormat].height}px)</strong>
               </p>
 
               <div className="space-y-3 pt-2">
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="w-full py-4 px-6 rounded-2xl bg-brand-yellow text-brand-dark font-extrabold text-sm uppercase tracking-wider shadow-xl btn-yellow-glow hover:scale-102 active:scale-98 flex items-center justify-center gap-3 transition-all"
+                  className="w-full py-4 px-6 rounded-2xl bg-[#FBE502] text-black font-archivo font-black text-sm uppercase tracking-wider shadow-xl hover:bg-white hover:text-[#003967] hover:scale-102 active:scale-98 flex items-center justify-center gap-3 transition-all"
                 >
                   <Download className="w-5 h-5" />
                   <span>Baixar Foto (PNG HD)</span>

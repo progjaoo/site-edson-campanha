@@ -38,7 +38,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+          <nav className="hidden lg:flex items-center italic gap-6 xl:gap-8">
             {navLinks.map((item) => {
               const isFacaSuaFoto = item.highlight;
               const isActive = pathname === item.href;

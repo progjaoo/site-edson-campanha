@@ -28,26 +28,29 @@ export function HeroSection() {
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
-            className="lg:col-span-6 pb-12 sm:pb-16 lg:pb-24 space-y-6 md:space-y-8 text-center lg:text-left z-10"
+            className="lg:col-span-6 pb-12 mb-24 mr-4 sm:pb-18 lg:pb-24 space-y-6 md:space-y-10 text-center lg:text-left z-10"
           >
-            {/* Título Principal com Preenchimento Máximo (Archivo SemiCondensed Black Italic) */}
-            <motion.div variants={fadeInUp}>
-              <h1
-                className="font-condensed font-black italic text-6xl sm:text-7xl md:text-8xl lg:text-[98px] xl:text-[112px] tracking-tighter leading-[0.82] uppercase text-white drop-shadow-md select-none"
-                style={{
-                  WebkitTextStroke: "1px #FFFFFF",
-                  letterSpacing: "-0.04em",
-                }}
-              >
-                TEM QUE <br />
-                TER FÉ
-              </h1>
+            {/* Título com a Imagem PNG 'TEM QUE TER FÉ.png' */}
+            <motion.div
+              variants={fadeInUp}
+              className="flex justify-center lg:justify-start"
+            >
+              <div className="relative w-full max-w-[340px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[520px] xl:max-w-[560px]">
+                <Image
+                  src="/images/tem-que-ter-fe.png"
+                  alt="Tem Que Ter Fé"
+                  width={539}
+                  height={221}
+                  priority
+                  className="w-full h-auto object-contain drop-shadow-lg"
+                />
+              </div>
             </motion.div>
 
             {/* Subtítulo: Archivo Bold tamanho 30 */}
             <motion.p
               variants={fadeInUp}
-              className="font-archivo font-bold text-lg sm:text-2xl lg:text-[20px] xl:text-[20px] lg:leading-[30px] text-white max-w-xl mx-auto lg:mx-0"
+              className="font-archivo font-bold text-lg sm:text-1xl lg:text-[24px] xl:text-[22px] lg:leading-[30px] text-white max-w-xl mx-auto lg:mx-0"
             >
               Com coragem, confiança e competência, vamos libertar o nosso estado da violência e colocá-lo no caminho do desenvolvimento outra vez.
             </motion.p>
@@ -62,7 +65,7 @@ export function HeroSection() {
                 href="https://chat.whatsapp.com/invite"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#FBE502] text-black font-archivo font-black text-sm sm:text-base tracking-wider uppercase shadow-lg hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
+                className="w-full sm:w-auto italic inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#FBE502] text-black font-archivo font-black text-sm sm:text-base tracking-wider uppercase shadow-lg hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
               >
                 ENTRE PARA O GRUPO
               </a>
@@ -70,7 +73,7 @@ export function HeroSection() {
               {/* Botão 2: Faça sua Foto */}
               <Link
                 href="/faca-sua-foto"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#FBE502] text-black font-archivo font-black text-sm sm:text-base tracking-wider uppercase shadow-lg hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
+                className="w-full sm:w-auto italic  inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#FBE502] text-black font-archivo font-black text-sm sm:text-base tracking-wider uppercase shadow-lg hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
               >
                 FAÇA SUA FOTO
               </Link>

@@ -15,19 +15,19 @@ export function FormatSelector({ selectedFormat, onSelectFormat }: FormatSelecto
       id: "avatar",
       label: "Avatar / Perfil",
       icon: User,
-      desc: "1080 × 1080 px (Quadrado)",
+      desc: "1080 × 1080 px",
     },
     {
       id: "feed",
-      label: "Feed Instagram",
+      label: "Postagem / Feed",
       icon: LayoutGrid,
-      desc: "1080 × 1440 px (Retrato)",
+      desc: "1080 × 1350 px",
     },
     {
       id: "story",
-      label: "Story / Status",
+      label: "Stories / Status",
       icon: Smartphone,
-      desc: "1080 × 1920 px (Vertical)",
+      desc: "1080 × 1920 px",
     },
   ];
 
@@ -43,15 +43,18 @@ export function FormatSelector({ selectedFormat, onSelectFormat }: FormatSelecto
             type="button"
             onClick={() => onSelectFormat(fmt.id)}
             className={cn(
-              "flex items-center gap-2.5 px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 shadow-sm",
+              "flex items-center gap-2.5 px-6 py-3.5 rounded-2xl font-archivo font-extrabold text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 shadow-md",
               isSelected
-                ? "bg-brand-yellow text-brand-dark shadow-md scale-105 ring-2 ring-brand-yellow ring-offset-2"
+                ? "bg-[#FBE502] text-black shadow-xl scale-105 ring-2 ring-[#FBE502] ring-offset-2 ring-offset-[#003967]"
                 : "bg-white/10 text-white hover:bg-white/20 border border-white/15"
             )}
           >
-            <Icon className="w-4 h-4" />
+            <Icon className={cn("w-4 h-4", isSelected ? "text-black" : "text-[#FBE502]")} />
             <div className="text-left">
               <div>{fmt.label}</div>
+              <div className={cn("text-[10px] font-normal", isSelected ? "text-black/70" : "text-white/60")}>
+                {fmt.desc}
+              </div>
             </div>
           </button>
         );
