@@ -1,0 +1,6 @@
+# Pasta de Áudios / Jingle
+
+Coloque aqui o arquivo de áudio do Jingle Oficial da campanha:
+Nome esperado: `jingle-edson-albertassi.mp3`
+
+O player na seção de Jingle e o botão de download utilizarão este arquivo automaticamente.
