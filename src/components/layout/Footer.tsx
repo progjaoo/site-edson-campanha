@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Instagram, Facebook, Youtube, Shield, Heart, Phone, Users } from "lucide-react";
+import { Instagram, Facebook, Youtube, Shield, Heart, Users } from "lucide-react";
 
 // Ícone TikTok
 function TikTokIcon({ className = "w-4 h-4" }: { className?: string }) {
@@ -33,14 +33,25 @@ function WhatsAppIcon({ className = "w-4 h-4" }: { className?: string }) {
 export function Footer() {
   return (
     <footer className="relative bg-[#003967] text-white overflow-hidden pt-16 pb-12 border-t-4 border-[#FBE502]">
+      {/* Imagem de Fundo Oficial do Designer */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <Image
+          src="/images/fundodegrade.png"
+          alt=""
+          fill
+          priority
+          className="object-cover object-bottom"
+        />
+      </div>
+
       {/* Faixa decorativa superior */}
-      <div className="absolute top-0 left-0 right-0 h-1.5 flex">
+      <div className="absolute top-0 left-0 right-0 h-1.5 flex z-10">
         <div className="w-1/4 bg-[#93FD04]" />
         <div className="w-1/2 bg-[#FBE502]" />
         <div className="w-1/4 bg-[#1256CE]" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/15">
           
           {/* Coluna 1: Logo, Identidade & CNPJ */}

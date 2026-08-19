@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Radio, Award, Compass, ArrowLeft, Camera, Users } from "lucide-react";
+import { Radio, Award, Compass, ArrowLeft, Users } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Biografia & História | Edson Albertassi",
@@ -46,17 +46,17 @@ export default function HistoriaPage() {
   return (
     <main className="min-h-screen bg-white text-brand-dark overflow-hidden">
       
-      {/* Top Banner Hero — Cor sólida #003967 combinando perfeitamente com o Header */}
+      {/* Top Banner Hero com o Fundo Oficial do Designer */}
       <section className="relative bg-[#003967] text-white pt-28 pb-16 sm:py-24 overflow-hidden border-b-4 border-[#FBE502]">
         
-        {/* Textura sutil */}
-        <div className="absolute inset-0 z-0 opacity-40 mix-blend-overlay pointer-events-none">
+        {/* Imagem de Fundo Oficial */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
-            src="/images/fundo-hero-section.svg"
+            src="/images/fundodegrade.png"
             alt=""
             fill
-            className="object-cover object-center"
             priority
+            className="object-cover object-center"
           />
         </div>
 
@@ -125,34 +125,6 @@ export default function HistoriaPage() {
           <p>
             Ao longo dos anos, sua voz passou a representar não apenas uma posição política, mas também valores e convicções: um reflexo daquilo que sempre fez parte da sua própria história. Após doze anos longe da vida parlamentar, Edson Albertassi deseja retornar com a experiência de quem conhece esse caminho e com a mesma fé que esteve presente desde o começo.
           </p>
-
-          {/* Chamada Final de Impacto */}
-          {/* <div className="pt-8 text-center sm:text-left">
-            <div className="p-8 sm:p-12 rounded-3xl bg-[#003967] text-white shadow-xl space-y-4 border-2 border-[#FBE502]">
-              <h2 className="font-condensed font-black text-3xl sm:text-4xl text-[#FBE502] uppercase">
-                A história ainda não está pronta.
-              </h2>
-              <p className="text-xl sm:text-2xl font-bold text-white">
-                Tem que ter fé, tem que acreditar!
-              </p>
-
-              <div className="pt-4 flex flex-wrap gap-4 justify-center sm:justify-start">
-                <Link
-                  href="/faca-sua-foto"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#FBE502] text-black font-archivo font-black text-sm uppercase tracking-wider shadow-lg hover:bg-white hover:text-[#003967] transition-all"
-                >
-                  <Camera className="w-4 h-4" />
-                  <span>Apoie com sua foto</span>
-                </Link>
-                <Link
-                  href="/#noticias"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-archivo font-bold text-sm uppercase tracking-wider border border-white/20 transition-all"
-                >
-                  <span>Ver Propostas</span>
-                </Link>
-              </div>
-            </div>
-          </div> */}
         </div>
 
         {/* Linha do Tempo / Destaques */}

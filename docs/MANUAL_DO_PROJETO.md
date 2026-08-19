@@ -119,14 +119,15 @@ NAS SEÇÕES, NO TITULO
 NAS SEÇÕES, NO TITULO
 "Fique por dentro" - font archivo - extrabold - tamanho 89
 
-
 - Nessa seção precisamos ajustar igual ao designer fez, você fez correto, porém a foto dele deve ser centralizada,  um pouco maior e as 4 redes sociais ficarem na altura do peito dele, 
 
 - whatsapp: +55 24 99891-7371
 - link do. grupo: https://chat.whatsapp.com/KErXZ76O2rRAaMXOd58pvj?s=cl&p=i&mlu=0&ilr=0&amv=1
 
-degrade nos seguintes lugares onde tem azul
+Precisamos colocar um degrade nos seguintes lugares onde tem azul
 #0066B8
 #1256CE
 
-HEADER E FOOTER - BACKGROUND DA HEROSECTION - BACKGROUND DA TELA DE HISTÓRIA - 
+HEADER E FOOTER - BACKGROUND DA HEROSECTION - BACKGROUND DA TELA DE HISTÓRIA
+
+DIMIMNUIR ESPAÇO WHATSAPP SECTION

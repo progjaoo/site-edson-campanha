@@ -21,8 +21,8 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40 bg-[#003967] py-3.5 sm:py-4 shadow-md border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <header className="fixed top-0 left-0 right-0 z-40 bg-[#003967] bg-[url('/images/fundodegrade.png')] bg-cover bg-top py-3.5 sm:py-4 shadow-md border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between relative z-10">
           
           {/* Logo */}
           <Link href="/" className="relative z-10 flex items-center gap-2 group">
@@ -38,7 +38,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center italic gap-6 xl:gap-8">
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
             {navLinks.map((item) => {
               const isFacaSuaFoto = item.highlight;
               const isActive = pathname === item.href;

@@ -42,7 +42,7 @@ export function NewsSection({ initialNoticias }: NewsSectionProps) {
             {/* Marcação Verde #93FD04: w-[17px] h-[163px] */}
             <span className="w-[17px] h-[90px] bg-[#93FD04] rounded-sm block shrink-0 mt-1" />
             
-            <h2 className="font-archivo font-extrabold italic text-4xl sm:text-6xl md:text-7xl lg:text-[50px] leading-[0.92] text-[#1256CE] tracking-tight uppercase">
+            <h2 className="font-archivo font-extrabold italic text-4xl sm:text-6xl md:text-7xl lg:text-[50px] leading-[0.92] text-[#1256CE] tracking-tight">
               Fique por <br />
               dentro
             </h2>

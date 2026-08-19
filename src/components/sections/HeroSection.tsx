@@ -7,16 +7,16 @@ import { fadeInUp, fadeInRight, staggerContainer } from "@/lib/animations";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[90vh] lg:min-h-[850px] xl:min-h-[900px] bg-[#003967] text-white overflow-hidden flex items-end pt-28 md:pt-32">
+    <section className="relative min-h-[90vh] lg:min-h-[820px] xl:min-h-[600px] bg-[#003967] text-white overflow-hidden flex items-end pt-28 md:pt-30">
       
-      {/* Textura de Fundo Vetorial */}
-      <div className="absolute inset-0 z-0 opacity-50 mix-blend-overlay pointer-events-none">
+      {/* Imagem de Fundo Degradê Oficial do Designer */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <Image
-          src="/images/fundo-hero-section.svg"
+          src="/images/fundodegrade.png"
           alt=""
           fill
-          className="object-cover object-center"
           priority
+          className="object-cover object-center"
         />
       </div>
 
@@ -50,7 +50,7 @@ export function HeroSection() {
             {/* Subtítulo: Archivo Bold */}
             <motion.p
               variants={fadeInUp}
-              className="font-archivo  font-bold text-lg sm:text-2xl lg:text-[24px] xl:text-[28px] lg:leading-[36px] text-white max-w-xl mx-auto lg:mx-0"
+              className="font-archivo font-bold text-lg sm:text-2xl lg:text-[22px] xl:text-[22px] lg:leading-[36px] text-white max-w-xl mx-auto lg:mx-0"
             >
               Com coragem, confiança e competência, vamos libertar o nosso estado da violência e colocá-lo no caminho do desenvolvimento outra vez.
             </motion.p>
@@ -81,19 +81,19 @@ export function HeroSection() {
           </motion.div>
 
           {/* Coluna da Imagem do Candidato (Direita) */}
-          <motion.div
+         <motion.div
             variants={fadeInRight}
             initial="hidden"
             animate="visible"
             className="lg:col-span-6 relative flex justify-center lg:justify-end items-end z-20 overflow-visible"
           >
-            <div className="relative w-full max-w-[420px] sm:max-w-[540px] md:max-w-[620px] lg:max-w-[720px] xl:max-w-[780px] h-[440px] sm:h-[580px] md:h-[680px] lg:h-[760px] xl:h-[820px] overflow-visible">
+            <div className="relative w-full max-w-[420px] sm:max-w-[1000px] md:max-w-[1000px] lg:max-w-[920px] xl:max-w-[980px] h-[440px] sm:h-[580px] md:h-[680px] lg:h-[660px] xl:h-[720px] overflow-visible">
               <Image
-                src="/images/optimized/foto-edson-herosec.png"
+                src="/images/fotoedsonsec.png"
                 alt="Edson Albertassi - Deputado Estadual 15088"
                 fill
                 priority
-                className="object-contain object-bottom transform scale-110 sm:scale-120 lg:scale-125 xl:scale-130 origin-bottom drop-shadow-2xl"
+                className="object-contain object-bottom transform scale-125 sm:scale-135 lg:scale-145 xl:scale-150 origin-bottom drop-shadow-2xl"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 800px"
               />
             </div>

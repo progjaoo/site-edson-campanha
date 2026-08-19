@@ -51,7 +51,7 @@ export function GallerySection() {
               {/* Marcação Verde #93FD04: w-[17px] h-[163px] */}
               <span className="w-[17px] h-[130px] bg-[#93FD04] rounded-sm shrink-0 block mt-1" />
 
-              <h2 className="font-archivo font-extrabold italic text-4xl sm:text-6xl md:text-7xl lg:text-[50px] leading-[0.92] text-[#1256CE] tracking-tight uppercase">
+              <h2 className="font-archivo font-extrabold italic text-4xl sm:text-6xl md:text-7xl lg:text-[50px] leading-[0.92] text-[#1256CE] tracking-tight">
                 Mudança <br />
                 requer fé e <br />
                 coragem
