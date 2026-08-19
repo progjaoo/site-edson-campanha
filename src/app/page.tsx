@@ -2,6 +2,7 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { GallerySection } from "@/components/sections/GallerySection";
 import { SocialSection } from "@/components/sections/SocialSection";
 import { NewsSection } from "@/components/sections/NewsSection";
+import { WhatsAppSection } from "@/components/sections/WhatsAppSection";
 // import { JingleSection } from "@/components/sections/JingleSection"; // Temporariamente comentado: será um player de vídeo posteriormente
 import { getNoticias } from "@/lib/news-storage";
 
@@ -22,7 +23,10 @@ export default async function HomePage() {
       {/* 4. Notícias / Blog Corporativo */}
       <NewsSection initialNoticias={initialNoticias.slice(0, 4)} />
 
-      {/* 5. Seção Jingle / Vídeo da Campanha (Comentada temporariamente conforme solicitação) */}
+      {/* 5. Seção WhatsApp / Entre para o Grupo no Zap */}
+      <WhatsAppSection />
+
+      {/* 6. Seção Jingle / Vídeo da Campanha (Comentada temporariamente conforme solicitação) */}
       {/* <JingleSection /> */}
     </main>
   );

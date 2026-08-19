@@ -127,7 +127,7 @@ export default function HistoriaPage() {
           </p>
 
           {/* Chamada Final de Impacto */}
-          <div className="pt-8 text-center sm:text-left">
+          {/* <div className="pt-8 text-center sm:text-left">
             <div className="p-8 sm:p-12 rounded-3xl bg-[#003967] text-white shadow-xl space-y-4 border-2 border-[#FBE502]">
               <h2 className="font-condensed font-black text-3xl sm:text-4xl text-[#FBE502] uppercase">
                 A história ainda não está pronta.
@@ -152,7 +152,7 @@ export default function HistoriaPage() {
                 </Link>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Linha do Tempo / Destaques */}

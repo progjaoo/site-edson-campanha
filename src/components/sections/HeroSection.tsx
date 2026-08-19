@@ -28,7 +28,7 @@ export function HeroSection() {
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
-            className="lg:col-span-6 pb-12 mb-24 mr-4 sm:pb-18 lg:pb-24 space-y-6 md:space-y-10 text-center lg:text-left z-10"
+            className="lg:col-span-6 pb-10 mb-16 sm:pb-16 lg:pb-24 space-y-6 md:space-y-8 text-center lg:text-left z-10"
           >
             {/* Título com a Imagem PNG 'TEM QUE TER FÉ.png' */}
             <motion.div
@@ -47,10 +47,10 @@ export function HeroSection() {
               </div>
             </motion.div>
 
-            {/* Subtítulo: Archivo Bold tamanho 30 */}
+            {/* Subtítulo: Archivo Bold */}
             <motion.p
               variants={fadeInUp}
-              className="font-archivo font-bold text-lg sm:text-1xl lg:text-[24px] xl:text-[22px] lg:leading-[30px] text-white max-w-xl mx-auto lg:mx-0"
+              className="font-archivo  font-bold text-lg sm:text-2xl lg:text-[24px] xl:text-[28px] lg:leading-[36px] text-white max-w-xl mx-auto lg:mx-0"
             >
               Com coragem, confiança e competência, vamos libertar o nosso estado da violência e colocá-lo no caminho do desenvolvimento outra vez.
             </motion.p>
@@ -60,12 +60,12 @@ export function HeroSection() {
               variants={fadeInUp}
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2"
             >
-              {/* Botão 1: Entre para o Grupo */}
+              {/* Botão 1: Entre para o Grupo do WhatsApp */}
               <a
-                href="https://chat.whatsapp.com/invite"
+                href="https://chat.whatsapp.com/KErXZ76O2rRAaMXOd58pvj?s=cl&p=i&mlu=0&ilr=0&amv=1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto italic inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#FBE502] text-black font-archivo font-black text-sm sm:text-base tracking-wider uppercase shadow-lg hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#FBE502] text-black font-archivo font-black text-sm sm:text-base tracking-wider uppercase shadow-lg hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
               >
                 ENTRE PARA O GRUPO
               </a>
@@ -73,7 +73,7 @@ export function HeroSection() {
               {/* Botão 2: Faça sua Foto */}
               <Link
                 href="/faca-sua-foto"
-                className="w-full sm:w-auto italic  inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#FBE502] text-black font-archivo font-black text-sm sm:text-base tracking-wider uppercase shadow-lg hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#FBE502] text-black font-archivo font-black text-sm sm:text-base tracking-wider uppercase shadow-lg hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
               >
                 FAÇA SUA FOTO
               </Link>
