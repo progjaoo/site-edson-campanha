@@ -20,7 +20,7 @@ describe("NewsSection", () => {
   it("renders the two fixed external articles as horizontal cards", () => {
     render(<NewsSection />);
 
-    expect(screen.getByRole("heading", { name: /fique por dentro/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /notícias!/i })).toBeInTheDocument();
     expect(screen.getAllByRole("article")).toHaveLength(2);
     expect(screen.getByText("Informa Cidade")).toBeInTheDocument();
     expect(screen.getByText("Agenda do Poder")).toBeInTheDocument();

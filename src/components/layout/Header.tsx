@@ -13,29 +13,36 @@ export function Header() {
   const pathname = usePathname();
 
   const navLinks = [
+    { label: "REDES", href: "/#zap" },
+    { label: "JINGLE", href: "/#jingle" },
     { label: "FAÇA SUA FOTO", href: "/faca-sua-foto", highlight: true, icon: Camera },
     { label: "HISTÓRIA", href: "/historia" },
-    { label: "REDES", href: "/#redes" },
     { label: "NOTÍCIAS", href: "/#noticias" },
   ];
 
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-40 bg-[#003967] bg-[url('/images/fundodegrade.png')] bg-cover bg-top py-3.5 sm:py-4 shadow-md border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center relative z-10">
           
           {/* Logo */}
-          <Link href="/" className="relative z-10 flex items-center gap-2 group">
-            <div className="relative h-10 w-36 sm:h-12 sm:w-44 transition-transform duration-200 group-hover:scale-105">
+          <a
+            href="https://chat.whatsapp.com/KErXZ76O2rRAaMXOd58pvj?s=cl&p=i&mlu=0&ilr=0&amv=1"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Entrar para o grupo do WhatsApp de Edson Albertassi"
+            className="absolute right-[-120px] z-10 flex items-center group"
+          >
+            <div className="relative h-20 w-40 md:h-20 md:w-40 transition-transform duration-200 group-hover:scale-150">
               <Image
-                src="/images/logo-header.svg"
-                alt="Edson Albertassi - Deputado Estadual 15088"
+                src="/images/logocantoheader.png"
+                alt="Entre para o grupo no Zap"
                 fill
                 className="object-contain"
                 priority
               />
             </div>
-          </Link>
+          </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8">

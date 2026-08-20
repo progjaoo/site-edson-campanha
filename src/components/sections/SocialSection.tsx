@@ -67,11 +67,11 @@ export function SocialSection() {
           {/* 1. As 3 Faixas Coloridas de Fundo (z-0) */}
           <div className="w-full space-y-2.5 sm:space-y-3.5 relative z-0">
             {/* 1 - Faixa Verde #93FD04 */}
-            <div className="w-full h-7 sm:h-9 md:h-11 bg-[#93FD04] rounded-full shadow-sm" />
-            {/* 2 - Faixa Amarela #FBE502 */}
-            <div className="w-full h-7 sm:h-9 md:h-11 bg-[#FBE502] rounded-full shadow-sm" />
-            {/* 3 - Faixa Azul Escuro #003967 */}
-            <div className="w-full h-9 sm:h-11 md:h-14 bg-[#003967] rounded-full shadow-sm" />
+{/*             <div className="w-full h-7 sm:h-9 md:h-11 bg-[#93FD04] rounded-full shadow-sm" />
+ */}            {/* 2 - Faixa Amarela #FBE502 */}
+{/*             <div className="w-full h-7 sm:h-9 md:h-11 bg-[#FBE502] rounded-full shadow-sm" />
+ */}            {/* 3 - Faixa Azul Escuro #003967 */}
+            <div className="w-full h-40  md:h-16 bg-[#003967] rounded-3xl shadow-sm" />
           </div>
 
           {/* 2. Bloco Azul Royal (z-10) que contém a foto em cima do fundo e os botões em cima da foto */}
@@ -81,7 +81,7 @@ export function SocialSection() {
             <div className="absolute left-1/2 -translate-x-1/2 bottom-0 z-10 flex justify-center pointer-events-none">
               <div className="relative w-[340px] sm:w-[480px] md:w-[560px] lg:w-[680px] xl:w-[740px] h-[400px] sm:h-[500px] md:h-[580px] lg:h-[660px] xl:h-[720px]">
                 <Image
-                  src="/images/edson-animation.png"
+                  src="/images/redes-sociais/foto-edson-redessec.png"
                   alt="Edson Albertassi - Redes Sociais"
                   fill
                   priority
@@ -151,7 +151,7 @@ export function SocialSection() {
       </div>
 
       {/* Faixa Fina Multicolorida Inferior */}
-      <div className="mt-4 w-full h-3 flex">
+      <div className= "mt-1 w-full h-3 flex">
         <div className="w-1/4 bg-[#93FD04]" />
         <div className="w-1/2 bg-[#FBE502]" />
         <div className="w-1/4 bg-[#1256CE]" />

@@ -2,8 +2,46 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Facebook, Instagram, Youtube } from "lucide-react";
 import { motion } from "framer-motion";
 import { fadeInUp, fadeInRight, staggerContainer } from "@/lib/animations";
+
+function TikTokIcon({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-2.89 2.89 2.896 2.896 0 0 1-2.89-2.89 2.896 2.896 0 0 1 2.89-2.89c.316 0 .618.05.9.143V9.45a6.34 6.34 0 0 0-.9-.065A6.338 6.338 0 0 0 3 15.722a6.338 6.338 0 0 0 6.335 6.335 6.338 6.338 0 0 0 6.335-6.335V8.307a8.214 8.214 0 0 0 4.919 1.621v-3.242z" />
+    </svg>
+  );
+}
+
+const heroSocialLinks = [
+  {
+    name: "Instagram",
+    url: "https://www.instagram.com/ealbertassi/",
+    icon: Instagram,
+  },
+  {
+    name: "TikTok",
+    url: "https://www.tiktok.com/@ealbertassi?_r=1&_t=ZS-97qA7WO77vY",
+    icon: TikTokIcon,
+  },
+  {
+    name: "Facebook",
+    url: "https://www.facebook.com/ealbertassi",
+    icon: Facebook,
+  },
+  {
+    name: "YouTube",
+    url: "https://www.youtube.com/@ealbertassi",
+    icon: Youtube,
+  },
+];
 
 export function HeroSection() {
   return (
@@ -20,6 +58,32 @@ export function HeroSection() {
         />
       </div>
 
+      {/* Atalhos sociais abaixo do selo do Zap no header */}
+      <div
+        aria-label="Redes sociais oficiais de Edson Albertassi"
+        className="absolute right-4 top-24 z-30 mr-40 flex flex-col gap-2.5 sm:right-6 lg:right-8"
+      >
+        {heroSocialLinks.map((item) => {
+          const Icon = item.icon;
+          return (
+            <a
+              key={item.name}
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Abrir ${item.name} de Edson Albertassi`}
+              title={item.name}
+              className="group relative flex h-10 w-10 items-center justify-center rounded-xl border-2 border-white bg-[#003967]/60 text-white shadow-lg backdrop-blur-sm transition-all duration-200 hover:scale-105 hover:border-[#FBE502] hover:bg-[#FBE502] hover:text-[#003967] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FBE502] focus-visible:ring-offset-2 focus-visible:ring-offset-[#003967]"
+            >
+              <Icon className="h-5 w-5" />
+              <span className="pointer-events-none absolute right-full mr-2 whitespace-nowrap rounded-md bg-[#FBE502] px-2.5 py-1.5 font-archivo text-xs font-black uppercase tracking-wide text-[#003967] opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
+                {item.name}
+              </span>
+            </a>
+          );
+        })}
+      </div>
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-end">
           
@@ -28,8 +92,8 @@ export function HeroSection() {
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
-            className="lg:col-span-6 pb-10 mb-16 sm:pb-16 lg:pb-24 space-y-6 md:space-y-8 text-center lg:text-left z-10"
-          >
+            className="lg:col-span-6 pb-10 mb-4 mr-2 sm:pb-14 lg:pb-24 space-y-6 md:space-y-8 text-center lg:text-left z-1"
+            >
             {/* Título com a Imagem PNG 'TEM QUE TER FÉ.png' */}
             <motion.div
               variants={fadeInUp}
@@ -37,7 +101,7 @@ export function HeroSection() {
             >
               <div className="relative w-full max-w-[340px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[520px] xl:max-w-[560px]">
                 <Image
-                  src="/images/tem-que-ter-fe.png"
+                  src="/images/logoherosection.png"
                   alt="Tem Que Ter Fé"
                   width={539}
                   height={221}

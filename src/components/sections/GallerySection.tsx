@@ -47,20 +47,19 @@ export function GallerySection() {
           <div className="lg:col-span-6 space-y-6">
             
             {/* Bloco do Título com Marcação Verde (17px width × 163px height) */}
-            <div className="flex items-start gap-4 sm:gap-6">
+            <div className="flex items-start gap-4 sm:gap-4">
               {/* Marcação Verde #93FD04: w-[17px] h-[163px] */}
-              <span className="w-[17px] h-[130px] bg-[#93FD04] rounded-sm shrink-0 block mt-1" />
+              <span className="w-[17px] h-[90px] bg-[#93FD04] rounded-sm shrink-0 block mt-1" />
 
               <h2 className="font-archivo font-extrabold italic text-4xl sm:text-6xl md:text-7xl lg:text-[50px] leading-[0.92] text-[#1256CE] tracking-tight">
-                Mudança <br />
-                requer fé e <br />
-                coragem
+                Tem que <br />
+                ter fé! <br />
               </h2>
             </div>
 
             {/* Texto menor: Archivo Bold tamanho 30 */}
-            <p className="font-archivo font-bold ml-10 text-lg sm:text-2xl lg:text-[16px] lg:leading-[20px] text-gray-900 pt-1">
-              Veja como nossa história <br />carrega tudo isso!
+            <p className="font-archivo font-bold ml-10 text-lg sm:text-2xl lg:text-[18px] lg:leading-[20px] text-gray-900">
+              Esse é o som da nossa história <br />e da nossa campanha! 
             </p>
 
             {/* Controles de Navegação Desktop */}
