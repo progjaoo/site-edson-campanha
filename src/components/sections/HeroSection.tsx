@@ -52,7 +52,7 @@ export function HeroSection() {
               variants={fadeInUp}
               className="font-archivo font-bold text-lg sm:text-2xl lg:text-[22px] xl:text-[22px] lg:leading-[36px] text-white max-w-xl mx-auto lg:mx-0"
             >
-              Com coragem, confiança e competência, vamos libertar o nosso estado da violência e colocá-lo no caminho do desenvolvimento outra vez.
+              Mais de 30 anos servindo ao povo do Rio de Janeiro, guiado pelos valores da fé e pelo compromisso com a família. A minha história não foi contada totalmente: ainda há muito mais por fazer. Tem que ter fé!
             </motion.p>
 
             {/* 2 Botões Amarelos em Destaque */}
