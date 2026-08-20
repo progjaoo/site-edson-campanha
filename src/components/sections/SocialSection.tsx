@@ -55,8 +55,8 @@ export function SocialSection() {
             <span className="w-[17px] h-[84px] sm:h-[96px] bg-[#93FD04] rounded-sm block shrink-0 mt-1" />
             
             <h2 className="font-archivo font-extrabold mr-12 italic text-4xl sm:text-5xl md:text-6xl lg:text-[54px] leading-[0.90] text-[#1256CE] tracking-tight">
-              Acompanhe <br />
-              minhas redes
+              Edson Albertassi<br />
+              nas Redes Sociais
             </h2>
           </div>
         </div>

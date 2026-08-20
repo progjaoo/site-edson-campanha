@@ -36,7 +36,7 @@ O site possui um blog/portal de notícias corporativo interno protegido por senh
 1. Acesse `http://seusite.com.br/admin` e faça login.
 2. Preencha o formulário: **Título**, **Categoria**, **Resumo**, **Conteúdo** e **Upload de Imagem**.
 3. A imagem será salva no **Vercel Blob Storage** (ou em formato otimizado local).
-4. A notícia aparecerá instantaneamente nos 4 cards da landing page e terá sua própria página individual com URL amigável (`/noticias/titulo-da-materia`).
+4. A notícia ficará disponível na listagem e na página individual com URL amigável (`/noticias/titulo-da-materia`). A seção de notícias da landing page usa, nesta entrega, duas matérias externas fixas e não é alimentada pelo admin.
 
 ---
 

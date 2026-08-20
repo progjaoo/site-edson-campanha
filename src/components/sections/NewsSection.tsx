@@ -1,130 +1,77 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar } from "lucide-react";
-import { Noticia } from "@/types";
+import { ArrowUpRight, CalendarDays, Newspaper } from "lucide-react";
+import { EXTERNAL_NEWS } from "@/data/external-news";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { Skeleton } from "@/components/ui/Skeleton";
 import { formatDate } from "@/lib/utils";
 
-interface NewsSectionProps {
-  initialNoticias?: Noticia[];
-}
-
-export function NewsSection({ initialNoticias }: NewsSectionProps) {
-  const [noticias, setNoticias] = useState<Noticia[]>(initialNoticias || []);
-  const [loading, setLoading] = useState(!initialNoticias || initialNoticias.length === 0);
-
-  useEffect(() => {
-    if (!initialNoticias || initialNoticias.length === 0) {
-      fetch("/api/noticias")
-        .then((res) => res.json())
-        .then((data) => {
-          if (Array.isArray(data)) {
-            setNoticias(data.slice(0, 4));
-          }
-        })
-        .catch((err) => console.error("Erro ao carregar notícias:", err))
-        .finally(() => setLoading(false));
-    }
-  }, [initialNoticias]);
-
+export function NewsSection() {
   return (
-    <AnimatedSection id="noticias" className="py-20 lg:py-28 bg-white relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Título da Seção com Marcação Verde (17px width × 163px height) */}
+    <AnimatedSection id="noticias" className="relative bg-white py-20 lg:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12">
           <div className="flex items-start gap-4 sm:gap-6">
-            {/* Marcação Verde #93FD04: w-[17px] h-[163px] */}
-            <span className="w-[17px] h-[90px] bg-[#93FD04] rounded-sm block shrink-0 mt-1" />
-            
-            <h2 className="font-archivo font-extrabold italic text-4xl sm:text-6xl md:text-7xl lg:text-[50px] leading-[0.92] text-[#1256CE] tracking-tight">
-              Fique por <br />
-              dentro
-            </h2>
+            <span className="mt-1 block h-[90px] w-[17px] shrink-0 rounded-sm bg-[#93FD04]" />
+
+            <div>
+              <h2 className="font-archivo text-4xl font-extrabold italic leading-[0.92] tracking-tight text-[#1256CE] sm:text-6xl md:text-7xl lg:text-[50px]">
+                Fique por <br />
+                dentro
+              </h2>
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg">
+                Leia as matérias publicadas sobre a decisão da Justiça e seus desdobramentos.
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Loading Skeletons */}
-        {loading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="rounded-2xl overflow-hidden border border-gray-100 p-4 space-y-4">
-                <Skeleton className="h-44 w-full rounded-xl" />
-                <Skeleton className="h-4 w-1/3" />
-                <Skeleton className="h-6 w-full" />
-                <Skeleton className="h-4 w-4/5" />
+        <div className="grid gap-6">
+          {EXTERNAL_NEWS.map((item, index) => (
+            <motion.article
+              key={item.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: index * 0.08 }}
+              className="group grid overflow-hidden rounded-3xl border border-[#1256CE]/15 bg-[#F5F8FF] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#1256CE]/40 hover:shadow-xl md:grid-cols-[minmax(220px,0.34fr)_minmax(0,0.66fr)]"
+            >
+              <div className="flex min-h-44 flex-col justify-between bg-[#003967] p-6 text-white sm:p-8">
+                <Newspaper className="h-8 w-8 text-[#FBE502]" aria-hidden="true" />
+                <p className="mt-8 text-sm leading-relaxed text-white/80">
+                  Matéria publicada no jornal
+                  <strong className="mt-1 block font-archivo text-xl text-white">
+                    {item.source}
+                  </strong>
+                </p>
+                <p className="mt-3 flex items-center gap-2 text-sm text-white/75">
+                  <CalendarDays className="h-4 w-4" aria-hidden="true" />
+                  <time dateTime={item.publishedAt}>{formatDate(item.publishedAt)}</time>
+                </p>
               </div>
-            ))}
-          </div>
-        )}
 
-        {/* Grid de Notícias */}
-        {!loading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {noticias.map((item, index) => (
-              <motion.article
-                key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group flex flex-col justify-between bg-brand-light rounded-2xl overflow-hidden border border-gray-200/70 hover:border-[#1256CE]/40 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              >
-                {/* Imagem de Capa */}
-                <Link href={`/noticias/${item.slug}`} className="relative h-48 w-full block overflow-hidden bg-[#003967]">
-                  <Image
-                    src={item.imagemUrl || "/images/fotos-galeria/foto-galeria.svg"}
-                    alt={item.titulo}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  {item.categoria && (
-                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-[#003967]/80 backdrop-blur-md text-[#FBE502] font-bold text-xs uppercase tracking-wider">
-                      {item.categoria}
-                    </span>
-                  )}
-                </Link>
-
-                {/* Conteúdo do Card */}
-                <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-1.5 text-xs text-gray-500">
-                      <Calendar className="w-3.5 h-3.5 text-[#1256CE]" />
-                      <span>{formatDate(item.dataPublicacao)}</span>
-                    </div>
-
-                    <Link href={`/noticias/${item.slug}`}>
-                      <h3 className="font-archivo font-bold text-base sm:text-lg text-brand-dark group-hover:text-[#1256CE] transition-colors line-clamp-2 leading-snug">
-                        {item.titulo}
-                      </h3>
-                    </Link>
-
-                    {item.resumo && (
-                      <p className="text-xs sm:text-sm text-gray-600 line-clamp-3 leading-relaxed">
-                        {item.resumo}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Link Leia Mais */}
-                  <Link
-                    href={`/noticias/${item.slug}`}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1256CE] group-hover:text-[#003967] transition-colors uppercase tracking-wider pt-2 border-t border-gray-200"
-                  >
-                    <span>Ler matéria completa</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
+              <div className="flex flex-col justify-between gap-6 p-6 sm:p-8">
+                <div className="space-y-3">
+                  <h3 className="font-archivo text-2xl font-extrabold leading-tight text-[#003967] sm:text-3xl">
+                    {item.title}
+                  </h3>
+                  <p className="max-w-3xl text-sm leading-relaxed text-gray-600 sm:text-base">
+                    {item.excerpt}
+                  </p>
                 </div>
-              </motion.article>
-            ))}
-          </div>
-        )}
-
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 w-fit items-center gap-2 rounded-xl bg-[#FBE502] px-5 py-3 font-archivo text-sm font-black uppercase tracking-wide text-[#003967] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1256CE] focus-visible:ring-offset-2"
+                >
+                  Ler matéria
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </a>
+              </div>
+            </motion.article>
+          ))}
+        </div>
       </div>
     </AnimatedSection>
   );
