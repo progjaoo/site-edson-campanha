@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { NewsSection } from "./NewsSection";
 
@@ -46,5 +46,24 @@ describe("NewsSection", () => {
       expect(link).toHaveAttribute("target", "_blank");
       expect(link).toHaveAttribute("rel", "noopener noreferrer");
     }
+  });
+
+  it("matches each approved photo to the correct article", () => {
+    render(<NewsSection />);
+
+    const cards = screen.getAllByRole("article");
+    const firstImage = within(cards[0]).getByRole("img", {
+      name: "Edson Albertassi discursando ao microfone",
+    });
+    const secondImage = within(cards[1]).getByRole("img", {
+      name: "Retrato de Edson Albertassi em preto e branco",
+    });
+
+    expect(decodeURIComponent(firstImage.getAttribute("src") ?? "")).toContain(
+      "/images/noticias/informa-cidade-edson-albertassi.png",
+    );
+    expect(decodeURIComponent(secondImage.getAttribute("src") ?? "")).toContain(
+      "/images/noticias/agenda-do-poder-edson-albertassi.png",
+    );
   });
 });

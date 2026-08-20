@@ -5,6 +5,10 @@ export interface ExternalNewsItem {
   title: string;
   excerpt: string;
   url: string;
+  image: {
+    src: string;
+    alt: string;
+  };
 }
 
 export const EXTERNAL_NEWS = [
@@ -16,6 +20,10 @@ export const EXTERNAL_NEWS = [
     excerpt:
       "O Órgão Especial do TJ-RJ arquivou por unanimidade a ação da Operação Cadeia Velha após reconhecer nulidade das provas e ausência de justa causa.",
     url: "https://www.informacidade.com.br/edson-albertassi-e-inocentado-pela-justica/",
+    image: {
+      src: "/images/noticias/informa-cidade-edson-albertassi.png",
+      alt: "Edson Albertassi discursando ao microfone",
+    },
   },
   {
     id: "agenda-poder-abuso",
@@ -25,5 +33,9 @@ export const EXTERNAL_NEWS = [
     excerpt:
       "O artigo analisa o arquivamento da Operação Cadeia Velha e debate os limites do poder estatal diante de prisões sustentadas por provas consideradas inválidas.",
     url: "https://agendadopoder.com.br/quando-prender-sem-prova-vira-abuso-de-poder/",
+    image: {
+      src: "/images/noticias/agenda-do-poder-edson-albertassi.png",
+      alt: "Retrato de Edson Albertassi em preto e branco",
+    },
   },
 ] as const satisfies readonly ExternalNewsItem[];

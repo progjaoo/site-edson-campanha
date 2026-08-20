@@ -94,7 +94,7 @@ O elemento memorável será o **celular de mobilização**: Edson aparece centra
 
 ## Cards de notícias externas
 
-A seção final usa dois cards horizontais a partir do breakpoint `md` e empilha seu conteúdo em telas menores. Cada card mantém a paleta da campanha, identifica o veículo, exibe a data, apresenta título e resumo curto e termina com o botão **Ler matéria**. O botão abre a fonte em nova aba com `rel="noopener noreferrer"`.
+A seção final usa dois cards horizontais a partir do breakpoint `md` e empilha seu conteúdo em telas menores. A foto aprovada ocupa o painel esquerdo com veículo e data sobre um degradê azul; o painel direito apresenta título, resumo curto e o botão **Ler matéria**. O botão abre a fonte em nova aba com `rel="noopener noreferrer"`.
 - Respeitar `prefers-reduced-motion`.
 - Não animar texto corrido nem criar movimento contínuo sem controle.
 

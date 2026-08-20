@@ -25,7 +25,7 @@
 - Os links devem abrir a matéria original em nova aba com `target="_blank"` e `rel="noopener noreferrer"`.
 - O conteúdo jurídico deve reproduzir apenas título, veículo e data da fonte; o resumo será uma paráfrase curta, sem apresentar conclusão jurídica adicional.
 - Os cards serão horizontais a partir de `md` e empilhados internamente em telas menores.
-- Não serão usadas imagens editoriais de terceiros nesta entrega. Um bloco de fonte com ícone substitui a miniatura e evita hotlink ou uso sem autorização.
+- Cada card usa a foto local aprovada e fornecida pela equipe em 20/08/2026. Os arquivos ficam versionados em `public/images/noticias`, sem hotlink para os veículos externos.
 - A seção deve continuar acessível por `/#noticias` no cabeçalho e no rodapé.
 - Nenhuma mudança será feita em `HeroSection.tsx` ou `SocialSection.tsx`, que já possuem alterações locais não relacionadas.
 - O plano usa o gerenciador existente `npm` e mantém `package-lock.json` como único lockfile.
@@ -845,7 +845,7 @@ If no files changed, do not create an empty commit.
 - Exactly two fixed horizontal cards are rendered
 - Source, verified date, title, local summary and external link appear on each card
 - The home has no dynamic news fetch, while the existing admin editor, news API, upload route, internal article page and JSON storage remain available
-- No third-party article image is copied or hotlinked
+- Each article displays its approved local photo and no publication image is hotlinked
 - Header and footer still navigate to `/#noticias`
 - Tests, lint, TypeScript and production build pass
 - Preserved admin/API/internal-news routes remain available
@@ -864,3 +864,4 @@ If no files changed, do not create an empty commit.
 - Replaced the home’s dynamic news consumer with two horizontal cards and reordered the landing page to Hero → WhatsApp → Redes sociais → Galeria → Notícias.
 - Preserved all existing admin, API, upload, storage, internal article and sitemap behavior per the latest user constraint.
 - Verified with `npm test`, `npm run lint`, `npx tsc --noEmit` and `npm run build`.
+- Added the two approved local photos to the horizontal cards, following the user-provided article mapping.
