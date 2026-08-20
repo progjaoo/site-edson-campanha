@@ -13,16 +13,13 @@ export function NewsSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12">
           <div className="flex items-start gap-4 sm:gap-6">
-            <span className="mt-1 block h-[90px] w-[17px] shrink-0 rounded-sm bg-[#93FD04]" />
+            <span className="mt-1 block h-[40px] w-[17px] shrink-0 rounded-sm bg-[#93FD04]" />
 
             <div>
               <h2 className="font-archivo text-4xl font-extrabold italic leading-[0.92] tracking-tight text-[#1256CE] sm:text-6xl md:text-7xl lg:text-[50px]">
-                Fique por <br />
-                dentro
+                Notícias!<br />
+                
               </h2>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg">
-                Leia as matérias publicadas sobre a decisão da Justiça e seus desdobramentos.
-              </p>
             </div>
           </div>
         </div>

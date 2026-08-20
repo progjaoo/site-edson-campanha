@@ -3,7 +3,8 @@ import { GallerySection } from "@/components/sections/GallerySection";
 import { SocialSection } from "@/components/sections/SocialSection";
 import { NewsSection } from "@/components/sections/NewsSection";
 import { WhatsAppSection } from "@/components/sections/WhatsAppSection";
-// import { JingleSection } from "@/components/sections/JingleSection"; // Temporariamente comentado: será um player de vídeo posteriormente
+import { JingleSection } from "@/components/sections/JingleSection";
+import { PhotoCTASection } from "@/components/sections/PhotoCTASection";
 
 export default function HomePage() {
   return (
@@ -17,14 +18,14 @@ export default function HomePage() {
       {/* 3. Seção Redes Sociais com as 3 Faixas Coloridas e Links Oficiais */}
       <SocialSection />
 
-      {/* 4. Galeria de Fotos / Nossa História em Carrossel */}
-      <GallerySection />
+      {/* 4. Seção Jingle / Música oficial da campanha */}
+      <JingleSection />
 
-      {/* 5. Notícias externas / Matérias publicadas na imprensa */}
+      {/* 5. Convite para criar a foto de perfil da campanha */}
+      <PhotoCTASection />
+
+      {/* 7. Notícias externas / Matérias publicadas na imprensa */}
       <NewsSection />
-
-      {/* 6. Seção Jingle / Vídeo da Campanha (Comentada temporariamente conforme solicitação) */}
-      {/* <JingleSection /> */}
     </main>
   );
 }

@@ -22,14 +22,14 @@ export function WhatsAppSection() {
               
               {/* 1. Imagem Sticker "Entre para o Zap" que sobrepõe o topo */}
               <div className="relative -mt-16 sm:-mt-24 lg:-mt-28 flex justify-center lg:justify-start">
-                <div className="relative w-72 sm:w-96 md:w-[420px] lg:w-[460px] h-32 sm:h-44 md:h-48 lg:h-52 drop-shadow-2xl">
+                <div className="relative w-80 sm:w-100 md:w-[420px] lg:w-[600px] h-40 sm:h-50 md:h-48 lg:h-52 drop-shadow-2xl">
                   <Image
-                    src="/images/entrenozap.png"
+                    src="/images/zap/entrenozap.png"
                     alt="Entre para o Grupo no Zap"
                     fill
                     priority
                     className="object-contain object-left"
-                    sizes="(max-width: 768px) 100vw, 460px"
+                    sizes="(max-width: 968px) 200vw, 600px"
                   />
                 </div>
               </div>
@@ -46,7 +46,7 @@ export function WhatsAppSection() {
                   href={whatsappGroupUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto ml-14 inline-flex items-center justify-center px-16 py-2 rounded-xl bg-[#FBE502] text-[#003967] font-archivo font-black italic text-base sm:text-lg tracking-wider uppercase shadow-2xl hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
+                  className="w-full sm:w-auto ml-14 inline-flex items-center justify-center px-28 py-2 rounded-xl bg-[#FBE502] text-[#003967] font-archivo font-black italic text-base sm:text-lg tracking-wider uppercase shadow-2xl hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
                 >
                   ENTRAR PARA O GRUPO
                 </a>
@@ -55,9 +55,9 @@ export function WhatsAppSection() {
 
             {/* Lado Direito: Foto do Edson no celular com stickers que sobrepõe o topo */}
             <div className="lg:col-span-5 relative flex justify-center lg:justify-end items-end">
-              <div className="relative w-80 sm:w-96 md:w-[420px] lg:w-[480px] xl:w-[520px] h-40 sm:h-96 md:h-[440px] lg:h-[500px] lg:-mt-[140px], lg:-mt-[180px] lg:-mb-6 drop-shadow-2xl">
+              <div className="relative w-80 sm:w-96 md:w-[420px] lg:w-[480px] xl:w-[520px] h-40 sm:h-96 md:h-[440px] lg:h-[500px] lg:-mt-[140px], lg:-mt-[180px] lg:-mb-10 drop-shadow-2xl">
                 <Image
-                  src="/images/fotodsonzap.png"
+                  src="/images/zap/zap1.png"
                   alt="Edson Albertassi no WhatsApp"
                   fill
                   priority

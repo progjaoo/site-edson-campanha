@@ -11,6 +11,12 @@ vi.mock("@/components/sections/WhatsAppSection", () => ({
 vi.mock("@/components/sections/SocialSection", () => ({
   SocialSection: () => <section data-section="social" />,
 }));
+vi.mock("@/components/sections/JingleSection", () => ({
+  JingleSection: () => <section data-section="jingle" />,
+}));
+vi.mock("@/components/sections/PhotoCTASection", () => ({
+  PhotoCTASection: () => <section data-section="photo-cta" />,
+}));
 vi.mock("@/components/sections/GallerySection", () => ({
   GallerySection: () => <section data-section="gallery" />,
 }));
@@ -19,7 +25,7 @@ vi.mock("@/components/sections/NewsSection", () => ({
 }));
 
 describe("HomePage", () => {
-  it("renders the approved section order with news last", () => {
+  it("renders the approved section order with jingle and photo CTA after social", () => {
     const { container } = render(<HomePage />);
     const order = Array.from(container.querySelectorAll("main > [data-section]")).map(
       (section) => section.getAttribute("data-section"),
@@ -29,7 +35,8 @@ describe("HomePage", () => {
       "hero",
       "whatsapp",
       "social",
-      "gallery",
+      "jingle",
+      "photo-cta",
       "news",
     ]);
   });
