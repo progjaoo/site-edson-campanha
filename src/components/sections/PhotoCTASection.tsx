@@ -24,7 +24,7 @@ export function PhotoCTASection() {
                 type="button"
                 onClick={() => window.location.assign("/faca-sua-foto")}
                 aria-label="Abrir página Faça sua Foto"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#FBE502] px-6 py-3 font-archivo text-sm font-black uppercase tracking-wide text-[#003967] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1256CE]"
+                className="inline-flex min-h-11 items-center justify-center gap-2 bg-[#FBE502] px-6 py-3 font-archivo text-sm font-black uppercase tracking-wide text-[#003967] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1256CE]"
               >
                 FAÇA SUA FOTO
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />

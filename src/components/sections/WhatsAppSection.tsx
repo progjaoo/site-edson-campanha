@@ -46,7 +46,7 @@ export function WhatsAppSection() {
                   href={whatsappGroupUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-[#FBE502] px-6 py-3 font-archivo text-base font-black italic uppercase tracking-wider text-[#003967] shadow-2xl transition-all duration-200 hover:scale-105 hover:bg-white hover:text-[#003967] active:scale-95 sm:w-auto sm:px-10 sm:text-lg"
+                  className="inline-flex min-h-11 w-full items-center justify-center bg-[#FBE502] px-6 py-3 font-archivo text-base font-black italic uppercase tracking-wider text-[#003967] shadow-2xl transition-all duration-200 hover:scale-105 hover:bg-white hover:text-[#003967] active:scale-95 sm:w-auto sm:px-10 sm:text-lg"
                 >
                   ENTRAR PARA O GRUPO
                 </a>

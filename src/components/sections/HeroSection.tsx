@@ -92,14 +92,14 @@ export function HeroSection() {
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
-            className="z-10 space-y-5 pb-8 text-center sm:space-y-7 sm:pb-12 lg:col-span-6 lg:pb-24 lg:text-left"
+            className="z-10 space-y-3 pb-4 text-center sm:space-y-7 sm:pb-12 lg:col-span-6 lg:pb-24 lg:text-left"
             >
             {/* Título oficial em SVG para preservar a qualidade em qualquer tela */}
             <motion.div
               variants={fadeInUp}
               className="flex justify-center lg:justify-start"
             >
-              <div className="relative w-full max-w-[340px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[520px] xl:max-w-[560px]">
+              <div className="relative w-full max-w-[250px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[520px] xl:max-w-[560px]">
                 <Image
                   src="/images/logoherosection.svg"
                   alt="Tem Que Ter Fé"
@@ -114,7 +114,7 @@ export function HeroSection() {
             {/* Subtítulo: Archivo Bold */}
             <motion.p
               variants={fadeInUp}
-              className="font-archivo font-bold text-lg sm:text-2xl lg:text-[22px] xl:text-[22px] lg:leading-[36px] text-white max-w-xl mx-auto lg:mx-0"
+              className="mx-auto max-w-xl font-archivo text-sm font-bold leading-snug text-white sm:text-2xl lg:mx-0 lg:text-[22px] lg:leading-[36px] xl:text-[22px]"
             >
               Mais de 30 anos servindo ao povo do Rio de Janeiro, guiado pelos valores da fé e pelo compromisso com a família. A minha história não foi contada totalmente: ainda há muito mais por fazer. Tem que ter fé!
             </motion.p>
@@ -122,14 +122,14 @@ export function HeroSection() {
             {/* 2 Botões Amarelos em Destaque */}
             <motion.div
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2"
+              className="-mb-2 flex flex-col items-center justify-center gap-2 pt-0 sm:mb-0 sm:flex-row lg:justify-start"
             >
               {/* Botão 1: Entre para o Grupo do WhatsApp */}
               <a
                 href="https://chat.whatsapp.com/KErXZ76O2rRAaMXOd58pvj?s=cl&p=i&mlu=0&ilr=0&amv=1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-[#FBE502] text-black font-archivo font-black text-sm sm:text-base tracking-wider uppercase shadow-lg hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
+                className="inline-flex min-h-11 w-full max-w-[280px] scale-[0.94] items-center justify-center bg-[#FBE502] px-3 py-2 font-archivo text-[10px] font-black uppercase tracking-wider text-black shadow-lg transition-all duration-200 hover:bg-white hover:text-[#003967] hover:scale-[0.98] active:scale-[0.92] sm:w-auto sm:max-w-none sm:scale-100 sm:px-8 sm:py-4 sm:text-base sm:hover:scale-105 sm:active:scale-95"
               >
                 ENTRE PARA O GRUPO
               </a>
@@ -137,7 +137,7 @@ export function HeroSection() {
               {/* Botão 2: Faça sua Foto */}
               <Link
                 href="/faca-sua-foto"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-[#FBE502] text-black font-archivo font-black text-sm sm:text-base tracking-wider uppercase shadow-lg hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
+                className="inline-flex min-h-11 w-full max-w-[280px] scale-[0.94] items-center justify-center bg-[#FBE502] px-3 py-2 font-archivo text-[10px] font-black uppercase tracking-wider text-black shadow-lg transition-all duration-200 hover:bg-white hover:text-[#003967] hover:scale-[0.98] active:scale-[0.92] sm:w-auto sm:max-w-none sm:scale-100 sm:px-8 sm:py-4 sm:text-base sm:hover:scale-105 sm:active:scale-95"
               >
                 FAÇA SUA FOTO
               </Link>
@@ -149,15 +149,15 @@ export function HeroSection() {
             variants={fadeInRight}
             initial="hidden"
             animate="visible"
-            className="relative z-20 flex items-end justify-center overflow-visible lg:col-span-6 lg:justify-end"
+            className="relative z-20 -mt-8 flex items-end justify-center overflow-visible lg:col-span-6 lg:mt-0 lg:justify-end"
           >
-            <div className="relative h-[330px] w-full max-w-[520px] overflow-visible sm:h-[480px] sm:max-w-[640px] md:h-[560px] md:max-w-[720px] lg:h-[660px] lg:max-w-[760px] xl:h-[700px] xl:max-w-[860px]">
+            <div className="relative h-[330px] w-full max-w-[460px] overflow-visible sm:h-[480px] sm:max-w-[640px] md:h-[560px] md:max-w-[720px] lg:h-[660px] lg:max-w-[760px] xl:h-[700px] xl:max-w-[860px]">
               <Image
                 src="/images/fotoedsonsec.png"
                 alt="Edson Albertassi - Deputado Estadual 15088"
                 fill
                 priority
-                className="origin-bottom scale-105 transform object-contain object-bottom drop-shadow-2xl sm:scale-[1.15] md:scale-125 lg:scale-[1.3] xl:scale-[1.35]"
+                className="origin-bottom scale-[1.12] transform object-contain object-bottom drop-shadow-2xl sm:scale-[1.15] md:scale-125 lg:scale-[1.3] xl:scale-[1.35]"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 800px"
               />
             </div>

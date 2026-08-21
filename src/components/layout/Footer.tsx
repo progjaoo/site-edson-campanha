@@ -118,7 +118,7 @@ export function Footer() {
                 href="https://www.instagram.com/ealbertassi/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#FBE502] text-black font-archivo font-bold text-xs uppercase tracking-wide hover:bg-white hover:text-[#003967] transition-all shadow-sm"
+                className="flex items-center gap-2 px-3 py-2  bg-[#FBE502] text-black font-archivo font-bold text-xs uppercase tracking-wide hover:bg-white hover:text-[#003967] transition-all shadow-sm"
               >
                 <Instagram className="w-3.5 h-3.5 text-black" />
                 <span>Instagram</span>
@@ -127,7 +127,7 @@ export function Footer() {
                 href="https://www.facebook.com/ealbertassi"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#FBE502] text-black font-archivo font-bold text-xs uppercase tracking-wide hover:bg-white hover:text-[#003967] transition-all shadow-sm"
+                className="flex items-center gap-2 px-3 py-2 bg-[#FBE502] text-black font-archivo font-bold text-xs uppercase tracking-wide hover:bg-white hover:text-[#003967] transition-all shadow-sm"
               >
                 <Facebook className="w-3.5 h-3.5 text-black" />
                 <span>Facebook</span>
@@ -136,7 +136,7 @@ export function Footer() {
                 href="https://www.tiktok.com/@ealbertassi?_r=1&_t=ZS-97qA7WO77vY"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#FBE502] text-black font-archivo font-bold text-xs uppercase tracking-wide hover:bg-white hover:text-[#003967] transition-all shadow-sm"
+                className="flex items-center gap-2 px-3 py-2 bg-[#FBE502] text-black font-archivo font-bold text-xs uppercase tracking-wide hover:bg-white hover:text-[#003967] transition-all shadow-sm"
               >
                 <TikTokIcon className="w-3.5 h-3.5 text-black" />
                 <span>TikTok</span>
@@ -145,7 +145,7 @@ export function Footer() {
                 href="https://www.youtube.com/@ealbertassi"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#FBE502] text-black font-archivo font-bold text-xs uppercase tracking-wide hover:bg-white hover:text-[#003967] transition-all shadow-sm"
+                className="flex items-center gap-2 px-3 py-2 bg-[#FBE502] text-black font-archivo font-bold text-xs uppercase tracking-wide hover:bg-white hover:text-[#003967] transition-all shadow-sm"
               >
                 <Youtube className="w-3.5 h-3.5 text-black" />
                 <span>YouTube</span>
@@ -172,7 +172,7 @@ export function Footer() {
                 href="https://chat.whatsapp.com/KErXZ76O2rRAaMXOd58pvj?s=cl&p=i&mlu=0&ilr=0&amv=1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#93FD04] text-black font-archivo font-bold text-xs uppercase tracking-wider hover:bg-white transition-all shadow-sm"
+                className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#93FD04] text-black font-archivo font-bold text-xs uppercase tracking-wider hover:bg-white transition-all shadow-sm"
               >
                 <Users className="w-3.5 h-3.5 text-black" />
                 <span>Entrar no Grupo Oficial</span>
