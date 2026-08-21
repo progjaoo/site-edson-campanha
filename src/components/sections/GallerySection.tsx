@@ -73,7 +73,7 @@ export function GallerySection() {
               </button>
               <button
                 onClick={nextSlide}
-                className="w-12 h-12 rounded-full bg-[#FBE502] text-black flex items-center justify-center font-bold hover:bg-[#003967] hover:text-white transition-all shadow-md hover:scale-105 active:scale-95"
+                className="w-12 h-12 bg-[#FBE502] text-black flex items-center justify-center font-bold hover:bg-[#003967] hover:text-white transition-all shadow-md hover:scale-105 active:scale-95"
                 aria-label="Próxima foto"
               >
                 <ChevronRight className="w-6 h-6" />

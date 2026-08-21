@@ -129,7 +129,7 @@ export function HeroSection() {
                 href="https://chat.whatsapp.com/KErXZ76O2rRAaMXOd58pvj?s=cl&p=i&mlu=0&ilr=0&amv=1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#FBE502] text-black font-archivo font-black text-sm sm:text-base tracking-wider uppercase shadow-lg hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-[#FBE502] text-black font-archivo font-black text-sm sm:text-base tracking-wider uppercase shadow-lg hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
               >
                 ENTRE PARA O GRUPO
               </a>
@@ -137,7 +137,7 @@ export function HeroSection() {
               {/* Botão 2: Faça sua Foto */}
               <Link
                 href="/faca-sua-foto"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#FBE502] text-black font-archivo font-black text-sm sm:text-base tracking-wider uppercase shadow-lg hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-[#FBE502] text-black font-archivo font-black text-sm sm:text-base tracking-wider uppercase shadow-lg hover:bg-white hover:text-[#003967] hover:scale-105 active:scale-95 transition-all duration-200"
               >
                 FAÇA SUA FOTO
               </Link>
