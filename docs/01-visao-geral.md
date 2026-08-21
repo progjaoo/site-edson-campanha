@@ -55,7 +55,7 @@ A home segue a ordem definida para a entrega atual: **Hero → WhatsApp → Rede
 - Validação de formato, tamanho e resolução.
 - Reposicionamento, zoom e pré-visualização.
 - Escolha entre temas oficiais ativos.
-- Exportação em PNG para avatar, post e story.
+- Exportação em PNG para avatar, post, story e Moldura Redonda.
 - Compartilhamento nativo quando suportado pelo dispositivo.
 
 ## Fora do MVP

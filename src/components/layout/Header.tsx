@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -10,7 +10,16 @@ import { MobileMenu } from "./MobileMenu";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     { label: "REDES", href: "/#zap" },
@@ -22,8 +31,31 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40 bg-[#003967] bg-[url('/images/fundodegrade.png')] bg-cover bg-top py-3.5 sm:py-4 shadow-md border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center relative z-10">
+      <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[#003967] bg-[url('/images/fundodegrade.png')] bg-cover bg-top py-2 shadow-md sm:py-3.5 lg:py-4">
+        <div className="relative z-10 mx-auto flex w-full max-w-[1440px] items-center justify-center px-2 sm:px-6 lg:px-8">
+
+          {/* Marca compacta revelada ao rolar a página */}
+          <Link
+            href="/"
+            aria-label="Ir para o início — Edson Albertassi"
+            aria-hidden={!isScrolled}
+            tabIndex={isScrolled ? 0 : -1}
+            className={cn(
+              "absolute left-14 top-1/2 z-10 flex -translate-y-1/2 items-center transition-all duration-300 sm:left-24 lg:left-8",
+              isScrolled
+                ? "translate-y-[-50%] opacity-100"
+                : "pointer-events-none translate-y-[-42%] opacity-0"
+            )}
+          >
+            <span className="relative block h-8 w-28 sm:h-10 sm:w-36 lg:h-11 lg:w-44">
+              <Image
+                src="/images/logos/logo-header.svg"
+                alt="Edson Albertassi"
+                fill
+                className="object-contain object-left"
+              />
+            </span>
+          </Link>
           
           {/* Logo */}
           <a
@@ -31,9 +63,9 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Entrar para o grupo do WhatsApp de Edson Albertassi"
-            className="absolute right-[-120px] z-10 flex items-center group"
+            className="group absolute right-2 top-1/2 z-10 flex -translate-y-1/2 items-center sm:right-4 lg:right-6 xl:right-8"
           >
-            <div className="relative h-20 w-40 md:h-20 md:w-40 transition-transform duration-200 group-hover:scale-150">
+            <div className="relative h-10 w-[108px] transition-transform duration-200 group-hover:scale-105 sm:h-14 sm:w-36 lg:h-16 lg:w-40 xl:h-[68px] xl:w-44">
               <Image
                 src="/images/logocantoheader.png"
                 alt="Entre para o grupo no Zap"
@@ -45,7 +77,7 @@ export function Header() {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+          <nav className="hidden items-center gap-4 lg:flex xl:gap-7">
             {navLinks.map((item) => {
               const isFacaSuaFoto = item.highlight;
               const isActive = pathname === item.href;
@@ -56,7 +88,7 @@ export function Header() {
                     key={item.label}
                     href={item.href}
                     className={cn(
-                      "flex items-center gap-2 px-5 py-2.5 rounded-xl font-archivo font-black text-xs xl:text-sm tracking-wider uppercase transition-all duration-200",
+                      "flex items-center gap-2 rounded-xl px-4 py-2.5 font-archivo text-xs font-black uppercase tracking-wider transition-all duration-200 xl:px-5 xl:text-sm",
                       "bg-[#FBE502] text-black hover:bg-white hover:text-[#003967] shadow-md hover:shadow-lg hover:scale-105 active:scale-95"
                     )}
                   >
@@ -71,7 +103,7 @@ export function Header() {
                   key={item.label}
                   href={item.href}
                   className={cn(
-                    "font-archivo text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 pendulum-hover relative py-1",
+                    "relative py-1 font-archivo text-xs font-bold uppercase tracking-wider transition-colors duration-200 pendulum-hover xl:text-sm",
                     isActive
                       ? "text-[#FBE502] font-black"
                       : "text-white hover:text-[#FBE502]"
@@ -86,7 +118,7 @@ export function Header() {
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#FBE502]"
+            className="absolute left-2 min-h-11 min-w-11 rounded-lg p-2.5 text-white transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#FBE502] sm:left-6 lg:hidden"
             aria-label="Abrir menu"
           >
             {mobileMenuOpen ? (

@@ -1,7 +1,7 @@
 "use client";
 
 import { PhotoFormat } from "@/types";
-import { User, Smartphone, LayoutGrid } from "lucide-react";
+import { Circle, User, Smartphone, LayoutGrid } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface FormatSelectorProps {
@@ -28,6 +28,12 @@ export function FormatSelector({ selectedFormat, onSelectFormat }: FormatSelecto
       label: "Stories / Status",
       icon: Smartphone,
       desc: "1080 × 1920 px",
+    },
+    {
+      id: "round",
+      label: "Moldura Redonda",
+      icon: Circle,
+      desc: "1080 × 1080 px",
     },
   ];
 

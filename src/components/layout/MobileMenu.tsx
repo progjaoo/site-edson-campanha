@@ -46,7 +46,7 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
               <div className="flex items-center justify-between pb-6 border-b border-white/10">
                 <div className="relative h-9 w-32">
                   <Image
-                    src="/images/logo-header.svg"
+                    src="/images/logos/logo-header.svg"
                     alt="Edson Albertassi"
                     fill
                     className="object-contain"
@@ -54,7 +54,7 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
                 </div>
                 <button
                   onClick={onClose}
-                  className="p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                  className="min-h-11 min-w-11 rounded-full p-2 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
                   aria-label="Fechar menu"
                 >
                   <X className="w-6 h-6" />

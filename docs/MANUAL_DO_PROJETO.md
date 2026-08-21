@@ -74,6 +74,7 @@ A ferramenta está disponível em `/faca-sua-foto` e na Hero Section:
   - **Avatar / Perfil:** 1080 × 1080 px (Quadrado para WhatsApp, Facebook, Instagram)
   - **Feed Instagram:** 1080 × 1440 px (Retrato 3:4)
   - **Story / Status:** 1080 × 1920 px (Vertical 9:16)
+  - **Moldura Redonda:** 1080 × 1080 px (Variação para perfil e WhatsApp)
 - **Molduras Utilizadas:**
   - `public/images/molduras/moldura-euapoio.png`
   - `public/images/molduras/moldura-padrao.png`

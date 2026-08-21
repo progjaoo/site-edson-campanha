@@ -46,15 +46,15 @@ export function SocialSection() {
   ];
 
   return (
-    <AnimatedSection id="redes" className="pt-16 pb-0 bg-white relative overflow-hidden">
+    <AnimatedSection id="redes" className="relative overflow-hidden bg-white pt-10 pb-0 sm:pt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Título Superior com Marcação Verde (17px width) e quebra de linha */}
-        <div className="mb-6 mr-8 sm:mb-8">
+        <div className="mb-6 sm:mb-8">
           <div className="flex items-start gap-4 sm:gap-6">
             <span className="w-[17px] h-[84px] sm:h-[96px] bg-[#93FD04] rounded-sm block shrink-0 mt-1" />
             
-            <h2 className="font-archivo font-extrabold mr-12 italic text-4xl sm:text-5xl md:text-6xl lg:text-[54px] leading-[0.90] text-[#1256CE] tracking-tight">
+            <h2 className="max-w-full font-archivo text-4xl font-extrabold italic leading-[0.90] tracking-tight text-[#1256CE] sm:text-5xl md:text-6xl lg:text-[54px]">
               Edson Albertassi<br />
               nas Redes Sociais
             </h2>
@@ -71,15 +71,15 @@ export function SocialSection() {
  */}            {/* 2 - Faixa Amarela #FBE502 */}
 {/*             <div className="w-full h-7 sm:h-9 md:h-11 bg-[#FBE502] rounded-full shadow-sm" />
  */}            {/* 3 - Faixa Azul Escuro #003967 */}
-            <div className="w-full h-40  md:h-16 bg-[#003967] rounded-3xl shadow-sm" />
+            <div className="h-12 w-full rounded-3xl bg-[#003967] shadow-sm sm:h-16" />
           </div>
 
           {/* 2. Bloco Azul Royal (z-10) que contém a foto em cima do fundo e os botões em cima da foto */}
-          <div className="mt-3 relative z-10 bg-[#1256CE] rounded-3xl p-6 sm:p-10 md:p-12 shadow-2xl min-h-[300px] flex flex-col justify-between overflow-visible">
+          <div className="relative z-10 mt-3 flex min-h-[560px] flex-col justify-between overflow-visible rounded-3xl bg-[#1256CE] p-5 shadow-2xl sm:min-h-[620px] sm:p-8 md:p-10 lg:min-h-[520px]">
             
             {/* Foto do Edson Albertassi: EM CIMA do fundo azul e das faixas, mas ATRÁS dos botões (z-10) */}
             <div className="absolute left-1/2 -translate-x-1/2 bottom-0 z-10 flex justify-center pointer-events-none">
-              <div className="relative w-[340px] sm:w-[480px] md:w-[560px] lg:w-[680px] xl:w-[740px] h-[400px] sm:h-[500px] md:h-[580px] lg:h-[660px] xl:h-[720px]">
+              <div className="relative h-[340px] w-[280px] sm:h-[480px] sm:w-[420px] md:h-[560px] md:w-[540px] lg:h-[620px] lg:w-[660px] xl:h-[700px] xl:w-[720px]">
                 <Image
                   src="/images/redes-sociais/foto-edson-redessec.png"
                   alt="Edson Albertassi - Redes Sociais"
@@ -95,7 +95,7 @@ export function SocialSection() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center relative z-20">
               
               {/* Coluna Esquerda: Instagram e TikTok */}
-              <div className="lg:col-span-4 space-y-4">
+              <div className="mx-auto w-full max-w-sm space-y-4 lg:col-span-4 lg:mx-0">
                 {leftSocialLinks.map((item) => {
                   const Icon = item.icon;
                   return (
@@ -117,7 +117,7 @@ export function SocialSection() {
               <div className="hidden lg:block lg:col-span-4 min-h-[140px]" />
 
               {/* Coluna Direita: Facebook e YouTube */}
-              <div className="lg:col-span-4 space-y-4">
+              <div className="mx-auto w-full max-w-sm space-y-4 lg:col-span-4 lg:mx-0">
                 {rightSocialLinks.map((item) => {
                   const Icon = item.icon;
                   return (
@@ -138,7 +138,7 @@ export function SocialSection() {
             </div>
 
             {/* Caixa Amarela Sólida com Texto Explicativo: EM CIMA DA FOTO (z-20) */}
-            <div className="mt-8 relative ml-10 z-20 max-w-4xl mx-auto w-full p-4 sm:p-4 rounded-2xl bg-[#FBE502] text-black shadow-xl">
+            <div className="relative z-20 mx-auto mt-6 w-full max-w-4xl rounded-2xl bg-[#FBE502] p-4 text-black shadow-xl sm:mt-8">
               <p className="font-archivo font-bold text-xs sm:text-sm md:text-base leading-relaxed text-black text-center sm:text-left">
                 Siga os nossos canais oficiais para acompanhar agendas, notícias, propostas e tudo que a nossa caminhada tem feito pelos 4 cantos do estado.
               </p>

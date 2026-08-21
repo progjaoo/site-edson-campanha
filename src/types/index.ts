@@ -10,7 +10,7 @@ export interface Noticia {
   categoria?: string;
 }
 
-export type PhotoFormat = "avatar" | "feed" | "story";
+export type PhotoFormat = "avatar" | "feed" | "story" | "round";
 
 export interface FormatConfig {
   id: PhotoFormat;
