@@ -31,7 +31,7 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[#003967] bg-[url('/images/fundodegrade.png')] bg-cover bg-top py-2 shadow-md sm:py-3.5 lg:py-4">
+      <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[#003967] bg-[url('/images/fundodegrade.png')] bg-cover bg-top py-8 shadow-md sm:py-4 lg:py-5">
         <div className="relative z-10 mx-auto flex w-full max-w-[1440px] items-center justify-center px-2 sm:px-6 lg:px-8">
 
           {/* Marca compacta revelada ao rolar a página */}
@@ -47,7 +47,7 @@ export function Header() {
                 : "pointer-events-none translate-y-[-42%] opacity-0"
             )}
           >
-            <span className="relative block h-8 w-28 sm:h-10 sm:w-36 lg:h-11 lg:w-44">
+            <span className="relative block h-11 w-44 sm:h-10 sm:w-40 lg:h-11 lg:w-44 xl:h-12 xl:w-52">
               <Image
                 src="/images/logos/logo-header.svg"
                 alt="Edson Albertassi"
@@ -63,9 +63,9 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Entrar para o grupo do WhatsApp de Edson Albertassi"
-            className="group absolute right-2 top-1/2 z-10 flex -translate-y-1/2 items-center sm:right-4 lg:right-6 xl:right-8"
+            className="group absolute right-2 top-1/2 z-10 hidden -translate-y-1/2 items-center sm:right-4 sm:flex lg:right-6 xl:right-8"
           >
-            <div className="relative h-10 w-[108px] transition-transform duration-200 group-hover:scale-105 sm:h-14 sm:w-36 lg:h-16 lg:w-40 xl:h-[68px] xl:w-44">
+            <div className="relative h-12 w-[120px] transition-transform duration-200 group-hover:scale-105 sm:h-14 sm:w-36 lg:h-16 lg:w-40 xl:h-[68px] xl:w-44">
               <Image
                 src="/images/logocantoheader.png"
                 alt="Entre para o grupo no Zap"
@@ -118,13 +118,13 @@ export function Header() {
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="absolute left-2 min-h-11 min-w-11 rounded-lg p-2.5 text-white transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#FBE502] sm:left-6 lg:hidden"
+            className="absolute right-2 min-h-[52px] min-w-[52px] rounded-lg p-3.5 text-white transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#FBE502] sm:right-6 lg:hidden"
             aria-label="Abrir menu"
           >
             {mobileMenuOpen ? (
-              <X className="w-6 h-6 text-[#FBE502]" />
+              <X className="h-8 w-8 text-[#FBE502]" />
             ) : (
-              <Menu className="w-6 h-6" />
+              <Menu className="h-8 w-8" />
             )}
           </button>
         </div>

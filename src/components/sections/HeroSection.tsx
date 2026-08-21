@@ -151,13 +151,13 @@ export function HeroSection() {
             animate="visible"
             className="relative z-20 flex items-end justify-center overflow-visible lg:col-span-6 lg:justify-end"
           >
-            <div className="relative h-[330px] w-full max-w-[520px] overflow-visible sm:h-[480px] sm:max-w-[640px] md:h-[560px] md:max-w-[720px] lg:h-[660px] lg:max-w-[760px] xl:h-[700px] xl:max-w-[860px]">
+            <div className="relative h-[380px] w-full max-w-[520px] overflow-visible sm:h-[480px] sm:max-w-[640px] md:h-[560px] md:max-w-[720px] lg:h-[660px] lg:max-w-[760px] xl:h-[700px] xl:max-w-[860px]">
               <Image
                 src="/images/fotoedsonsec.png"
                 alt="Edson Albertassi - Deputado Estadual 15088"
                 fill
                 priority
-                className="origin-bottom scale-105 transform object-contain object-bottom drop-shadow-2xl sm:scale-[1.15] md:scale-125 lg:scale-[1.3] xl:scale-[1.35]"
+                className="origin-bottom scale-100 transform object-contain object-bottom drop-shadow-2xl sm:scale-[1.15] md:scale-125 lg:scale-[1.3] xl:scale-[1.35]"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 800px"
               />
             </div>

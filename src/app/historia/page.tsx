@@ -36,8 +36,8 @@ export default function HistoriaPage() {
               width={1089}
               height={573}
               priority
-              className="absolute bottom-0 left-1/2 h-auto w-[155%] max-w-none -translate-x-1/2 object-contain object-bottom sm:w-[125%] lg:w-full"
-              sizes="(max-width: 640px) 155vw, (max-width: 1024px) 125vw, 1089px"
+              className="absolute bottom-0 left-1/2 h-auto w-[125%] max-w-none -translate-x-1/2 object-contain object-bottom sm:w-[125%] lg:w-full"
+              sizes="(max-width: 640px) 125vw, (max-width: 1024px) 125vw, 1089px"
             />
 
             <Image
