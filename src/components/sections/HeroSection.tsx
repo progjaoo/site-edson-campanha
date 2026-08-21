@@ -94,17 +94,17 @@ export function HeroSection() {
             animate="visible"
             className="z-10 space-y-5 pb-8 text-center sm:space-y-7 sm:pb-12 lg:col-span-6 lg:pb-24 lg:text-left"
             >
-            {/* Título com a Imagem PNG 'TEM QUE TER FÉ.png' */}
+            {/* Título oficial em SVG para preservar a qualidade em qualquer tela */}
             <motion.div
               variants={fadeInUp}
               className="flex justify-center lg:justify-start"
             >
               <div className="relative w-full max-w-[340px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[520px] xl:max-w-[560px]">
                 <Image
-                  src="/images/logoherosection.png"
+                  src="/images/logoherosection.svg"
                   alt="Tem Que Ter Fé"
-                  width={539}
-                  height={221}
+                  width={620}
+                  height={307}
                   priority
                   className="w-full h-auto object-contain drop-shadow-lg"
                 />

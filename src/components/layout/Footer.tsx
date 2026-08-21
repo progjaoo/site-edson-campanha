@@ -58,7 +58,7 @@ export function Footer() {
           <div className="space-y-4">
             <div className="relative h-12 w-48">
               <Image
-                src="/images/logo-header.svg"
+                src="/images/logos/logo-header.svg"
                 alt="Edson Albertassi"
                 fill
                 className="object-contain"

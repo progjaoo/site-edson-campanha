@@ -64,7 +64,7 @@ export default async function NoticiaDetailPage({ params }: PageProps) {
       name: "Edson Albertassi - Campanha Oficial",
       logo: {
         "@type": "ImageObject",
-        url: "https://edsonalbertassi.com.br/images/logo-header.svg",
+        url: "https://edsonalbertassi.com.br/images/logos/logo-header.svg",
       },
     },
     description: noticia.resumo || noticia.titulo,

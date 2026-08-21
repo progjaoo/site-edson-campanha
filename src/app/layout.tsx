@@ -82,8 +82,8 @@ export const metadata: Metadata = {
     images: ["/images/optimized/foto-edson-herosec.png"],
   },
   icons: {
-    icon: "/images/logo-header.svg",
-    apple: "/images/logo-header.svg",
+    icon: "/images/logos/logo-header.svg",
+    apple: "/images/logos/logo-header.svg",
   },
 };
 

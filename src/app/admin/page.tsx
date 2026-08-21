@@ -47,7 +47,7 @@ export default function AdminLoginPage() {
         <div className="text-center space-y-3">
           <div className="relative h-12 w-44 mx-auto mb-4">
             <Image
-              src="/images/logo-header.svg"
+              src="/images/logos/logo-header.svg"
               alt="Edson Albertassi"
               fill
               className="object-contain"

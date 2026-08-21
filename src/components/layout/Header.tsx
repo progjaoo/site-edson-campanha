@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -10,7 +10,16 @@ import { MobileMenu } from "./MobileMenu";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     { label: "REDES", href: "/#zap" },
@@ -24,6 +33,29 @@ export function Header() {
     <>
       <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[#003967] bg-[url('/images/fundodegrade.png')] bg-cover bg-top py-2 shadow-md sm:py-3.5 lg:py-4">
         <div className="relative z-10 mx-auto flex w-full max-w-[1440px] items-center justify-center px-2 sm:px-6 lg:px-8">
+
+          {/* Marca compacta revelada ao rolar a página */}
+          <Link
+            href="/"
+            aria-label="Ir para o início — Edson Albertassi"
+            aria-hidden={!isScrolled}
+            tabIndex={isScrolled ? 0 : -1}
+            className={cn(
+              "absolute left-14 top-1/2 z-10 flex -translate-y-1/2 items-center transition-all duration-300 sm:left-24 lg:left-8",
+              isScrolled
+                ? "translate-y-[-50%] opacity-100"
+                : "pointer-events-none translate-y-[-42%] opacity-0"
+            )}
+          >
+            <span className="relative block h-8 w-28 sm:h-10 sm:w-36 lg:h-11 lg:w-44">
+              <Image
+                src="/images/logos/logo-header.svg"
+                alt="Edson Albertassi"
+                fill
+                className="object-contain object-left"
+              />
+            </span>
+          </Link>
           
           {/* Logo */}
           <a

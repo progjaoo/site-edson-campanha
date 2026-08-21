@@ -46,7 +46,7 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
               <div className="flex items-center justify-between pb-6 border-b border-white/10">
                 <div className="relative h-9 w-32">
                   <Image
-                    src="/images/logo-header.svg"
+                    src="/images/logos/logo-header.svg"
                     alt="Edson Albertassi"
                     fill
                     className="object-contain"
