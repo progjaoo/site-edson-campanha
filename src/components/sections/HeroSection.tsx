@@ -45,7 +45,7 @@ const heroSocialLinks = [
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[90vh] lg:min-h-[820px] xl:min-h-[600px] bg-[#003967] text-white overflow-hidden flex items-end pt-28 md:pt-30">
+    <section className="relative flex min-h-[720px] items-end overflow-hidden bg-[#003967] pt-24 text-white sm:min-h-[780px] sm:pt-28 lg:min-h-[820px] lg:pt-32 xl:min-h-[720px]">
       
       {/* Imagem de Fundo Degradê Oficial do Designer */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -61,7 +61,7 @@ export function HeroSection() {
       {/* Atalhos sociais abaixo do selo do Zap no header */}
       <div
         aria-label="Redes sociais oficiais de Edson Albertassi"
-        className="absolute right-4 top-24 z-30 mr-40 flex flex-col gap-2.5 sm:right-6 lg:right-8"
+        className="absolute right-3 top-24 z-30 hidden flex-col gap-2.5 sm:right-5 sm:top-28 sm:flex lg:right-6 lg:top-32 xl:right-8"
       >
         {heroSocialLinks.map((item) => {
           const Icon = item.icon;
@@ -73,7 +73,7 @@ export function HeroSection() {
               rel="noopener noreferrer"
               aria-label={`Abrir ${item.name} de Edson Albertassi`}
               title={item.name}
-              className="group relative flex h-10 w-10 items-center justify-center rounded-xl border-2 border-white bg-[#003967]/60 text-white shadow-lg backdrop-blur-sm transition-all duration-200 hover:scale-105 hover:border-[#FBE502] hover:bg-[#FBE502] hover:text-[#003967] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FBE502] focus-visible:ring-offset-2 focus-visible:ring-offset-[#003967]"
+              className="group relative flex h-11 w-11 items-center justify-center rounded-xl border-2 border-white bg-[#003967]/60 text-white shadow-lg backdrop-blur-sm transition-all duration-200 hover:scale-105 hover:border-[#FBE502] hover:bg-[#FBE502] hover:text-[#003967] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FBE502] focus-visible:ring-offset-2 focus-visible:ring-offset-[#003967]"
             >
               <Icon className="h-5 w-5" />
               <span className="pointer-events-none absolute right-full mr-2 whitespace-nowrap rounded-md bg-[#FBE502] px-2.5 py-1.5 font-archivo text-xs font-black uppercase tracking-wide text-[#003967] opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
@@ -92,7 +92,7 @@ export function HeroSection() {
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
-            className="lg:col-span-6 pb-10 mb-4 mr-2 sm:pb-14 lg:pb-24 space-y-6 md:space-y-8 text-center lg:text-left z-1"
+            className="z-10 space-y-5 pb-8 text-center sm:space-y-7 sm:pb-12 lg:col-span-6 lg:pb-24 lg:text-left"
             >
             {/* Título com a Imagem PNG 'TEM QUE TER FÉ.png' */}
             <motion.div
@@ -149,15 +149,15 @@ export function HeroSection() {
             variants={fadeInRight}
             initial="hidden"
             animate="visible"
-            className="lg:col-span-6 relative flex justify-center lg:justify-end items-end z-20 overflow-visible"
+            className="relative z-20 flex items-end justify-center overflow-visible lg:col-span-6 lg:justify-end"
           >
-            <div className="relative w-full max-w-[420px] sm:max-w-[1000px] md:max-w-[1000px] lg:max-w-[920px] xl:max-w-[980px] h-[440px] sm:h-[580px] md:h-[680px] lg:h-[660px] xl:h-[720px] overflow-visible">
+            <div className="relative h-[330px] w-full max-w-[520px] overflow-visible sm:h-[480px] sm:max-w-[640px] md:h-[560px] md:max-w-[720px] lg:h-[660px] lg:max-w-[760px] xl:h-[700px] xl:max-w-[860px]">
               <Image
                 src="/images/fotoedsonsec.png"
                 alt="Edson Albertassi - Deputado Estadual 15088"
                 fill
                 priority
-                className="object-contain object-bottom transform scale-125 sm:scale-135 lg:scale-145 xl:scale-150 origin-bottom drop-shadow-2xl"
+                className="origin-bottom scale-105 transform object-contain object-bottom drop-shadow-2xl sm:scale-[1.15] md:scale-125 lg:scale-[1.3] xl:scale-[1.35]"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 800px"
               />
             </div>

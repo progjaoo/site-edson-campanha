@@ -18,7 +18,7 @@ import { PhotoFormat } from "@/types";
 import { FormatSelector } from "./FormatSelector";
 import { cn } from "@/lib/utils";
 
-const FORMAT_CONFIGS: Record<
+export const FORMAT_CONFIGS: Record<
   PhotoFormat,
   {
     name: string;
@@ -57,11 +57,21 @@ const FORMAT_CONFIGS: Record<
     description: "1080 × 1920 px (Vertical 9:16 para Stories e WhatsApp)",
     fileNamePrefix: "stories-status",
   },
+  round: {
+    name: "Moldura Redonda",
+    width: 1080,
+    height: 1080,
+    aspect: "aspect-square",
+    frameSrc: "/images/molduras/molduraredonda.png",
+    description: "1080 × 1080 px (Moldura redonda para perfil e WhatsApp)",
+    fileNamePrefix: "moldura-redonda",
+  },
 };
 
 export function PhotoStudio() {
   const [userImageSrc, setUserImageSrc] = useState<string | null>(null);
   const [selectedFormat, setSelectedFormat] = useState<PhotoFormat>("avatar");
+  const [frameVersion, setFrameVersion] = useState(0);
 
   // Transform states (pan, zoom, rotation)
   const [zoom, setZoom] = useState(1);
@@ -82,16 +92,17 @@ export function PhotoStudio() {
     avatar: null,
     feed: null,
     story: null,
+    round: null,
   });
 
-  // Preload all 3 frame images
+  // Preload todas as molduras para trocar de formato sem atraso
   useEffect(() => {
     (Object.keys(FORMAT_CONFIGS) as PhotoFormat[]).forEach((fmt) => {
       const img = new Image();
       img.src = FORMAT_CONFIGS[fmt].frameSrc;
       img.onload = () => {
         frameImgObjs.current[fmt] = img;
-        drawCanvases();
+        setFrameVersion((version) => version + 1);
       };
     });
   }, []);
@@ -182,7 +193,7 @@ export function PhotoStudio() {
 
   useEffect(() => {
     drawCanvases();
-  }, [drawCanvases, userImageSrc]);
+  }, [drawCanvases, frameVersion, userImageSrc]);
 
   // Drag handlers (Mouse)
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -356,7 +367,7 @@ export function PhotoStudio() {
                 onTouchEnd={handleTouchEnd}
                 onWheel={handleWheel}
                 className={cn(
-                  "max-w-full max-h-[480px] object-contain rounded-xl cursor-grab active:cursor-grabbing shadow-2xl transition-all",
+                  "max-h-[480px] max-w-full touch-none rounded-xl object-contain cursor-grab shadow-2xl transition-all active:cursor-grabbing",
                   FORMAT_CONFIGS[selectedFormat].aspect
                 )}
               />

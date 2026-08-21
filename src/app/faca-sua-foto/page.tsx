@@ -6,7 +6,7 @@ import { Camera } from "lucide-react";
 export const metadata: Metadata = {
   title: "Faça sua Foto de Perfil | Edson Albertassi 15088",
   description:
-    "Crie e personalize sua foto de apoio com as molduras oficiais de Edson Albertassi (Deputado Estadual 15088). Formatos para Avatar, Feed e Stories.",
+    "Crie e personalize sua foto de apoio com as molduras oficiais de Edson Albertassi (Deputado Estadual 15088). Formatos para Avatar, Feed, Stories e Moldura Redonda.",
   openGraph: {
     title: "Faça sua Foto de Perfil | Edson Albertassi 15088",
     description:

@@ -46,7 +46,7 @@ export default function HistoriaPage() {
               width={580}
               height={103}
               priority
-              className="absolute bottom-[-34px] left-1/2 z-30 h-auto w-[78%] max-w-[580px] -translate-x-1/2 sm:bottom-[-42px] sm:w-[58%] lg:bottom-[-47px] lg:w-[48%]"
+              className="absolute bottom-[-34px] left-1/2 z-40 h-auto w-[78%] max-w-[580px] -translate-x-1/2 sm:bottom-[-42px] sm:w-[58%] lg:bottom-[-47px] lg:w-[48%]"
               sizes="(max-width: 640px) 78vw, (max-width: 1024px) 58vw, 580px"
             />
           </div>

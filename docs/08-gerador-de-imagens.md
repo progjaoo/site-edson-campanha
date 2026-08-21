@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Transformar uma foto enviada pelo apoiador em três peças oficiais, preservando privacidade e oferecendo controle suficiente de enquadramento em telas pequenas.
+Transformar uma foto enviada pelo apoiador em peças oficiais, preservando privacidade e oferecendo controle suficiente de enquadramento em telas pequenas.
 
 ## Formatos
 
@@ -11,6 +11,8 @@ Transformar uma foto enviada pelo apoiador em três peças oficiais, preservando
 | Avatar | 1080 × 1080 px | Perfil de WhatsApp, Instagram e Facebook |
 | Post | 1080 × 1350 px | Feed do Instagram em proporção 4:5 |
 | Story | 1080 × 1920 px | Story do Instagram e status do WhatsApp |
+
+Além dos três formatos, o estúdio oferece a **Moldura Redonda**, uma variação quadrada de 1080 × 1080 px indicada para perfil e WhatsApp. Ela usa a mesma composição local do Avatar, com a arte transparente `public/images/molduras/molduraredonda.png`.
 
 Se a equipe optar por 1080 × 1440 px para o post, a decisão deve ser registrada e aplicada às molduras e aos testes. O padrão recomendado é 4:5 por ocupar melhor o feed sem sair do formato amplamente aceito.
 
@@ -21,7 +23,7 @@ Se a equipe optar por 1080 × 1440 px para o post, a decisão deve ser registrad
 3. Validar o arquivo localmente.
 4. Selecionar um tema oficial.
 5. Arrastar, ampliar e reposicionar a foto.
-6. Alternar entre avatar, post e story para revisar recortes.
+6. Alternar entre avatar, post, story e Moldura Redonda para revisar recortes.
 7. Baixar uma peça ou as três.
 8. Compartilhar pelo menu nativo quando disponível.
 

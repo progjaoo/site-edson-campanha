@@ -2,7 +2,7 @@
 
 ## Missão
 
-Implementar e manter o estúdio local que transforma uma foto em avatar, post e story sem enviar a imagem do apoiador ao servidor.
+Implementar e manter o estúdio local que transforma uma foto em avatar, post, story ou Moldura Redonda sem enviar a imagem do apoiador ao servidor.
 
 ## Use este agente quando
 
@@ -37,6 +37,7 @@ Implementar e manter o estúdio local que transforma uma foto em avatar, post e 
 | Avatar | 1080 × 1080 px |
 | Post | 1080 × 1350 px |
 | Story | 1080 × 1920 px |
+| Moldura Redonda | 1080 × 1080 px |
 
 Qualquer mudança exige atualização de molduras, documentação e testes.
 
