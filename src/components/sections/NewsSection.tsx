@@ -77,7 +77,7 @@ export function NewsSection() {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-11 w-fit items-center gap-2 rounded-xl bg-[#FBE502] px-5 py-3 font-archivo text-sm font-black uppercase tracking-wide text-[#003967] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1256CE] focus-visible:ring-offset-2"
+                  className="inline-flex min-h-11 w-fit items-center gap-2 bg-[#FBE502] px-5 py-3 font-archivo text-sm font-black uppercase tracking-wide text-[#003967] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1256CE] focus-visible:ring-offset-2"
                 >
                   Ler matéria
                   <ArrowUpRight className="h-4 w-4" aria-hidden="true" />

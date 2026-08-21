@@ -88,7 +88,7 @@ export function Header() {
                     key={item.label}
                     href={item.href}
                     className={cn(
-                      "flex items-center gap-2 rounded-xl px-4 py-2.5 font-archivo text-xs font-black uppercase tracking-wider transition-all duration-200 xl:px-5 xl:text-sm",
+                      "flex items-center gap-2  px-4 py-2.5 font-archivo text-xs font-black uppercase tracking-wider transition-all duration-200 xl:px-5 xl:text-sm",
                       "bg-[#FBE502] text-black hover:bg-white hover:text-[#003967] shadow-md hover:shadow-lg hover:scale-105 active:scale-95"
                     )}
                   >
