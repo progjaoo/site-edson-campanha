@@ -34,6 +34,26 @@ export function Header() {
       <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[#003967] bg-[url('/images/fundodegrade.png')] bg-cover bg-top py-8 shadow-md sm:py-4 lg:py-5">
         <div className="relative z-10 mx-auto flex w-full max-w-[1440px] items-center justify-center px-2 sm:px-6 lg:px-8">
 
+          {/* Logo oficial aparece somente no desktop após o início do scroll */}
+          {isScrolled && (
+            <Link
+              href="/"
+              aria-label="Voltar para a página inicial de Edson Albertassi"
+              className="group absolute left-4 top-1/2 z-10 hidden -translate-y-1/2 items-center lg:flex xl:left-8"
+            >
+              <span className="block w-[174px] transition-opacity duration-200 group-hover:opacity-90 xl:w-[208px]">
+                <Image
+                  src="/images/logos/logo-header.svg"
+                  alt="Edson Albertassi"
+                  width={270}
+                  height={62}
+                  sizes="(min-width: 1280px) 208px, 174px"
+                  className="block h-auto w-full"
+                />
+              </span>
+            </Link>
+          )}
+
           {/* Ação do grupo mantida no desktop e revelada no mobile após o início do scroll */}
           <a
             href="https://chat.whatsapp.com/KErXZ76O2rRAaMXOd58pvj?s=cl&p=i&mlu=0&ilr=0&amv=1"
