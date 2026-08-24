@@ -7,6 +7,10 @@ import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import "./globals.css";
 
+// O HTML precisa acompanhar cada deploy para não ficar preso a hashes antigos
+// de chunks quando a Hostinger/CDN mantém a página em cache.
+export const dynamic = "force-dynamic";
+
 const archivo = Archivo({
   subsets: ["latin"],
   variable: "--font-archivo",
