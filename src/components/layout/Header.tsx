@@ -43,7 +43,7 @@ export function Header() {
             >
               <span className="block w-[174px] transition-opacity duration-200 group-hover:opacity-90 xl:w-[208px]">
                 <Image
-                  src="/images/logos/logo-header.svg"
+                  src="/images/logos/logo-header.png"
                   alt="Edson Albertassi"
                   width={270}
                   height={62}

@@ -12,7 +12,7 @@ Preview nunca deve compartilhar banco, bucket ou credenciais com produção.
 
 ## Plataforma recomendada
 
-Vercel é a opção natural para Next.js. PostgreSQL pode ser hospedado em serviço compatível com Prisma e o storage pode usar Vercel Blob ou outro serviço S3. A arquitetura não deve depender de APIs proprietárias fora de adaptadores bem definidos.
+Vercel é a opção natural para Next.js. PostgreSQL pode ser hospedado em serviço compatível com Prisma. O upload atual persiste as imagens como Data URLs junto aos dados das notícias, sem dependência de storage externo.
 
 ## Pipeline
 

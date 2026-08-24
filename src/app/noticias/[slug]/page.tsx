@@ -10,14 +10,14 @@ import { formatDate } from "@/lib/utils";
 export const dynamic = "force-dynamic";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const noticia = await getNoticiaBySlug(params.slug);
+  const { slug } = await params;
+  const noticia = await getNoticiaBySlug(slug);
   if (!noticia) {
     return {
       title: "Notícia não encontrada | Edson Albertassi",
@@ -39,7 +39,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function NoticiaDetailPage({ params }: PageProps) {
-  const noticia = await getNoticiaBySlug(params.slug);
+  const { slug } = await params;
+  const noticia = await getNoticiaBySlug(slug);
 
   if (!noticia) {
     notFound();

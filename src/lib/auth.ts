@@ -9,8 +9,8 @@ export function checkCredentials(user: string, pass: string): boolean {
   return user === ADMIN_USERNAME && pass === ADMIN_PASSWORD;
 }
 
-export function createAdminSession() {
-  const cookieStore = cookies();
+export async function createAdminSession() {
+  const cookieStore = await cookies();
   cookieStore.set(AUTH_COOKIE_NAME, SESSION_SECRET_TOKEN, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -20,14 +20,14 @@ export function createAdminSession() {
   });
 }
 
-export function clearAdminSession() {
-  const cookieStore = cookies();
+export async function clearAdminSession() {
+  const cookieStore = await cookies();
   cookieStore.delete(AUTH_COOKIE_NAME);
 }
 
-export function isAdminAuthenticated(): boolean {
+export async function isAdminAuthenticated(): Promise<boolean> {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const token = cookieStore.get(AUTH_COOKIE_NAME)?.value;
     return token === SESSION_SECRET_TOKEN;
   } catch {

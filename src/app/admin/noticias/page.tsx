@@ -247,7 +247,7 @@ export default function AdminNoticiasPage() {
               {/* Upload de Imagem */}
               <div className="space-y-1">
                 <label className="block text-xs font-bold uppercase tracking-wider text-gray-700">
-                  Imagem de Capa (Vercel Blob / Upload)
+                  Imagem de Capa (Upload)
                 </label>
                 <div className="flex items-center gap-3">
                   <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-light hover:bg-gray-200 text-brand-navy text-xs font-bold uppercase border border-gray-300 transition-colors">

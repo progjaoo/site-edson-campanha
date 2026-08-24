@@ -35,24 +35,14 @@ O site possui um blog/portal de notícias corporativo interno protegido por senh
 ### Como criar notícias:
 1. Acesse `http://seusite.com.br/admin` e faça login.
 2. Preencha o formulário: **Título**, **Categoria**, **Resumo**, **Conteúdo** e **Upload de Imagem**.
-3. A imagem será salva no **Vercel Blob Storage** (ou em formato otimizado local).
+3. A imagem é convertida em Data URL e persistida junto com a notícia.
 4. A notícia ficará disponível na listagem e na página individual com URL amigável (`/noticias/titulo-da-materia`). A seção de notícias da landing page usa, nesta entrega, duas matérias externas fixas e não é alimentada pelo admin.
 
 ---
 
-## 3. Como Configurar o Vercel Blob Storage
+## 3. Upload de imagens
 
-Para o upload de imagens de notícias em produção no ambiente serverless da Vercel:
-
-1. Acesse o painel da [Vercel](https://vercel.com).
-2. Abra o seu projeto da campanha.
-3. Clique na aba **Storage** e selecione **Create Database** → **Blob**.
-4. Siga os passos e clique em **Connect to Project**.
-5. A Vercel criará automaticamente a variável de ambiente:
-   ```env
-   BLOB_READ_WRITE_TOKEN=vercel_blob_rw_...
-   ```
-6. Faça um novo Deploy. Pronto! O upload de imagens já estará conectado ao CDN global da Vercel.
+As imagens selecionadas no painel são convertidas em Data URLs pela rota `/api/upload` e persistidas com os dados da notícia. Não é necessário configurar storage externo.
 
 ---
 

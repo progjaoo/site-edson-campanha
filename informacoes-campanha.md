@@ -33,7 +33,7 @@ ACOMPANHE MINHAS REDES: COR: #1256CE
 
 4 - SEÇÃO NOTÍCIAS:
 AQUI SERÁ A SEÇÃO QUE CONSUMIRÁ AS NOTICIAS QUE SERÃO CRIADAS NA PÁGINA DE ADMIN, UM BLOG CORPORATIVO.
-SENHA DO ADMIN, com rota bloqueada, apenas o admin terá acesso a isso, não terá banco de dados, as noticias podem persisti no local storage, para não ter que usar um banco de dados. Noticia deve permitir 1 imagem (vercel blob storage será onde armazenaremos as imagens do site) titulo, conteudo:
+SENHA DO ADMIN, com rota bloqueada, apenas o admin terá acesso a isso, não terá banco de dados, as noticias podem persisti no local storage, para não ter que usar um banco de dados. Noticia deve permitir 1 imagem (a imagem será convertida em Data URL e persistida junto com a notícia) titulo, conteudo:
 
 - PAGINA DA HISTÓRIA/SOBRE:
     TEXTO: Edson Albertassi é casado com Alice há 34 anos, pai de três filhos e avô de três netos. É membro da Assembleia de Deus Jardim das Américas, em Volta Redonda, e sua fé nunca ficou restrita ao ambiente da igreja. O Evangelho moldou sua forma de viver, de trabalhar, de decidir e de enxergar as pessoas. Foi com essa convicção que, em 1994, fundou Rádio 88 FM, no período em que poucos apostariam, e a transformou em uma emissora evangélica. Mais de trinta anos depois, a rádio, hoje administrada pela família, continua no ar, líder de audiência no Sul Fluminense, alcançando milhares de pessoas e mantendo viva uma história que nasceu pela fé. Antes dos microfones, Edson foi mascate e conheceu Volta Redonda de perto, bairro a bairro, rua a rua, porta a porta.
@@ -60,6 +60,6 @@ Na tela de faça sua foto será onde teremos que dar uma atenção grande, vamos
  3 - POST DE STORY QUE É 1080x1920
  4 - POST DE FEED DE INSTAGRAM QUE É 1080x1440 pode fazer a tela igual ao exemplo e as fotos geradas com a etiqueta nessas proporções
 
-PARA O ARMAZENAMENTO DAS IMAGENS DO SITE, DA LANDING PAGE, VAMOS COLOCAR NO VERCEL STORAGE ONDE IREMOS PUBLICAR O SITE DO EDSON 
+AS IMAGENS DE NOTÍCIAS SÃO CONVERTIDAS EM DATA URL E PERSISTIDAS JUNTO COM OS DADOS DA NOTÍCIA, SEM STORAGE EXTERNO.
 
 SEGURANÇA: RECAPTCHA PARA PRIVACIDADE E POLITICA DE PRIVACIDADE
