@@ -129,7 +129,7 @@ export function HeroSection() {
                 href="https://chat.whatsapp.com/KErXZ76O2rRAaMXOd58pvj?s=cl&p=i&mlu=0&ilr=0&amv=1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-11 w-full max-w-[280px] scale-[0.94] items-center justify-center bg-[#FBE502] px-3 py-2 font-archivo text-[10px] font-black uppercase tracking-wider text-black shadow-lg transition-all duration-200 hover:bg-white hover:text-[#003967] hover:scale-[0.98] active:scale-[0.92] sm:w-auto sm:max-w-none sm:scale-100 sm:px-8 sm:py-4 sm:text-base sm:hover:scale-105 sm:active:scale-95"
+                className="inline-flex min-h-11 w-full max-w-[280px] scale-[0.94] items-center justify-center bg-[#FBE502] px-3 py-2 font-archivo text-[14px] font-black uppercase tracking-wider text-black shadow-lg transition-all duration-200 hover:bg-white hover:text-[#003967] hover:scale-[0.98] active:scale-[0.92] sm:w-auto sm:max-w-none sm:scale-100 sm:px-8 sm:py-4 sm:text-base sm:hover:scale-105 sm:active:scale-95"
               >
                 ENTRE PARA O GRUPO
               </a>
@@ -137,7 +137,7 @@ export function HeroSection() {
               {/* Botão 2: Faça sua Foto */}
               <Link
                 href="/faca-sua-foto"
-                className="inline-flex min-h-11 w-full max-w-[280px] scale-[0.94] items-center justify-center bg-[#FBE502] px-3 py-2 font-archivo text-[10px] font-black uppercase tracking-wider text-black shadow-lg transition-all duration-200 hover:bg-white hover:text-[#003967] hover:scale-[0.98] active:scale-[0.92] sm:w-auto sm:max-w-none sm:scale-100 sm:px-8 sm:py-4 sm:text-base sm:hover:scale-105 sm:active:scale-95"
+                className="inline-flex min-h-11 w-full max-w-[280px] scale-[0.94] items-center justify-center bg-[#FBE502] px-3 py-2 font-archivo text-[14px] font-black uppercase tracking-wider text-black shadow-lg transition-all duration-200 hover:bg-white hover:text-[#003967] hover:scale-[0.98] active:scale-[0.92] sm:w-auto sm:max-w-none sm:scale-100 sm:px-8 sm:py-4 sm:text-base sm:hover:scale-105 sm:active:scale-95"
               >
                 FAÇA SUA FOTO
               </Link>

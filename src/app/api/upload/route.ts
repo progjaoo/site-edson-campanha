@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { put } from "@vercel/blob";
 import { isAdminAuthenticated } from "@/lib/auth";
 
 export async function POST(req: NextRequest) {
-  if (!isAdminAuthenticated()) {
+  if (!(await isAdminAuthenticated())) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
@@ -15,15 +14,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Nenhum arquivo enviado" }, { status: 400 });
     }
 
-    // Se o token da Vercel estiver configurado, usa Vercel Blob
-    if (process.env.BLOB_READ_WRITE_TOKEN) {
-      const blob = await put(`noticias/${Date.now()}-${file.name}`, file, {
-        access: "public",
-      });
-      return NextResponse.json({ url: blob.url });
-    }
-
-    // Fallback para desenvolvimento local: converte para Data URL
+    // O projeto não usa storage externo: a imagem é persistida como Data URL
+    // junto com a notícia, mantendo o fluxo do painel administrativo.
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const base64 = buffer.toString("base64");

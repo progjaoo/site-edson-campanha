@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
     const { username, password } = await req.json();
 
     if (checkCredentials(username, password)) {
-      createAdminSession();
+      await createAdminSession();
       return NextResponse.json({ success: true, message: "Login realizado com sucesso!" });
     }
 
@@ -23,11 +23,11 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET() {
-  const authenticated = isAdminAuthenticated();
+  const authenticated = await isAdminAuthenticated();
   return NextResponse.json({ authenticated });
 }
 
 export async function DELETE() {
-  clearAdminSession();
+  await clearAdminSession();
   return NextResponse.json({ success: true, message: "Logout efetuado." });
 }

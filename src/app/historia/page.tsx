@@ -60,9 +60,9 @@ export default function HistoriaPage() {
       </section>
 
       {/* Texto biográfico aprovado pelo projeto */}
-      <section className="relative z-10 mx-auto max-w-5xl px-4 pb-20 pt-24 sm:px-6 sm:pt-28 lg:px-8 lg:pb-28">
+      <section className="relative z-10 mx-auto max-w-5xl px-4 pb-22 pt-16 sm:px-6 sm:pt-28 lg:px-8 lg:pb-28">
         <header className="text-center">
-          <h1 className="font-archivo text-4xl font-black italic uppercase leading-[0.92] tracking-tight text-[#003967] sm:text-6xl lg:text-7xl">
+          <h1 className="font-archivo text-4xl mb-10 font-black italic uppercase leading-[0.90] tracking-tight text-[#003967] sm:text-6xl lg:text-7xl">
             Uma história forjada
             <br />
             pela fé e pelo trabalho

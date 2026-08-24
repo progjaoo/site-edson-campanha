@@ -15,7 +15,7 @@ export async function GET() {
 
 // POST /api/noticias - Cria nova notícia (protegido)
 export async function POST(req: NextRequest) {
-  if (!isAdminAuthenticated()) {
+  if (!(await isAdminAuthenticated())) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
 
 // DELETE /api/noticias?id=xxx - Exclui notícia (protegido)
 export async function DELETE(req: NextRequest) {
-  if (!isAdminAuthenticated()) {
+  if (!(await isAdminAuthenticated())) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
