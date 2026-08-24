@@ -3,8 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Calendar, User, ArrowLeft, Share2, Facebook, MessageCircle } from "lucide-react";
-import { getNoticiaBySlug, getNoticias } from "@/lib/news-storage";
+import { getNoticiaBySlug } from "@/lib/news-storage";
 import { formatDate } from "@/lib/utils";
+
+// Mantém o documento alinhado ao build ativo para evitar HTML com chunks antigos.
+export const dynamic = "force-dynamic";
 
 interface PageProps {
   params: {
@@ -12,10 +15,6 @@ interface PageProps {
   };
 }
 
-export async function generateStaticParams() {
-  const noticias = await getNoticias();
-  return noticias.map((n) => ({ slug: n.slug }));
-}
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const noticia = await getNoticiaBySlug(params.slug);
