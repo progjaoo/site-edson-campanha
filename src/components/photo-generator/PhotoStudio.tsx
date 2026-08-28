@@ -18,6 +18,103 @@ import { PhotoFormat } from "@/types";
 import { FormatSelector } from "./FormatSelector";
 import { cn } from "@/lib/utils";
 
+const SHARE_SITE_URL = "https://www.edsonalbertassi.com";
+
+function isAppleMobileDevice(): boolean {
+  return (
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+  );
+}
+
+function triggerDownload(dataUrl: string, fileName: string): void {
+  const imageFile = dataUrlToFile(dataUrl, fileName);
+  const objectUrl = URL.createObjectURL(imageFile);
+  const link = document.createElement("a");
+  link.href = objectUrl;
+  link.download = fileName;
+  // Se um navegador móvel não respeitar `download`, a imagem abre em uma
+  // nova aba e ainda pode ser salva pelo menu nativo do navegador.
+  link.target = "_blank";
+  link.rel = "noopener";
+  link.style.display = "none";
+  document.body.appendChild(link);
+
+  // O link precisa estar no DOM e ser ativado imediatamente pelo gesto do
+  // usuário para funcionar também em Chrome, Firefox e Samsung Internet.
+  link.click();
+  link.remove();
+
+  // Mantém o Blob disponível durante o tempo necessário para o navegador
+  // iniciar o download, sem deixar memória alocada indefinidamente.
+  window.setTimeout(() => URL.revokeObjectURL(objectUrl), 60_000);
+}
+
+function dataUrlToFile(dataUrl: string, fileName: string): File {
+  const [metadata, base64] = dataUrl.split(",");
+  if (!metadata || !base64) {
+    throw new Error("Formato de imagem inválido.");
+  }
+
+  const mimeType = metadata.match(/data:([^;]+);base64/)?.[1] ?? "image/png";
+  const binary = window.atob(base64);
+  const bytes = new Uint8Array(binary.length);
+
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index);
+  }
+
+  return new File([bytes], fileName, { type: mimeType });
+}
+
+function canShareFile(file: File): boolean {
+  try {
+    return (
+      typeof navigator.canShare === "function" &&
+      navigator.canShare({ files: [file] })
+    );
+  } catch {
+    return false;
+  }
+}
+
+function openApplePreview(dataUrl: string, fileName: string): void {
+  const previewWindow = window.open("", "_blank");
+
+  if (!previewWindow) {
+    // Se o bloqueador de pop-ups impedir a aba, ainda mostramos a imagem na
+    // aba atual para que o usuário possa usar "Salvar imagem" no Safari.
+    window.location.assign(dataUrl);
+    return;
+  }
+
+  previewWindow.document.title = fileName;
+  previewWindow.document.body.style.margin = "0";
+  previewWindow.document.body.style.background = "#051A33";
+  previewWindow.document.body.style.minHeight = "100vh";
+  previewWindow.document.body.style.display = "flex";
+  previewWindow.document.body.style.flexDirection = "column";
+  previewWindow.document.body.style.alignItems = "center";
+  previewWindow.document.body.style.justifyContent = "center";
+
+  const image = previewWindow.document.createElement("img");
+  image.src = dataUrl;
+  image.alt = "Foto de apoio Edson Albertassi 15088";
+  image.style.maxWidth = "100%";
+  image.style.maxHeight = "88vh";
+  image.style.objectFit = "contain";
+
+  const hint = previewWindow.document.createElement("p");
+  hint.textContent = "Toque e segure a imagem para salvar no seu dispositivo.";
+  hint.style.color = "#ffffff";
+  hint.style.fontFamily = "-apple-system, BlinkMacSystemFont, sans-serif";
+  hint.style.fontSize = "14px";
+  hint.style.padding = "12px 20px";
+  hint.style.textAlign = "center";
+
+  previewWindow.document.body.append(image, hint);
+}
+
 export const FORMAT_CONFIGS: Record<
   PhotoFormat,
   {
@@ -243,7 +340,7 @@ export function PhotoStudio() {
     setZoom((prev) => Math.min(3, Math.max(0.3, prev + delta)));
   };
 
-  // Download High-Res PNG
+  // Download High-Res PNG com fallback para navegadores móveis.
   const handleDownload = () => {
     const canvas = editCanvasRef.current;
     if (!canvas) return;
@@ -257,10 +354,44 @@ export function PhotoStudio() {
     });
 
     const prefix = FORMAT_CONFIGS[selectedFormat].fileNamePrefix;
-    const link = document.createElement("a");
-    link.download = `edson-albertassi-15088-${prefix}.png`;
-    link.href = canvas.toDataURL("image/png");
-    link.click();
+    const fileName = `edson-albertassi-15088-${prefix}.png`;
+
+    try {
+      const dataUrl = canvas.toDataURL("image/png");
+
+      // O Safari em iPhone/iPad pode ignorar o atributo download para imagens
+      // geradas no navegador. Quando possível, a folha nativa oferece
+      // "Salvar imagem"; caso contrário, a aba de visualização permite tocar
+      // e segurar a imagem sem perder o arquivo.
+      if (isAppleMobileDevice()) {
+        const imageFile = dataUrlToFile(dataUrl, fileName);
+
+        if (
+          typeof navigator.share === "function" &&
+          canShareFile(imageFile)
+        ) {
+          void navigator
+            .share({
+              title: "Salvar foto de apoio Edson Albertassi",
+              text: "Escolha 'Salvar imagem' para guardar sua foto no dispositivo.",
+              files: [imageFile],
+            })
+            .catch((error: unknown) => {
+              if (error instanceof DOMException && error.name === "AbortError") {
+                return;
+              }
+              openApplePreview(dataUrl, fileName);
+            });
+        } else {
+          openApplePreview(dataUrl, fileName);
+        }
+        return;
+      }
+
+      triggerDownload(dataUrl, fileName);
+    } catch (error) {
+      console.error("Não foi possível preparar o download da imagem:", error);
+    }
   };
 
   // Share via Web Share API
@@ -269,21 +400,41 @@ export function PhotoStudio() {
     if (!canvas) return;
 
     try {
-      canvas.toBlob(async (blob) => {
-        if (!blob) return;
-        const prefix = FORMAT_CONFIGS[selectedFormat].fileNamePrefix;
-        const file = new File([blob], `edson-albertassi-${prefix}.png`, { type: "image/png" });
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            title: "Eu Apoio Edson Albertassi 15088",
-            text: "Criei minha foto oficial de apoio ao Edson Albertassi! Faça a sua também!",
-            files: [file],
-          });
-        } else {
-          handleDownload();
-        }
-      });
-    } catch {
+      const prefix = FORMAT_CONFIGS[selectedFormat].fileNamePrefix;
+      const fileName = `edson-albertassi-${prefix}.png`;
+      // A conversão síncrona preserva a ativação do toque necessária pelo
+      // Safari/iOS para abrir a folha nativa de compartilhamento.
+      const file = dataUrlToFile(canvas.toDataURL("image/png"), fileName);
+      const shareText = `Criei minha foto oficial de apoio ao Edson Albertassi! Faça a sua também: ${SHARE_SITE_URL}`;
+      const canShareFiles = canShareFile(file);
+
+      if (typeof navigator.share === "function" && canShareFiles) {
+        await navigator.share({
+          title: "Eu Apoio Edson Albertassi 15088",
+          text: shareText,
+          url: SHARE_SITE_URL,
+          files: [file],
+        });
+        return;
+      }
+
+      // Quando o navegador não aceita arquivos na Web Share API, ainda
+      // compartilhamos o convite com o link oficial em vez de falhar em
+      // silêncio. O download continua disponível no botão ao lado.
+      if (typeof navigator.share === "function") {
+        await navigator.share({
+          title: "Eu Apoio Edson Albertassi 15088",
+          text: shareText,
+          url: SHARE_SITE_URL,
+        });
+        return;
+      }
+
+      handleDownload();
+    } catch (error) {
+      // Cancelar a folha de compartilhamento não deve iniciar um download
+      // inesperado; falhas reais seguem para o fallback do Safari/desktop.
+      if (error instanceof DOMException && error.name === "AbortError") return;
       handleDownload();
     }
   };
