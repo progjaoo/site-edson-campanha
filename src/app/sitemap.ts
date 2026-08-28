@@ -1,33 +1,37 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 import { getNoticias } from "@/lib/news-storage";
+import { absoluteUrl } from "@/lib/site-config";
+
+// A lista de notícias pode ser atualizada pelo painel; gere o XML sob demanda.
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://edsonalbertassi.com.br";
   const noticias = await getNoticias();
+  const generatedAt = new Date();
 
   // Rotas estáticas
   const routes: MetadataRoute.Sitemap = [
     {
-      url: baseUrl,
-      lastModified: new Date(),
+      url: absoluteUrl("/"),
+      lastModified: generatedAt,
       changeFrequency: "daily",
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/historia`,
-      lastModified: new Date(),
+      url: absoluteUrl("/historia"),
+      lastModified: generatedAt,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/faca-sua-foto`,
-      lastModified: new Date(),
+      url: absoluteUrl("/faca-sua-foto"),
+      lastModified: generatedAt,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/politica-de-privacidade`,
-      lastModified: new Date(),
+      url: absoluteUrl("/politica-de-privacidade"),
+      lastModified: generatedAt,
       changeFrequency: "monthly",
       priority: 0.3,
     },
@@ -35,7 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Rotas dinâmicas de notícias
   const newsRoutes: MetadataRoute.Sitemap = noticias.map((n) => ({
-    url: `${baseUrl}/noticias/${n.slug}`,
+    url: absoluteUrl(`/noticias/${n.slug}`),
     lastModified: new Date(n.dataPublicacao),
     changeFrequency: "weekly",
     priority: 0.8,

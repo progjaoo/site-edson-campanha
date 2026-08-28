@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Calendar, User, ArrowLeft, Share2, Facebook, MessageCircle } from "lucide-react";
 import { getNoticiaBySlug } from "@/lib/news-storage";
+import { absoluteUrl } from "@/lib/site-config";
 import { formatDate } from "@/lib/utils";
 
 // Mantém o documento alinhado ao build ativo para evitar HTML com chunks antigos.
@@ -20,20 +21,32 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const noticia = await getNoticiaBySlug(slug);
   if (!noticia) {
     return {
-      title: "Notícia não encontrada | Edson Albertassi",
+      title: "Notícia não encontrada",
+      robots: { index: false, follow: false },
     };
   }
 
+  const canonicalPath = `/noticias/${noticia.slug}`;
+  const imageUrl = noticia.imagemUrl || "/images/fotos-galeria/foto-galeria.svg";
+
   return {
-    title: `${noticia.titulo} | Edson Albertassi`,
+    title: noticia.titulo,
     description: noticia.resumo || noticia.titulo,
+    alternates: { canonical: canonicalPath },
     openGraph: {
       title: noticia.titulo,
       description: noticia.resumo || noticia.titulo,
-      images: [noticia.imagemUrl || "/images/fotos-galeria/foto-galeria.svg"],
+      url: absoluteUrl(canonicalPath),
+      images: [imageUrl],
       type: "article",
       publishedTime: noticia.dataPublicacao,
       authors: [noticia.autor || "Edson Albertassi"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: noticia.titulo,
+      description: noticia.resumo || noticia.titulo,
+      images: [imageUrl],
     },
   };
 }
@@ -46,13 +59,18 @@ export default async function NoticiaDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  const imageUrl = noticia.imagemUrl || "/images/fotos-galeria/foto-galeria.svg";
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     headline: noticia.titulo,
-    image: [noticia.imagemUrl || "/images/fotos-galeria/foto-galeria.svg"],
+    image: [absoluteUrl(imageUrl)],
+    url: absoluteUrl(`/noticias/${noticia.slug}`),
+    mainEntityOfPage: absoluteUrl(`/noticias/${noticia.slug}`),
     datePublished: noticia.dataPublicacao,
     dateModified: noticia.dataPublicacao,
+    articleSection: noticia.categoria || "Notícias",
+    inLanguage: "pt-BR",
     author: [
       {
         "@type": "Person",
@@ -64,7 +82,7 @@ export default async function NoticiaDetailPage({ params }: PageProps) {
       name: "Edson Albertassi - Campanha Oficial",
       logo: {
         "@type": "ImageObject",
-        url: "https://edsonalbertassi.com.br/images/logos/logo-header.svg",
+        url: absoluteUrl("/images/logos/logo-header.svg"),
       },
     },
     description: noticia.resumo || noticia.titulo,
@@ -75,7 +93,9 @@ export default async function NoticiaDetailPage({ params }: PageProps) {
       {/* Schema.org Rich Snippets */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
       />
 
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { absoluteUrl } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Biografia & História | Edson Albertassi",
+  title: "Biografia & História",
   description:
     "Conheça a história, trajetória de fé, família e trabalho de Edson Albertassi. Fundador da Rádio 88 FM, 6 mandatos na ALERJ e compromisso com o Rio de Janeiro.",
+  alternates: { canonical: "/historia" },
   openGraph: {
+    type: "website",
+    url: absoluteUrl("/historia"),
     title: "Biografia & História | Edson Albertassi",
     description:
       "Conheça a trajetória de fé, família e trabalho de Edson Albertassi.",
