@@ -12,6 +12,9 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const showMobileLogo =
+    isScrolled &&
+    (pathname === "/" || pathname === "/faca-sua-foto" || pathname === "/historia");
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 24);
@@ -54,16 +57,60 @@ export function Header() {
             </Link>
           )}
 
-          {/* Ação do grupo mantida no desktop e revelada no mobile após o início do scroll */}
+          {/* Logo mobile aparece somente após o scroll nas páginas públicas */}
+          {isScrolled && (
+            <Link
+              href="/"
+              aria-label="Voltar para a página inicial de Edson Albertassi"
+              className={cn(
+                "absolute left-3 top-1/2 z-10 -translate-y-1/2 shrink-0 lg:hidden",
+                !showMobileLogo && "hidden"
+              )}
+            >
+              <Image
+                src="/images/logos/logo-header.svg"
+                alt="Edson Albertassi"
+                width={270}
+                height={62}
+                sizes="(max-width: 359px) 88px, 108px"
+                className="h-auto w-[108px] max-[359px]:w-[88px]"
+                priority
+              />
+            </Link>
+          )}
+
+          {/* Ação do grupo no mobile aparece somente após o scroll */}
+          {isScrolled && (
+            <a
+              href="https://chat.whatsapp.com/KErXZ76O2rRAaMXOd58pvj?s=cl&p=i&mlu=0&ilr=0&amv=1"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Entrar para o grupo do WhatsApp de Edson Albertassi"
+              className={cn(
+                "group absolute top-1/2 z-10 flex h-11 w-[116px] -translate-y-1/2 items-center justify-center max-[359px]:h-9 max-[359px]:w-[100px] lg:hidden",
+                showMobileLogo && pathname !== "/"
+                  ? "left-[136px] max-[359px]:left-[116px]"
+                  : "left-1/2 -translate-x-1/2"
+              )}
+            >
+              <Image
+                src="/images/logocantoheader.png"
+                alt="Entre para o grupo no Zap"
+                width={351}
+                height={130}
+                sizes="(max-width: 359px) 100px, 116px"
+                className="h-full w-full object-contain transition-transform duration-200 group-hover:scale-105"
+              />
+            </a>
+          )}
+
+          {/* Ação do grupo no desktop */}
           <a
             href="https://chat.whatsapp.com/KErXZ76O2rRAaMXOd58pvj?s=cl&p=i&mlu=0&ilr=0&amv=1"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Entrar para o grupo do WhatsApp de Edson Albertassi"
-            className={cn(
-              "group absolute right-[240px] top-1/2 z-10 -translate-y-1/2 items-center max-[320px]:right-[80px] sm:right-2 lg:right-8 xl:right-8",
-              isScrolled ? "flex" : "hidden sm:flex"
-            )}
+            className="group absolute right-2 top-1/2 z-10 hidden -translate-y-1/2 items-center lg:right-8 lg:flex xl:right-8"
           >
             <div className="relative h-11 w-[120px] transition-transform duration-200 group-hover:scale-105 max-[359px]:h-9 max-[359px]:w-24 sm:h-14 sm:w-36 lg:h-16 lg:w-40 xl:h-[68px] xl:w-44">
               <Image
