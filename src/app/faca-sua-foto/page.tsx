@@ -2,12 +2,16 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { PhotoStudio } from "@/components/photo-generator/PhotoStudio";
 import { Camera } from "lucide-react";
+import { absoluteUrl } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Faça sua Foto de Perfil | Edson Albertassi 15088",
+  title: "Faça sua Foto de Perfil",
   description:
     "Crie e personalize sua foto de apoio com as molduras oficiais de Edson Albertassi (Deputado Estadual 15088). Formatos para Avatar, Feed, Stories e Moldura Redonda.",
+  alternates: { canonical: "/faca-sua-foto" },
   openGraph: {
+    type: "website",
+    url: absoluteUrl("/faca-sua-foto"),
     title: "Faça sua Foto de Perfil | Edson Albertassi 15088",
     description:
       "Suba sua foto, posicione na moldura oficial e espalhe a mensagem de esperança e fé por todo o Rio de Janeiro.",

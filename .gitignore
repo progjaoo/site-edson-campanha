@@ -2,6 +2,11 @@
 /node_modules
 /.pnp
 .pnp.js
+.env.example
+
+# Documentação local (arquivos já rastreados continuam no histórico)
+/docs/**/*.md
+/plans/**/*.md
 
 # testing
 /coverage

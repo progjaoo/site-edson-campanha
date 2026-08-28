@@ -3,9 +3,11 @@ import Link from "next/link";
 import { ArrowLeft, Shield, Lock, Eye, FileText } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Política de Privacidade & LGPD | Edson Albertassi",
+  title: "Política de Privacidade & LGPD",
   description:
     "Conheça as diretrizes de privacidade, segurança e proteção de dados do site oficial de campanha de Edson Albertassi.",
+  alternates: { canonical: "/politica-de-privacidade" },
+  robots: { index: true, follow: true },
 };
 
 export default function PoliticaPrivacidadePage() {
