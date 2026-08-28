@@ -18,7 +18,7 @@ import { PhotoFormat } from "@/types";
 import { FormatSelector } from "./FormatSelector";
 import { cn } from "@/lib/utils";
 
-const SHARE_SITE_URL = "https://www.edsonalbertassi.com";
+const SHARE_PHOTO_URL = "https://www.edsonalbertassi.com/faca-sua-foto";
 
 function isAppleMobileDevice(): boolean {
   return (
@@ -405,14 +405,17 @@ export function PhotoStudio() {
       // A conversão síncrona preserva a ativação do toque necessária pelo
       // Safari/iOS para abrir a folha nativa de compartilhamento.
       const file = dataUrlToFile(canvas.toDataURL("image/png"), fileName);
-      const shareText = `Criei minha foto oficial de apoio ao Edson Albertassi! Faça a sua também: ${SHARE_SITE_URL}`;
+      // O endereço fica somente em `url`; repetir no texto fazia alguns
+      // aplicativos exibirem o mesmo link duas vezes.
+      const shareText =
+        "Criei minha foto oficial de apoio ao Edson Albertassi! Faça a sua também!";
       const canShareFiles = canShareFile(file);
 
       if (typeof navigator.share === "function" && canShareFiles) {
         await navigator.share({
           title: "Eu Apoio Edson Albertassi 15088",
           text: shareText,
-          url: SHARE_SITE_URL,
+          url: SHARE_PHOTO_URL,
           files: [file],
         });
         return;
@@ -425,7 +428,7 @@ export function PhotoStudio() {
         await navigator.share({
           title: "Eu Apoio Edson Albertassi 15088",
           text: shareText,
-          url: SHARE_SITE_URL,
+          url: SHARE_PHOTO_URL,
         });
         return;
       }
