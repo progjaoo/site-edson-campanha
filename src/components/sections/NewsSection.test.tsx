@@ -60,10 +60,10 @@ describe("NewsSection", () => {
     });
 
     expect(decodeURIComponent(firstImage.getAttribute("src") ?? "")).toContain(
-      "/images/noticias/informa-cidade-edson-albertassi.png",
+      "/images/optimized/informa-cidade-edson-albertassi.webp",
     );
     expect(decodeURIComponent(secondImage.getAttribute("src") ?? "")).toContain(
-      "/images/noticias/agenda-do-poder-edson-albertassi.png",
+      "/images/optimized/agenda-do-poder-edson-albertassi.webp",
     );
   });
 });

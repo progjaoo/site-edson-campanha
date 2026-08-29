@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 
 export function WhatsAppSection() {
@@ -24,10 +21,9 @@ export function WhatsAppSection() {
               <div className="relative -mt-14 flex justify-center sm:-mt-20 lg:-mt-24 lg:justify-start">
                 <div className="relative h-32 w-full max-w-[320px] drop-shadow-2xl sm:h-40 sm:max-w-[420px] md:h-44 md:max-w-[500px] lg:h-48 lg:max-w-[560px]">
                   <Image
-                    src="/images/zap/entrenozap.png"
+                    src="/images/optimized/entrenozap.webp"
                     alt="Entre para o Grupo no Zap"
                     fill
-                    priority
                     className="object-contain object-left"
                     sizes="(max-width: 1024px) 90vw, 560px"
                   />
@@ -57,10 +53,9 @@ export function WhatsAppSection() {
             <div className="relative flex items-end justify-center lg:col-span-5 lg:justify-end">
               <div className="relative h-64 w-full max-w-[300px] drop-shadow-2xl sm:h-80 sm:max-w-[380px] md:h-[400px] md:max-w-[440px] lg:-mb-12 lg:-mt-32 lg:h-[460px] lg:max-w-[500px] xl:h-[500px] xl:max-w-[520px]">
                 <Image
-                  src="/images/zap/zap1.png"
+                  src="/images/optimized/zap1.webp"
                   alt="Edson Albertassi no WhatsApp"
                   fill
-                  priority
                   className="object-contain object-bottom"
                   sizes="(max-width: 768px) 100vw, 520px"
                 />

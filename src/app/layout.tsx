@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Archivo, Archivo_Narrow } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -41,7 +39,7 @@ export const metadata: Metadata = {
     template: "%s | Edson Albertassi",
   },
   description:
-    "Site oficial de Edson Albertassi, candidato a Deputado Estadual pelo Rio de Janeiro. Com coragem, confiança e competência para o desenvolvimento do nosso estado. Tem que ter fé!",
+    "Site oficial de Edson Albertassi, candidato a deputado estadual pelo Rio de Janeiro. Conheça sua história, propostas e como apoiar a campanha 15088.",
   keywords: [
     "Edson Albertassi",
     "Albertassi",
@@ -75,6 +73,9 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  verification: {
+    google: "3FKAibUnI1dkfxsWlmfyYNDQ-Drd1GH52oI0hmXWA58",
   },
   openGraph: {
     type: "website",
@@ -161,18 +162,14 @@ export default function RootLayout({
         <div className="flex-1">{children}</div>
         <Footer />
 
-        {/* Vercel Analytics & Speed Insights */}
-        <Analytics />
-        <SpeedInsights />
-
-        {/* Google Analytics 4 carregado após a hidratação para não bloquear a página. */}
+        {/* Google Analytics 4 carregado depois do carregamento inicial para não bloquear o LCP. */}
         {googleAnalyticsId ? (
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
-            <Script id="google-analytics" strategy="afterInteractive">
+            <Script id="google-analytics" strategy="lazyOnload">
               {`window.dataLayer = window.dataLayer || [];
 function gtag(){window.dataLayer.push(arguments);}
 gtag('js', new Date());

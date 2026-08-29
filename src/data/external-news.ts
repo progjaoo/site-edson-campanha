@@ -21,7 +21,7 @@ export const EXTERNAL_NEWS = [
       "O Órgão Especial do TJ-RJ arquivou por unanimidade a ação da Operação Cadeia Velha após reconhecer nulidade das provas e ausência de justa causa.",
     url: "https://www.informacidade.com.br/edson-albertassi-e-inocentado-pela-justica/",
     image: {
-      src: "/images/noticias/informa-cidade-edson-albertassi.png",
+      src: "/images/optimized/informa-cidade-edson-albertassi.webp",
       alt: "Edson Albertassi discursando ao microfone",
     },
   },
@@ -34,7 +34,7 @@ export const EXTERNAL_NEWS = [
       "O artigo analisa o arquivamento da Operação Cadeia Velha e debate os limites do poder estatal diante de prisões sustentadas por provas consideradas inválidas.",
     url: "https://agendadopoder.com.br/quando-prender-sem-prova-vira-abuso-de-poder/",
     image: {
-      src: "/images/noticias/agenda-do-poder-edson-albertassi.png",
+      src: "/images/optimized/agenda-do-poder-edson-albertassi.webp",
       alt: "Retrato de Edson Albertassi em preto e branco",
     },
   },

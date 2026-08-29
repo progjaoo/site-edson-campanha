@@ -24,7 +24,7 @@ export default function HistoriaPage() {
       <section className="relative overflow-visible bg-[#003967] pt-20 sm:pt-24 lg:pt-28">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
-            src="/images/fundodegrade.png"
+            src="/images/optimized/fundodegrade.webp"
             alt=""
             fill
             priority

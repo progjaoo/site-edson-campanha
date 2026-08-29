@@ -50,10 +50,11 @@ export function HeroSection() {
       {/* Imagem de Fundo Degradê Oficial do Designer */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Image
-          src="/images/fundodegrade.png"
+          src="/images/optimized/fundodegrade.webp"
           alt=""
           fill
-          priority
+          loading="eager"
+          fetchPriority="high"
           className="object-cover object-center"
         />
       </div>
@@ -105,7 +106,6 @@ export function HeroSection() {
                   alt="Tem Que Ter Fé"
                   width={620}
                   height={307}
-                  priority
                   className="w-full h-auto object-contain drop-shadow-lg"
                 />
               </div>
@@ -153,10 +153,9 @@ export function HeroSection() {
           >
             <div className="relative h-[330px] w-full max-w-[460px] overflow-visible sm:h-[480px] sm:max-w-[640px] md:h-[560px] md:max-w-[720px] lg:h-[660px] lg:max-w-[760px] xl:h-[700px] xl:max-w-[860px]">
               <Image
-                src="/images/fotoedsonsec.png"
+                src="/images/optimized/fotoedsonsec.webp"
                 alt="Edson Albertassi - Deputado Estadual 15088"
                 fill
-                priority
                 className="origin-bottom scale-[1.12] transform object-contain object-bottom drop-shadow-2xl sm:scale-[1.15] md:scale-125 lg:scale-[1.3] xl:scale-[1.35]"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 800px"
               />

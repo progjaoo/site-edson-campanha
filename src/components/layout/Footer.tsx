@@ -36,10 +36,9 @@ export function Footer() {
       {/* Imagem de Fundo Oficial do Designer */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Image
-          src="/images/fundodegrade.png"
+          src="/images/optimized/fundodegrade.webp"
           alt=""
           fill
-          priority
           className="object-cover object-bottom"
         />
       </div>

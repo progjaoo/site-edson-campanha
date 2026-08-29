@@ -66,7 +66,7 @@ export default function PoliticaPrivacidadePage() {
               3. Coleta de Dados e Finalidade
             </h2>
             <p className="text-base">
-              Coletamos dados anônimos de navegação exclusivamente para fins de métricas de desempenho e melhoria da experiência do usuário (Vercel Analytics & Speed Insights), sem identificação individual dos usuários.
+              Coletamos dados anônimos de navegação exclusivamente para fins de métricas de audiência, desempenho e melhoria da experiência do usuário por meio do Google Analytics 4, quando habilitado, sem identificação individual dos usuários.
             </p>
           </section>
 
