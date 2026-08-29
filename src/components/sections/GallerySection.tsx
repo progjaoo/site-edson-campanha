@@ -105,7 +105,6 @@ export function GallerySection() {
                     alt={galleryImages[currentIndex].alt}
                     fill
                     className="object-cover"
-                    priority
                   />
                   {/* Overlay inferior para legenda */}
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#003967]/90 via-[#003967]/40 to-transparent p-6 flex items-end">

@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { Instagram, Facebook, Youtube } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
@@ -81,10 +79,9 @@ export function SocialSection() {
             <div className="absolute left-1/2 -translate-x-1/2 bottom-0 z-10 flex justify-center pointer-events-none">
               <div className="relative h-[340px] w-[280px] sm:h-[480px] sm:w-[420px] md:h-[560px] md:w-[540px] lg:h-[620px] lg:w-[660px] xl:h-[700px] xl:w-[720px]">
                 <Image
-                  src="/images/redes-sociais/foto-edson-redessec.png"
+                  src="/images/optimized/foto-edson-redessec.webp"
                   alt="Edson Albertassi - Redes Sociais"
                   fill
-                  priority
                   className="object-contain object-bottom drop-shadow-2xl"
                   sizes="(max-width: 768px) 100vw, 740px"
                 />

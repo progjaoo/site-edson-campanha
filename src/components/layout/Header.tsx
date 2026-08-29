@@ -34,7 +34,7 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[#003967] bg-[url('/images/fundodegrade.png')] bg-cover bg-top py-8 shadow-md sm:py-4 lg:py-5">
+      <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[#003967] bg-[url('/images/optimized/fundodegrade.webp')] bg-cover bg-top py-8 shadow-md sm:py-4 lg:py-5">
         <div className="relative z-10 mx-auto flex w-full max-w-[1440px] items-center justify-center px-2 sm:px-6 lg:px-8">
 
           {/* Logo oficial aparece somente no desktop após o início do scroll */}
@@ -74,7 +74,6 @@ export function Header() {
                 height={62}
                 sizes="(max-width: 359px) 88px, 108px"
                 className="h-auto w-[108px] max-[359px]:w-[88px]"
-                priority
               />
             </Link>
           )}
@@ -118,7 +117,6 @@ export function Header() {
                 alt="Entre para o grupo no Zap"
                 fill
                 className="object-contain"
-                priority
               />
             </div>
           </a>
