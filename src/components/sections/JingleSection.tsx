@@ -1,7 +1,7 @@
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { JingleActions } from "@/components/sections/JingleActions";
 
-const youtubeEmbedUrl = "https://www.youtube.com/embed/q2NE8C12oas?rel=0";
+const youtubeEmbedUrl = "https://www.youtube.com/embed/Y1ilDrqaCCM?rel=0";
 
 export function JingleSection() {
   return (
