@@ -4,11 +4,15 @@ import { ArrowUpRight } from "lucide-react";
 
 const whatsappShareUrl =
   "https://wa.me/?text=" +
-  encodeURIComponent("Ouça o jingle da campanha Edson Albertassi: Tem que ter fé!");
+  encodeURIComponent(
+    "Ouça o jingle da campanha Edson Albertassi: Tem que ter fé!\nhttps://youtu.be/q2NE8C12oas",
+  );
+
+const youtubeJingleUrl = "https://youtu.be/q2NE8C12oas";
 
 export function JingleActions() {
   const handleWatchJingle = () => {
-    document.getElementById("jingle-player")?.scrollIntoView({ behavior: "smooth" });
+    window.open(youtubeJingleUrl, "_blank", "noopener,noreferrer");
   };
 
   const handleShareOnWhatsApp = () => {

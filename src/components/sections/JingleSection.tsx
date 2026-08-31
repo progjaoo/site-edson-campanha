@@ -1,6 +1,7 @@
-import { Music2 } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { JingleActions } from "@/components/sections/JingleActions";
+
+const youtubeEmbedUrl = "https://www.youtube.com/embed/q2NE8C12oas?rel=0";
 
 export function JingleSection() {
   return (
@@ -27,17 +28,14 @@ export function JingleSection() {
           className="relative min-h-[260px] overflow-hidden rounded-3xl bg-[#1256CE] shadow-xl sm:min-h-[360px] lg:col-span-8 lg:min-h-[410px]"
           aria-label="Área do player do jingle"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-[#1256CE] via-[#1256CE] to-[#003967]/80" />
-          <div className="relative flex h-full min-h-[260px] items-center justify-center sm:min-h-[360px] lg:min-h-[410px]">
-            <div className="flex flex-col items-center gap-4 text-center text-white/90">
-              <span className="flex h-16 w-16 items-center justify-center rounded-full border border-white/30 bg-white/10 backdrop-blur-sm">
-                <Music2 className="h-8 w-8 text-[#FBE502]" aria-hidden="true" />
-              </span>
-              <p className="font-archivo text-sm font-bold uppercase tracking-widest text-white/80">
-                Jingle oficial em breve
-              </p>
-            </div>
-          </div>
+          <iframe
+            src={youtubeEmbedUrl}
+            title="Jingle oficial da campanha Edson Albertassi: Tem que ter fé!"
+            loading="lazy"
+            className="absolute inset-0 h-full min-h-[260px] w-full border-0 sm:min-h-[360px] lg:min-h-[410px]"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
         </div>
       </div>
     </AnimatedSection>
