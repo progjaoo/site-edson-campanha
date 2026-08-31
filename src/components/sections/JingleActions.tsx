@@ -5,10 +5,10 @@ import { ArrowUpRight } from "lucide-react";
 const whatsappShareUrl =
   "https://wa.me/?text=" +
   encodeURIComponent(
-    "Ouça o jingle da campanha Edson Albertassi: Tem que ter fé!\nhttps://youtu.be/q2NE8C12oas",
+    "Ouça o jingle da campanha Edson Albertassi: Tem que ter fé!\nhttps://youtu.be/Y1ilDrqaCCM",
   );
 
-const youtubeJingleUrl = "https://youtu.be/q2NE8C12oas";
+const youtubeJingleUrl = "https://youtu.be/Y1ilDrqaCCM";
 
 export function JingleActions() {
   const handleWatchJingle = () => {
