@@ -1,5 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async rewrites() {
+    return [
+      { source: "/redes-sociais", destination: "/" },
+      { source: "/jingle", destination: "/" },
+      { source: "/noticias", destination: "/" },
+    ];
+  },
   async headers() {
     return [
       {

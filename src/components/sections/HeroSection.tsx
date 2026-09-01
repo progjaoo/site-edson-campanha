@@ -95,6 +95,10 @@ export function HeroSection() {
             animate="visible"
             className="z-10 space-y-3 pb-4 text-center sm:space-y-7 sm:pb-12 lg:col-span-6 lg:pb-24 lg:text-left"
             >
+            <h1 className="sr-only">
+              Edson Albertassi — Deputado Estadual 15088 — Tem Que Ter Fé
+            </h1>
+
             {/* Título oficial em SVG para preservar a qualidade em qualquer tela */}
             <motion.div
               variants={fadeInUp}

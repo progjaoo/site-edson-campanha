@@ -4,11 +4,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Calendar, User, ArrowLeft, Share2, Facebook, MessageCircle } from "lucide-react";
 import { getNoticiaBySlug } from "@/lib/news-storage";
-import { absoluteUrl } from "@/lib/site-config";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { createPageMetadata } from "@/lib/seo/metadata";
+import { createArticleJsonLd, createBreadcrumbJsonLd } from "@/lib/seo/structured-data";
 import { formatDate } from "@/lib/utils";
-
-// Mantém o documento alinhado ao build ativo para evitar HTML com chunks antigos.
-export const dynamic = "force-dynamic";
 
 interface PageProps {
   params: Promise<{
@@ -29,24 +28,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const canonicalPath = `/noticias/${noticia.slug}`;
   const imageUrl = noticia.imagemUrl || "/images/fotos-galeria/foto-galeria.svg";
 
-  return {
+  const baseMetadata = createPageMetadata({
     title: noticia.titulo,
     description: noticia.resumo || noticia.titulo,
-    alternates: { canonical: canonicalPath },
+    pathname: canonicalPath,
+    type: "article",
+    image: { url: imageUrl, alt: noticia.titulo },
+  });
+
+  return {
+    ...baseMetadata,
     openGraph: {
-      title: noticia.titulo,
-      description: noticia.resumo || noticia.titulo,
-      url: absoluteUrl(canonicalPath),
-      images: [imageUrl],
-      type: "article",
+      ...baseMetadata.openGraph,
+      type: "article" as const,
       publishedTime: noticia.dataPublicacao,
       authors: [noticia.autor || "Edson Albertassi"],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: noticia.titulo,
-      description: noticia.resumo || noticia.titulo,
-      images: [imageUrl],
     },
   };
 }
@@ -60,53 +56,33 @@ export default async function NoticiaDetailPage({ params }: PageProps) {
   }
 
   const imageUrl = noticia.imagemUrl || "/images/fotos-galeria/foto-galeria.svg";
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "NewsArticle",
+  const jsonLd = createArticleJsonLd({
     headline: noticia.titulo,
-    image: [absoluteUrl(imageUrl)],
-    url: absoluteUrl(`/noticias/${noticia.slug}`),
-    mainEntityOfPage: absoluteUrl(`/noticias/${noticia.slug}`),
-    datePublished: noticia.dataPublicacao,
-    dateModified: noticia.dataPublicacao,
-    articleSection: noticia.categoria || "Notícias",
-    inLanguage: "pt-BR",
-    author: [
-      {
-        "@type": "Person",
-        name: noticia.autor || "Edson Albertassi",
-      },
-    ],
-    publisher: {
-      "@type": "Organization",
-      name: "Edson Albertassi - Campanha Oficial",
-      logo: {
-        "@type": "ImageObject",
-        url: absoluteUrl("/images/logos/logo-header.svg"),
-      },
-    },
     description: noticia.resumo || noticia.titulo,
-  };
+    pathname: `/noticias/${noticia.slug}`,
+    imageUrl,
+    datePublished: noticia.dataPublicacao,
+    authorName: noticia.autor || "Edson Albertassi",
+    section: noticia.categoria || "Notícias",
+  });
+  const breadcrumbJsonLd = createBreadcrumbJsonLd([
+    { name: "Início", pathname: "/" },
+    { name: noticia.titulo, pathname: `/noticias/${noticia.slug}` },
+  ]);
 
   return (
     <main className="min-h-screen bg-white text-brand-dark pt-28 pb-20">
-      {/* Schema.org Rich Snippets */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-        }}
-      />
+      <JsonLd data={[jsonLd, breadcrumbJsonLd]} />
 
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Botão Voltar */}
         <div className="mb-8">
           <Link
-            href="/#noticias"
+            href="/"
             className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-blue hover:text-brand-navy transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Voltar para todas as notícias</span>
+            <span>Voltar para a página inicial</span>
           </Link>
         </div>
 

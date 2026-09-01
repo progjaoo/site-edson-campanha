@@ -24,29 +24,13 @@ Se você desejar exibir um vídeo do YouTube ou arquivo MP4 na seção do Jingle
 
 ---
 
-## 2. Acesso ao Painel de Notícias (Admin)
+## 2. Curadoria de notícias
 
-O site possui um blog/portal de notícias corporativo interno protegido por senha, sem necessidade de banco de dados SQL pesado.
-
-- **URL de Acesso:** `/admin`
-- **Usuário Padrão:** `emilly`
-- **Senha Padrão:** `Conquistas@07`
-
-### Como criar notícias:
-1. Acesse `http://seusite.com.br/admin` e faça login.
-2. Preencha o formulário: **Título**, **Categoria**, **Resumo**, **Conteúdo** e **Upload de Imagem**.
-3. A imagem é convertida em Data URL e persistida junto com a notícia.
-4. A notícia ficará disponível na listagem e na página individual com URL amigável (`/noticias/titulo-da-materia`). A seção de notícias da landing page usa, nesta entrega, duas matérias externas fixas e não é alimentada pelo admin.
+O site não possui mais painel administrativo nem rota de publicação. A seção Notícias da landing page usa duas matérias externas fixas definidas em `src/data/external-news.ts`; alterações passam por revisão de código e validação editorial.
 
 ---
 
-## 3. Upload de imagens
-
-As imagens selecionadas no painel são convertidas em Data URLs pela rota `/api/upload` e persistidas com os dados da notícia. Não é necessário configurar storage externo.
-
----
-
-## 4. Vercel Analytics e Speed Insights
+## 3. Vercel Analytics e Speed Insights
 
 As bibliotecas `@vercel/analytics` e `@vercel/speed-insights` já estão totalmente integradas no `src/app/layout.tsx`.
 
@@ -56,7 +40,7 @@ As bibliotecas `@vercel/analytics` e `@vercel/speed-insights` já estão totalme
 
 ---
 
-## 5. Ferramenta "Faça sua Foto de Apoio"
+## 4. Ferramenta "Faça sua Foto de Apoio"
 
 A ferramenta está disponível em `/faca-sua-foto` e na Hero Section:
 
@@ -72,10 +56,10 @@ A ferramenta está disponível em `/faca-sua-foto` e na Hero Section:
 
 ---
 
-## 6. Estrutura de SEO e Compartilhamento
+## 5. Estrutura de SEO e Compartilhamento
 
-- **Sitemap Dinâmico:** Gerado automaticamente em `/sitemap.xml` com todas as páginas e matérias.
-- **Robots.txt:** Configurado em `/robots.txt` permitindo indexação total e protegendo a área de `/admin`.
+- **Sitemap:** Gerado automaticamente em `/sitemap.xml` apenas com as rotas públicas reais.
+- **Robots.txt:** Configurado em `/robots.txt` permitindo indexação das páginas públicas e mantendo APIs internas fora da descoberta.
 - **Rich Snippets (Schema.org):**
   - Schema `Person` para Edson Albertassi no Google Search.
   - Schema `NewsArticle` para cada notícia publicada.
@@ -83,7 +67,7 @@ A ferramenta está disponível em `/faca-sua-foto` e na Hero Section:
 
 ---
 
-## 7. Como Subir para o GitHub e Fazer o Deploy na Vercel
+## 6. Como Subir para o GitHub e Fazer o Deploy na Vercel
 
 ```bash
 # 1. Inicializar git

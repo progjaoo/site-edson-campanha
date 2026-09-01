@@ -1,25 +1,47 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { absoluteUrl } from "@/lib/site-config";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { createBreadcrumbJsonLd } from "@/lib/seo/structured-data";
+import { createPageMetadata } from "@/lib/seo/metadata";
+import { absoluteUrl, siteUrl } from "@/lib/site-config";
 
-export const metadata: Metadata = {
-  title: "Biografia & História",
+export const metadata: Metadata = createPageMetadata({
+  title: "Biografia e História",
   description:
-    "Conheça a história, trajetória de fé, família e trabalho de Edson Albertassi. Fundador da Rádio 88 FM, 6 mandatos na ALERJ e compromisso com o Rio de Janeiro.",
-  alternates: { canonical: "/historia" },
-  openGraph: {
-    type: "website",
-    url: absoluteUrl("/historia"),
-    title: "Biografia & História | Edson Albertassi",
-    description:
-      "Conheça a trajetória de fé, família e trabalho de Edson Albertassi.",
-    images: ["/images/historia/familia.png"],
+    "Conheça a história, a família e a trajetória pública de Edson Albertassi, fundador da Rádio 88 FM e ex-deputado estadual do Rio de Janeiro.",
+  pathname: "/historia",
+  image: {
+    url: "/images/historia/familia.png",
+    width: 1089,
+    height: 573,
+    alt: "Edson Albertassi com sua família",
+  },
+});
+
+const breadcrumbJsonLd = createBreadcrumbJsonLd([
+  { name: "Início", pathname: "/" },
+  { name: "Biografia e História", pathname: "/historia" },
+]);
+
+const profilePageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  url: absoluteUrl("/historia"),
+  name: "Biografia e História de Edson Albertassi",
+  inLanguage: "pt-BR",
+  mainEntity: {
+    "@type": "Person",
+    "@id": `${siteUrl}/#person`,
+    name: "Edson Albertassi",
+    url: siteUrl,
   },
 };
 
 export default function HistoriaPage() {
   return (
     <main className="min-h-screen overflow-hidden bg-white text-[#051A33]">
+      <JsonLd data={[breadcrumbJsonLd, profilePageJsonLd]} />
+
       {/* Hero visual da história: família, degradê oficial e número da campanha */}
       <section className="relative overflow-visible bg-[#003967] pt-20 sm:pt-24 lg:pt-28">
         <div className="absolute inset-0 z-0 pointer-events-none">

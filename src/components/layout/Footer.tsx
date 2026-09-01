@@ -100,7 +100,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#noticias" className="hover:text-[#FBE502] transition-colors">
+                <Link href="/" className="hover:text-[#FBE502] transition-colors">
                   Notícias & Propostas
                 </Link>
               </li>

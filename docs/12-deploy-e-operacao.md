@@ -12,7 +12,7 @@ Preview nunca deve compartilhar banco, bucket ou credenciais com produção.
 
 ## Plataforma recomendada
 
-Vercel é a opção natural para Next.js. PostgreSQL pode ser hospedado em serviço compatível com Prisma. O upload atual persiste as imagens como Data URLs junto aos dados das notícias, sem dependência de storage externo.
+Vercel é a opção natural para Next.js. O site público atual não possui painel administrativo, APIs de publicação ou upload editorial; os ativos aprovados ficam versionados em `public/`.
 
 ## Pipeline
 
@@ -63,20 +63,13 @@ Monitorar:
 
 - Erros de servidor e cliente.
 - Latência das rotas públicas.
-- Falhas de login e upload sem expor dados sensíveis.
 - Core Web Vitals.
-- Disponibilidade do banco e storage.
-- Falhas de publicação agendada.
 
 Alertas precisam indicar ação e responsável. Analytics de campanha só deve ser ativado após definição de privacidade e consentimento aplicável.
 
 ## Smoke tests
 
 - Landing page responde e exibe ação principal.
-- Uma notícia publicada abre por slug.
-- Admin exige login.
-- Login autorizado chega ao dashboard.
-- Upload editorial funciona.
 - Molduras carregam e uma exportação pode ser gerada.
 - `robots.txt` e `sitemap.xml` estão acessíveis.
 
@@ -92,5 +85,5 @@ Alertas precisam indicar ação e responsável. Analytics de campanha só deve s
 - Forçar HTTPS.
 - Definir domínio canônico único.
 - Redirecionar variantes de `www` conforme decisão oficial.
-- Gerar sitemap com rotas públicas e notícias publicadas.
-- Bloquear admin, prévias e rotas internas em `robots` e metadados.
+- Gerar sitemap somente com rotas públicas reais e canônicas.
+- Manter APIs/rotas administrativas inexistentes fora da descoberta; fragmentos de seção não são URLs indexáveis.
