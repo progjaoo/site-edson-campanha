@@ -8,7 +8,7 @@ export function PhotoCTAActions() {
   };
 
   const handleFollow = () => {
-    window.location.assign("/#redes");
+    window.location.assign("/");
   };
 
   return (

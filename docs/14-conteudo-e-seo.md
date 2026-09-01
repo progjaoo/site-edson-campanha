@@ -54,7 +54,7 @@ O site deve permitir correção transparente. Uma mudança material em notícia 
 - Use `rel="noopener noreferrer"` em links externos com nova aba
 - Verifique links antes de publicar e durante revisões periódicas
 
-### Curadoria fixa da home
+### Curadoria fixa da home e da rota `/noticias`
 
 Na seção final da landing page, a atribuição deve permanecer explícita:
 
@@ -77,10 +77,11 @@ O site não republica o texto integral das matérias; qualquer alteração que m
 - Cada página tem um único título principal
 - Título, descrição e endereço devem representar o conteúdo real
 - Slugs usam palavras descritivas, minúsculas e hífens
-- Notícias usam metadados `NewsArticle`
+- Matérias externas exibidas na home usam atribuição visível e não são marcadas como `NewsArticle` do site
+- Notícias internas futuras, se aprovadas, usam metadados `NewsArticle`
 - Páginas institucionais usam dados estruturados compatíveis com seu conteúdo
 - Conteúdo duplicado aponta para uma URL canônica
-- Páginas administrativas, rascunhos e prévias usam `noindex`
+- Páginas administrativas, rascunhos e prévias inexistentes não entram no sitemap; conteúdos futuros não publicados usam `noindex`
 
 ## Redes sociais
 
