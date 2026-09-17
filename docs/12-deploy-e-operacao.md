@@ -68,7 +68,7 @@ Monitorar:
 - Disponibilidade do banco e storage.
 - Falhas de publicação agendada.
 
-Alertas precisam indicar ação e responsável. Analytics de campanha só deve ser ativado após definição de privacidade e consentimento aplicável.
+Alertas precisam indicar ação e responsável. Google Analytics 4 e Meta Pixel só são carregados após autorização separada para cada finalidade. A escolha fica registrada em cookie próprio por até 180 dias e pode ser alterada pelo link de preferências no rodapé. Novos serviços de analytics ou publicidade exigem atualização da política de privacidade e do controle de consentimento.
 
 ## Smoke tests
 
