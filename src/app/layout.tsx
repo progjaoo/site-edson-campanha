@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
 import { Archivo, Archivo_Narrow } from "next/font/google";
 import Script from "next/script";
+import { cookies } from "next/headers";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { TrackingConsentBanner } from "@/components/layout/TrackingConsent";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { absoluteUrl, siteUrl } from "@/lib/site-config";
+import {
+  parseTrackingConsent,
+  TRACKING_CONSENT_COOKIE,
+} from "@/lib/tracking-consent";
 import { JsonLd } from "@/components/seo/JsonLd";
 import "./globals.css";
 
@@ -25,6 +31,17 @@ const archivoCondensed = Archivo_Narrow({
 const socialImage = "/images/optimized/foto-edson-herosec.png";
 const googleAnalyticsId =
   process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-23WMV8NSDZ";
+const metaPixelId = "1860501818274690";
+const metaPixelBootstrap = `!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '${metaPixelId}');
+fbq('track', 'PageView');`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -103,11 +120,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const trackingConsent = parseTrackingConsent(
+    cookieStore.get(TRACKING_CONSENT_COOKIE)?.value,
+  );
+
   const socialProfiles = [
     "https://www.instagram.com/ealbertassi/",
     "https://www.tiktok.com/@ealbertassi",
@@ -147,15 +169,38 @@ export default function RootLayout({
     <html lang="pt-BR" className={`${archivo.variable} ${archivoCondensed.variable}`}>
       <head>
         <JsonLd data={jsonLd} />
+        <meta
+            name="facebook-domain-verification"
+            content="gk3x5ae7ss9hrelyipy63okhqw69u4"
+          />
+          {trackingConsent?.marketing ? (
+            <script
+              id="meta-pixel"
+              dangerouslySetInnerHTML={{ __html: metaPixelBootstrap }}
+            />
+          ) : null}
       </head>
       <body className="font-archivo min-h-screen flex flex-col antialiased selection:bg-brand-yellow selection:text-brand-dark">
+        {trackingConsent?.marketing ? (
+          <noscript>
+            {/* Meta requires a plain 1×1 request for the no-JavaScript fallback. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              height="1"
+              width="1"
+              style={{ display: "none" }}
+              src={`https://www.facebook.com/tr?id=${metaPixelId}&ev=PageView&noscript=1`}
+              alt=""
+            />
+          </noscript>
+        ) : null}
         <ScrollProgress />
         <Header />
         <div className="flex-1">{children}</div>
         <Footer />
 
         {/* Google Analytics 4 carregado depois do carregamento inicial para não bloquear o LCP. */}
-        {googleAnalyticsId ? (
+        {trackingConsent?.analytics && googleAnalyticsId ? (
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
@@ -169,6 +214,7 @@ gtag('config', ${JSON.stringify(googleAnalyticsId)}, { page_path: window.locatio
             </Script>
           </>
         ) : null}
+        <TrackingConsentBanner />
       </body>
     </html>
   );

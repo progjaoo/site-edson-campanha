@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Instagram, Facebook, Youtube, Shield, Heart, Users } from "lucide-react";
+import { TrackingPreferencesButton } from "@/components/layout/TrackingConsent";
 
 // Ícone TikTok
 function TikTokIcon({ className = "w-4 h-4" }: { className?: string }) {
@@ -178,7 +179,7 @@ export function Footer() {
               </a>
             </div>
 
-            <div className="pt-2">
+            <div className="space-y-1 pt-2">
               <Link
                 href="/politica-de-privacidade"
                 className="flex items-center gap-2 text-xs text-white/70 hover:text-[#FBE502] transition-colors"
@@ -186,6 +187,7 @@ export function Footer() {
                 <Shield className="w-3.5 h-3.5" />
                 <span>Política de Privacidade & LGPD</span>
               </Link>
+              <TrackingPreferencesButton />
             </div>
           </div>
 

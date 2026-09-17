@@ -37,7 +37,7 @@ export default function PoliticaPrivacidadePage() {
             Política de Privacidade e Proteção de Dados
           </h1>
           <p className="text-sm text-gray-500">
-            Última atualização: Agosto de 2026 • Em conformidade com a LGPD (Lei Federal nº 13.709/2018).
+            Última atualização: 17 de setembro de 2026 • Em conformidade com a LGPD (Lei Federal nº 13.709/2018).
           </p>
         </div>
 
@@ -69,7 +69,7 @@ export default function PoliticaPrivacidadePage() {
               3. Coleta de Dados e Finalidade
             </h2>
             <p className="text-base">
-              Coletamos dados anônimos de navegação exclusivamente para fins de métricas de audiência, desempenho e melhoria da experiência do usuário por meio do Google Analytics 4, quando habilitado, sem identificação individual dos usuários.
+              Usamos o Google Analytics 4 para estatísticas de audiência e o Meta Pixel para medir visitas relacionadas aos anúncios da campanha. Essas ferramentas opcionais só são carregadas quando você autoriza a finalidade correspondente. Quando ativadas, podem receber informações sobre páginas visitadas, interações, navegador e dispositivo, além de usar cookies ou identificadores de publicidade. Essas informações podem ser processadas pelo Google e pela Meta conforme as políticas próprias de cada serviço. Você pode aceitar, recusar ou escolher cada finalidade e alterar sua decisão pelo link “Preferências de cookies” no rodapé. Guardamos essa escolha em um cookie próprio por até 180 dias.
             </p>
           </section>
 
