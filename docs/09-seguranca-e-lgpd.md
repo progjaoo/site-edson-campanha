@@ -76,7 +76,7 @@ A página pública deve explicar:
 - Canal de contato do controlador.
 - Data da última atualização.
 
-Scripts opcionais de audiência e publicidade permanecem desativados até a autorização correspondente. Google Analytics 4 e Meta Pixel possuem escolhas separadas; a pessoa pode alterar ou retirar a escolha pelo link de preferências no rodapé. A política informa as finalidades, os dados técnicos que podem ser enviados e os terceiros envolvidos.
+Scripts opcionais de audiência e publicidade permanecem desativados até a autorização. Google Analytics 4 e Meta Pixel são aceitos ou recusados em conjunto; a pessoa pode alterar ou retirar a escolha pelo link de preferências no rodapé. A política informa as finalidades, os dados técnicos que podem ser enviados e os terceiros envolvidos.
 
 ## Checklist antes do lançamento
 

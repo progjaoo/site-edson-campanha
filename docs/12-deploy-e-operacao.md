@@ -65,7 +65,7 @@ Monitorar:
 - Latência das rotas públicas.
 - Core Web Vitals.
 
-Alertas precisam indicar ação e responsável. Google Analytics 4 e Meta Pixel só são carregados após autorização separada para cada finalidade. A escolha fica registrada em cookie próprio por até 180 dias e pode ser alterada pelo link de preferências no rodapé. Novos serviços de analytics ou publicidade exigem atualização da política de privacidade e do controle de consentimento.
+Alertas precisam indicar ação e responsável. Google Analytics 4 e Meta Pixel só são carregados após aceitação conjunta dos cookies opcionais; ao recusar, ambos permanecem desativados. A escolha fica registrada em cookie próprio por até 180 dias e pode ser alterada pelo link de preferências no rodapé. Novos serviços de analytics ou publicidade exigem atualização da política de privacidade e do controle de consentimento.
 
 ## Smoke tests
 

@@ -23,22 +23,13 @@ function readSavedConsent() {
 export function TrackingConsentBanner() {
   const [ready, setReady] = useState(false);
   const [open, setOpen] = useState(false);
-  const [analytics, setAnalytics] = useState(false);
-  const [marketing, setMarketing] = useState(false);
 
   useEffect(() => {
     const savedConsent = readSavedConsent();
-    setAnalytics(savedConsent?.analytics ?? false);
-    setMarketing(savedConsent?.marketing ?? false);
     setOpen(savedConsent === null);
     setReady(true);
 
-    const openPreferences = () => {
-      const currentConsent = readSavedConsent();
-      setAnalytics(currentConsent?.analytics ?? false);
-      setMarketing(currentConsent?.marketing ?? false);
-      setOpen(true);
-    };
+    const openPreferences = () => setOpen(true);
 
     window.addEventListener(OPEN_PREFERENCES_EVENT, openPreferences);
     return () => {
@@ -46,10 +37,10 @@ export function TrackingConsentBanner() {
     };
   }, []);
 
-  const saveConsent = (nextAnalytics: boolean, nextMarketing: boolean) => {
+  const saveConsent = (accepted: boolean) => {
     const value = serializeTrackingConsent({
-      analytics: nextAnalytics,
-      marketing: nextMarketing,
+      analytics: accepted,
+      marketing: accepted,
     });
     const secure = window.location.protocol === "https:" ? "; Secure" : "";
 
@@ -65,22 +56,22 @@ export function TrackingConsentBanner() {
       aria-describedby="tracking-consent-description"
       className="fixed inset-x-0 bottom-0 z-[100] border-t border-slate-200 bg-white/95 shadow-2xl backdrop-blur"
     >
-      <div className="mx-auto grid max-w-7xl gap-5 px-4 py-5 sm:px-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:px-8">
-        <div className="space-y-3">
+      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
+        <div className="min-w-0">
           <div>
             <h2
               id="tracking-consent-title"
-              className="font-archivo text-base font-bold text-[#051A33]"
+              className="font-archivo text-sm font-bold text-[#051A33]"
             >
-              Suas preferências de privacidade
+              Privacidade e cookies
             </h2>
             <p
               id="tracking-consent-description"
-              className="mt-1 max-w-3xl text-sm leading-relaxed text-slate-700"
+              className="mt-1 max-w-3xl text-xs leading-relaxed text-slate-700 sm:text-sm"
             >
-              Ferramentas opcionais ajudam a entender a audiência e medir os
-              anúncios da campanha. Você pode escolher cada finalidade agora e
-              alterar sua decisão depois no rodapé. Consulte a{" "}
+              Usamos cookies opcionais para estatísticas de audiência e anúncios.
+              Eles só são ativados se você aceitar. Você pode alterar sua decisão
+              depois no rodapé. Consulte a{" "}
               <Link
                 href="/politica-de-privacidade"
                 className="font-semibold text-[#1256CE] underline underline-offset-2"
@@ -90,50 +81,22 @@ export function TrackingConsentBanner() {
               .
             </p>
           </div>
-
-          <div className="flex flex-col gap-2 sm:flex-row sm:gap-6">
-            <label className="inline-flex min-h-11 cursor-pointer items-center gap-2 text-sm text-slate-800">
-              <input
-                type="checkbox"
-                checked={analytics}
-                onChange={(event) => setAnalytics(event.target.checked)}
-                className="h-4 w-4 accent-[#1256CE]"
-              />
-              <span>Estatísticas de audiência (Google Analytics)</span>
-            </label>
-            <label className="inline-flex min-h-11 cursor-pointer items-center gap-2 text-sm text-slate-800">
-              <input
-                type="checkbox"
-                checked={marketing}
-                onChange={(event) => setMarketing(event.target.checked)}
-                className="h-4 w-4 accent-[#1256CE]"
-              />
-              <span>Medição de anúncios (Meta Pixel)</span>
-            </label>
-          </div>
         </div>
 
-        <div className="flex flex-wrap gap-2 lg:justify-end">
+        <div className="flex shrink-0 gap-2 md:justify-end">
           <button
             type="button"
-            onClick={() => saveConsent(false, false)}
-            className="min-h-11 rounded border border-slate-300 px-4 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1256CE]"
+            onClick={() => saveConsent(false)}
+            className="min-h-10 flex-1 whitespace-nowrap rounded border border-slate-300 px-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1256CE] sm:px-4 sm:text-sm md:flex-none"
           >
             Recusar opcionais
           </button>
           <button
             type="button"
-            onClick={() => saveConsent(analytics, marketing)}
-            className="min-h-11 rounded border border-[#1256CE] px-4 text-sm font-semibold text-[#1256CE] transition-colors hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1256CE]"
+            onClick={() => saveConsent(true)}
+            className="min-h-10 flex-1 whitespace-nowrap rounded bg-[#1256CE] px-3 text-xs font-bold text-white transition-colors hover:bg-[#003967] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1256CE] sm:px-4 sm:text-sm md:flex-none"
           >
-            Salvar seleção
-          </button>
-          <button
-            type="button"
-            onClick={() => saveConsent(true, true)}
-            className="min-h-11 rounded bg-[#1256CE] px-4 text-sm font-bold text-white transition-colors hover:bg-[#003967] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1256CE]"
-          >
-            Aceitar todas
+            Aceitar opcionais
           </button>
         </div>
       </div>
