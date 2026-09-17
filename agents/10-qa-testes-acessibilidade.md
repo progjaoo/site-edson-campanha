@@ -35,8 +35,8 @@ Demonstrar que os fluxos atendem aos critérios de aceite, continuam seguros ap�
 | Área | Verificação principal |
 | --- | --- |
 | Landing page | Navegação, responsividade, links e conteúdo |
-| Blog | Rascunho, publicação, slug, paginação e SEO |
-| Admin | Login, função, validação e auditoria |
+| Notícias na home | Dois cards externos, fonte, data, destino e SEO |
+| Rotas removidas | Ausência de `/admin`, APIs administrativas e slugs antigos |
 | Banner | Período, prioridade e estados |
 | Gerador | Upload, gestos, dimensões e privacidade |
 | Mídia | Formato, tamanho, erro e referência ativa |

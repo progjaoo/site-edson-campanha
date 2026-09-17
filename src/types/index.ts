@@ -27,8 +27,3 @@ export interface FrameTemplate {
   imageSrc: string;
   description: string;
 }
-
-export interface AdminUser {
-  username: string;
-  role: "admin";
-}

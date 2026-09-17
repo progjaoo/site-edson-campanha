@@ -14,7 +14,12 @@ export function Header() {
   const pathname = usePathname();
   const showMobileLogo =
     isScrolled &&
-    (pathname === "/" || pathname === "/faca-sua-foto" || pathname === "/historia");
+    (pathname === "/" ||
+      pathname === "/redes-sociais" ||
+      pathname === "/jingle" ||
+      pathname === "/faca-sua-foto" ||
+      pathname === "/historia" ||
+      pathname === "/noticias");
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 24);
@@ -25,11 +30,11 @@ export function Header() {
   }, []);
 
   const navLinks = [
-    { label: "REDES", href: "/#zap" },
-    { label: "JINGLE", href: "/#jingle" },
+    { label: "REDES", href: "/redes-sociais" },
+    { label: "JINGLE", href: "/jingle" },
     { label: "FAÇA SUA FOTO", href: "/faca-sua-foto", highlight: true, icon: Camera },
     { label: "HISTÓRIA", href: "/historia" },
-    { label: "NOTÍCIAS", href: "/#noticias" },
+    { label: "NOTÍCIAS", href: "/noticias" },
   ];
 
   return (
@@ -125,7 +130,8 @@ export function Header() {
           <nav className="hidden items-center gap-4 lg:flex xl:gap-7">
             {navLinks.map((item) => {
               const isFacaSuaFoto = item.highlight;
-              const isActive = pathname === item.href;
+              // Every navigation item now points to a real public route.
+              const isActive = item.href !== "/" && pathname === item.href;
 
               if (isFacaSuaFoto) {
                 return (

@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Shield, Lock, Eye, FileText } from "lucide-react";
+import { createPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = {
-  title: "Política de Privacidade & LGPD",
-  description:
-    "Conheça as diretrizes de privacidade, segurança e proteção de dados do site oficial de campanha de Edson Albertassi.",
-  alternates: { canonical: "/politica-de-privacidade" },
+  ...createPageMetadata({
+    title: "Política de Privacidade e LGPD",
+    description:
+      "Conheça as diretrizes de privacidade, segurança e proteção de dados do site oficial de Edson Albertassi.",
+    pathname: "/politica-de-privacidade",
+  }),
   robots: { index: true, follow: true },
 };
 

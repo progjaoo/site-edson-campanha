@@ -11,11 +11,8 @@ import {
   parseTrackingConsent,
   TRACKING_CONSENT_COOKIE,
 } from "@/lib/tracking-consent";
+import { JsonLd } from "@/components/seo/JsonLd";
 import "./globals.css";
-
-// O HTML precisa acompanhar cada deploy para não ficar preso a hashes antigos
-// de chunks quando a Hostinger/CDN mantém a página em cache.
-export const dynamic = "force-dynamic";
 
 const archivo = Archivo({
   subsets: ["latin"],
@@ -104,7 +101,7 @@ export const metadata: Metadata = {
     siteName: "Edson Albertassi Oficial",
     images: [
       {
-        url: socialImage,
+        url: absoluteUrl(socialImage),
         width: 1600,
         height: 1866,
         alt: "Edson Albertassi - Deputado Estadual 15088",
@@ -115,7 +112,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Edson Albertassi | Deputado Estadual 15088",
     description: "Com coragem, confiança e competência. Tem que ter fé!",
-    images: [socialImage],
+    images: [absoluteUrl(socialImage)],
   },
   icons: {
     icon: "/images/logos/logo-header.svg",
@@ -168,25 +165,20 @@ export default async function RootLayout({
     ],
   };
 
-  const jsonLdString = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
-
   return (
     <html lang="pt-BR" className={`${archivo.variable} ${archivoCondensed.variable}`}>
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: jsonLdString }}
-        />
+        <JsonLd data={jsonLd} />
         <meta
-          name="facebook-domain-verification"
-          content="gk3x5ae7ss9hrelyipy63okhqw69u4"
-        />
-        {trackingConsent?.marketing ? (
-          <script
-            id="meta-pixel"
-            dangerouslySetInnerHTML={{ __html: metaPixelBootstrap }}
+            name="facebook-domain-verification"
+            content="gk3x5ae7ss9hrelyipy63okhqw69u4"
           />
-        ) : null}
+          {trackingConsent?.marketing ? (
+            <script
+              id="meta-pixel"
+              dangerouslySetInnerHTML={{ __html: metaPixelBootstrap }}
+            />
+          ) : null}
       </head>
       <body className="font-archivo min-h-screen flex flex-col antialiased selection:bg-brand-yellow selection:text-brand-dark">
         {trackingConsent?.marketing ? (

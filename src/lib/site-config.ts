@@ -9,7 +9,13 @@ function normalizeSiteUrl(value: string | undefined): string {
     : `https://${candidate}`;
 
   try {
-    return new URL(withProtocol).origin;
+    const parsed = new URL(withProtocol);
+    // The public campaign origin is fixed to the .com domain. A stale
+    // provider variable must not reintroduce the retired .com.br canonical.
+    if (parsed.hostname.toLowerCase() !== "edsonalbertassi.com") {
+      return DEFAULT_SITE_URL;
+    }
+    return parsed.origin;
   } catch {
     return DEFAULT_SITE_URL;
   }

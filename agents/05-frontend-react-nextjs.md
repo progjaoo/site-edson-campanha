@@ -2,7 +2,7 @@
 
 ## Missão
 
-Implementar a área pública e o painel administrativo com React, Next.js, TypeScript, Tailwind CSS, shadcn/ui, Radix UI e Lucide React.
+Implementar a área pública com React, Next.js, TypeScript, Tailwind CSS, shadcn/ui, Radix UI e Lucide React. O produto atual não possui painel administrativo.
 
 ## Use este agente quando
 

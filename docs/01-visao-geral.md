@@ -32,22 +32,17 @@ O site deve apresentar a atuação e as mensagens institucionais de Edson Albert
 - Seção de redes sociais com Instagram em evidência.
 - Banner de evento, reunião, adesivaço ou comunicado.
 - Seção final com duas matérias externas fixas, atribuídas ao veículo e à data de publicação.
-- Listagem de notícias com paginação.
-- Página individual de notícia com metadados sociais e SEO.
+- Curadoria de duas matérias externas na seção Notícias da home.
 - Rodapé com redes, informações legais e canais oficiais.
 
-### Área administrativa
+### Conteúdo editorial
 
-- Login protegido.
-- Dashboard com resumo do conteúdo.
-- Criar, editar, visualizar, publicar e arquivar notícias.
-- Criar, programar, ativar e desativar banners.
-- Gerenciar imagens públicas e textos alternativos.
-- Gerenciar molduras oficiais do gerador de imagens.
+- A seção Notícias aparece na home; o caminho `/noticias` é um alias que rola até ela, sempre com as duas matérias externas aprovadas.
+- Não existe área administrativa ou fluxo de publicação dentro do site atual.
 
 ### Ordem da landing page
 
-A home segue a ordem definida para a entrega atual: **Hero → WhatsApp → Redes sociais → Galeria → Notícias**. A seção de notícias é a última dentro de `main` e apresenta somente os dois cards externos aprovados. O admin e as páginas internas continuam disponíveis para o fluxo editorial existente, mas não alimentam essa seção da home.
+A home segue a ordem definida para a entrega atual: **Hero → WhatsApp → Redes sociais → Galeria → Notícias**. A seção de notícias é a última dentro de `main` e apresenta somente os dois cards externos aprovados. O alias `/noticias` mantém a mesma landing page e não cria notícias internas.
 
 ### Gerador de imagens
 
@@ -71,7 +66,7 @@ A home segue a ordem definida para a entrega atual: **Hero → WhatsApp → Rede
 ## Critérios de sucesso
 
 - Um visitante encontra e inicia **Faça sua foto** em até dois cliques.
-- A equipe publica uma notícia sem intervenção técnica.
+- A equipe consegue revisar a curadoria e publicar alterações por meio de deploy.
 - Os três formatos são gerados corretamente em celular e desktop.
 - A landing page mantém boa leitura entre 320 px e telas largas.
 - Conteúdo essencial permanece utilizável com teclado e tecnologias assistivas.

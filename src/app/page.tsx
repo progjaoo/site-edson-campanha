@@ -5,10 +5,12 @@ import { NewsSection } from "@/components/sections/NewsSection";
 import { WhatsAppSection } from "@/components/sections/WhatsAppSection";
 import { JingleSection } from "@/components/sections/JingleSection";
 import { PhotoCTASection } from "@/components/sections/PhotoCTASection";
+import { SectionRouteSync } from "@/components/sections/SectionRouteSync";
 
 export default function HomePage() {
   return (
     <main className="min-h-screen">
+      <SectionRouteSync />
       {/* 1. Hero Section com Foto, Título, Subtexto e Botões */}
       <HeroSection />
 

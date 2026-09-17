@@ -8,7 +8,7 @@ O site [cirogomes.com.br](https://cirogomes.com.br/) foi usado como referência 
 - Hero de alto impacto com chamadas de mobilização.
 - Seções institucionais organizadas em grandes blocos cromáticos.
 - Destaque para redes sociais e WhatsApp.
-- Listagem e página individual de notícias.
+- Seção de notícias na home com matérias externas curadas.
 - Gerador de peças com upload, enquadramento, temas e download.
 - Tratamentos próprios para desktop e mobile.
 
@@ -21,16 +21,16 @@ O projeto preserva os padrões funcionais úteis e reorganiza o conteúdo confor
 | Faça sua foto | Rota própria e chamada recorrente na landing page |
 | Grupo de apoiadores | Composição com Edson e celular central |
 | Redes sociais | Instagram em evidência e demais redes como apoio |
-| Divulgação temporária | Banner administrável e programável |
+| Divulgação temporária | Banner mantido no código e revisado antes do deploy |
 | Duas matérias sobre Justiça | Cards externos fixos com veículo, data e link para a fonte |
-| Atualização sem desenvolvedor | Painel para notícias, banners, mídia e molduras |
+| Atualização do conteúdo | Alteração editorial revisada no código e publicada por deploy |
 
 ## Diferenças intencionais
 
 - A identidade visual será própria da campanha de Edson.
 - A selfie será processada localmente e não armazenada.
 - O layout usa uma única estrutura semântica responsiva, evitando duplicação completa por dispositivo.
-- O blog e o admin usam Prisma e PostgreSQL em vez de um CMS externo; a home mantém uma curadoria externa fixa para as duas matérias desta entrega.
+- A home exibe a curadoria externa fixa para as duas matérias; o alias `/noticias` rola até essa seção sem criar uma página independente. Não há painel administrativo nem notícias internas nesta entrega.
 - Acessibilidade, auditoria e privacidade são requisitos explícitos.
 
 ## Fases
@@ -50,19 +50,16 @@ O projeto preserva os padrões funcionais úteis e reorganiza o conteúdo confor
 - Criar tokens e componentes-base.
 - Configurar Prisma, PostgreSQL e seed seguro.
 
-### Fase 2: conteúdo público
+### Fase 2: conteúdo público (entregue)
 
 - Implementar landing page responsiva.
-- Implementar os dois cards externos da home e manter notícias internas e seus metadados.
+- Implementar os dois cards externos da home, com fonte, data e link seguro para cada veículo.
 - Integrar banners, apoiadores e redes.
 - Implementar sitemap, robots e página de privacidade.
 
-### Fase 3: administração
+### Fase 3: administração (fora do escopo atual)
 
-- Implementar autenticação e funções.
-- Criar CRUD editorial e prévia.
-- Criar gerenciamento de banners e mídias.
-- Adicionar auditoria.
+- Não há implementação prevista nesta versão. Qualquer retomada precisa de novo escopo, modelo de dados e revisão de segurança.
 
 ### Fase 4: gerador
 

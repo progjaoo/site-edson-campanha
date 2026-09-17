@@ -1,6 +1,6 @@
 # Documentação do projeto
 
-Este diretório é a fonte de verdade para a construção e manutenção do site institucional da campanha de Edson Albertassi. O produto é uma aplicação web responsiva, construída com Next.js e React, com blog, painel administrativo, banners de campanha e um gerador de imagens para apoiadores.
+Este diretório é a fonte de verdade para a construção e manutenção do site institucional da campanha de Edson Albertassi. O produto é uma aplicação web responsiva, construída com Next.js e React, com curadoria editorial na home, banners de campanha e um gerador de imagens para apoiadores.
 
 ## Ordem recomendada de leitura
 
@@ -10,7 +10,7 @@ Este diretório é a fonte de verdade para a construção e manutenção do site
 4. [Design system](./04-design-system.md)
 5. [Padrões de frontend](./05-frontend.md)
 6. [Banco de dados](./06-banco-de-dados.md)
-7. [Blog, banners e administração](./07-blog-e-admin.md)
+7. [Conteúdo editorial e curadoria](./07-blog-e-admin.md)
 8. [Gerador de imagens](./08-gerador-de-imagens.md)
 9. [Segurança, privacidade e LGPD](./09-seguranca-e-lgpd.md)
 10. [Testes e qualidade](./10-testes-e-qualidade.md)
@@ -35,7 +35,7 @@ Este diretório é a fonte de verdade para a construção e manutenção do site
 | Banco e ORM | PostgreSQL e Prisma |
 | Interface | Tailwind CSS, shadcn/ui e Radix UI |
 | Ícones | Lucide React |
-| Autenticação | Auth.js com acesso administrativo por função |
+| Autenticação | Não há área administrativa no produto atual |
 | Arquivos públicos | Storage compatível com S3 |
 | Fotos de apoiadores | Processamento local no navegador com Canvas |
 | Testes | Vitest, Testing Library e Playwright |
@@ -51,7 +51,7 @@ Este diretório é a fonte de verdade para a construção e manutenção do site
 
 ## Escopo atual
 
-O primeiro lançamento inclui landing page, notícias, página de notícia, banners de divulgação, redes sociais, bloco de apoiadores, painel administrativo e geração de avatar, post e story. Recursos fora desse escopo só entram após uma decisão registrada no roadmap.
+O primeiro lançamento inclui landing page com curadoria de matérias externas, banners de divulgação, redes sociais, bloco de apoiadores e geração de avatar, post e story. O alias `/noticias` mantém a mesma landing page, sem painel administrativo ou notícias internas. Recursos fora desse escopo só entram após uma decisão registrada no roadmap.
 
 ## Como atualizar esta documentação
 

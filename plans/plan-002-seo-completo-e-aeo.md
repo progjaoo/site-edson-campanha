@@ -1,10 +1,12 @@
 # Plano 002 — SEO completo, AEO e medição do site
 
-**Status:** Planejamento — não implementado  
-**Tipo:** Aplicação web pública / campanha institucional  
-**Stack:** Next.js App Router, React, TypeScript, Tailwind CSS, Vitest  
-**Measurement ID informado:** `G-PV8CGX49ZK`  
-**Domínios previstos:** `edsonalbertassi.com` e `edsonalbertassi.com.br`
+**Status:** Superseded by `plans/plan-003-seo-indexacao-e-remocao-admin.md`
+**Tipo:** Aplicação web pública / campanha institucional
+**Stack:** Next.js App Router, React, TypeScript, Tailwind CSS, Vitest
+**Measurement ID informado:** `G-PV8CGX49ZK`
+**Domínio canônico aprovado:** `edsonalbertassi.com`
+
+> Este documento permanece como histórico do diagnóstico amplo. Para a execução atual, prevalece o plano 003: a seção de notícias fica na home e pode ser alcançada pelo alias `/noticias` (sem página independente), as três notícias legadas foram removidas e o painel administrativo foi excluído.
 
 ## Objetivo
 
@@ -48,9 +50,9 @@ Documentos lidos e aplicáveis:
 
 ### Domínio canonical
 
-Recomendação inicial: usar `https://edsonalbertassi.com.br/` como domínio canonical porque o código atual já usa esse endereço como fallback em `src/app/layout.tsx`, `src/app/robots.ts` e `src/app/sitemap.ts`.
+O domínio aprovado pelo usuário é `https://edsonalbertassi.com/`, que deve ser usado como canonical em metadata, robots, sitemap e dados estruturados.
 
-- `https://edsonalbertassi.com` deve responder com redirect permanente `301` para `https://edsonalbertassi.com.br`.
+- `https://edsonalbertassi.com.br` é domínio secundário e, se estiver apontado ao mesmo host, deve responder com redirect permanente `301` para `https://edsonalbertassi.com`.
 - Versões `http://`, `www` e combinações de barra final devem convergir para a mesma origem canonical.
 - Se a equipe decidir que o `.com` será o endereço principal, todas as etapas abaixo devem trocar a origem antes da implementação; não manter dois canonicals.
 - A propriedade canonical deve ser configurada em `NEXT_PUBLIC_SITE_URL`, sem duplicar domínio em código, JSON-LD, sitemap ou imagens sociais.
