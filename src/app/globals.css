@@ -135,3 +135,33 @@ h1, h2, h3, h4, h5, h6, p, span, a, button, input, textarea, select {
 .wave-bar {
   animation: soundWave 1.2s ease-in-out infinite;
 }
+
+@media print {
+  header,
+  footer,
+  .no-print,
+  [aria-label="Barra de progresso da página"] {
+    display: none !important;
+  }
+
+  body,
+  main {
+    background: #fff !important;
+  }
+
+  main {
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+
+  .print-sheet {
+    margin: 0 !important;
+    border: 0 !important;
+    padding: 0 !important;
+  }
+
+  .print-sheet > div {
+    min-height: 0 !important;
+    box-shadow: none !important;
+  }
+}

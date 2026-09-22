@@ -30,6 +30,7 @@ export function Header() {
   }, []);
 
   const navLinks = [
+    { label: "COLINHA", href: "/colinha-eleitoral" },
     { label: "REDES", href: "/redes-sociais" },
     { label: "JINGLE", href: "/jingle" },
     { label: "FAÇA SUA FOTO", href: "/faca-sua-foto", highlight: true, icon: Camera },
