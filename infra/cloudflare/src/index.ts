@@ -98,4 +98,3 @@ export default {
     await env.DB.prepare("SELECT 1").first();
   },
 };
-

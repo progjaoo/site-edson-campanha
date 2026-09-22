@@ -70,4 +70,3 @@ gtag('config', ${JSON.stringify(googleAnalyticsId)}, { page_path: window.locatio
     </>
   );
 }
-

@@ -55,4 +55,3 @@ export const BALLOT_SLOTS: Array<{
   { id: "deputadoFederal", label: "Deputado Federal", officeCode: "6", scope: "RJ", required: true },
   { id: "deputadoEstadual", label: "Deputado Estadual", officeCode: "7", scope: "RJ", required: true },
 ];
-
