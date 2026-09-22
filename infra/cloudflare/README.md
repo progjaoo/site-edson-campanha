@@ -39,3 +39,5 @@ O `scheduled` está configurado quatro vezes ao dia, mas é um gancho inerte at�
 ## Limites e alternativa de crescimento
 
 Esta implementação usa D1, R2 e Workers sem produto pago adicional. O tamanho atual do D1 é aproximadamente 0,51 MB e o conjunto de fotos tem aproximadamente 16 MB. Se o painel indicar que o uso se aproxima do limite gratuito, mantenha o snapshot estático no Hostinger e deixe o R2 apenas como cache de imagens; a interface continua funcionando pelo fallback local. Não habilite Analytics, Meta Pixel ou outro serviço de medição nesta rota.
+
+Referência de monitoramento do plano gratuito em 22/09/2026: Workers têm limite de 100.000 requisições por dia; D1 inclui 5 milhões de linhas lidas/dia, 100.000 linhas escritas/dia e 5 GB de armazenamento; R2 Standard inclui 10 GB-mês, 1 milhão de operações de escrita (Classe A), 10 milhões de leituras (Classe B) e egress gratuito. Ao exceder D1 Free, as consultas falham até o reset diário; no R2, o excesso pode ser faturado. A alternativa sem custo é continuar servindo o snapshot e as fotos locais pelo Hostinger e usar o R2 somente dentro desses limites.
