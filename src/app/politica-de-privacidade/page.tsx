@@ -37,7 +37,7 @@ export default function PoliticaPrivacidadePage() {
             Política de Privacidade e Proteção de Dados
           </h1>
           <p className="text-sm text-gray-500">
-            Última atualização: 17 de setembro de 2026 • Em conformidade com a LGPD (Lei Federal nº 13.709/2018).
+            Última atualização: 22 de setembro de 2026 • Em conformidade com a LGPD (Lei Federal nº 13.709/2018).
           </p>
         </div>
 
@@ -54,6 +54,15 @@ export default function PoliticaPrivacidadePage() {
           </section>
 
           <section className="space-y-3">
+            <h2 className="font-archivo font-bold text-xl text-brand-navy">
+              3. Colinha eleitoral (tratamento local)
+            </h2>
+            <p className="text-base">
+              A página <strong>/colinha-eleitoral</strong> foi criada para consulta pessoal e não carrega Google Analytics, Meta Pixel, anúncios ou outros serviços de medição. A lista de candidatos é uma cópia de dados públicos do TSE; sua escolha fica no armazenamento local do navegador para que você possa voltar, imprimir ou baixar a colinha. Não há login, formulário, perfil de eleitor ou envio automático dessas escolhas para a campanha. Se você limpar os dados do navegador, a seleção local poderá ser apagada.
+            </p>
+          </section>
+
+          <section className="space-y-3">
             <h2 className="font-archivo font-bold text-xl text-brand-navy flex items-center gap-2">
               <Eye className="w-5 h-5 text-brand-blue" />
               2. Ferramenta &quot;Faça sua Foto&quot; (Processamento Local)
@@ -66,16 +75,16 @@ export default function PoliticaPrivacidadePage() {
           <section className="space-y-3">
             <h2 className="font-archivo font-bold text-xl text-brand-navy flex items-center gap-2">
               <FileText className="w-5 h-5 text-brand-blue" />
-              3. Coleta de Dados e Finalidade
+              4. Coleta de Dados e Finalidade
             </h2>
             <p className="text-base">
-              Usamos o Google Analytics 4 para estatísticas de audiência e o Meta Pixel para medir visitas relacionadas aos anúncios da campanha. Essas ferramentas opcionais só são carregadas quando você aceita os cookies opcionais; ao aceitar, ambas são ativadas, e ao recusar, ambas permanecem desativadas. Quando ativadas, podem receber informações sobre páginas visitadas, interações, navegador e dispositivo, além de usar cookies ou identificadores de publicidade. Essas informações podem ser processadas pelo Google e pela Meta conforme as políticas próprias de cada serviço. Você pode alterar sua decisão pelo link “Preferências de cookies” no rodapé. Guardamos essa escolha em um cookie próprio por até 180 dias.
+              Em páginas gerais do site, usamos o Google Analytics 4 para estatísticas de audiência e o Meta Pixel para medir visitas relacionadas aos anúncios da campanha. Essas ferramentas opcionais só são carregadas quando você aceita os cookies opcionais; ao aceitar, ambas são ativadas, e ao recusar, ambas permanecem desativadas. Quando ativadas, podem receber informações sobre páginas visitadas, interações, navegador e dispositivo, além de usar cookies ou identificadores de publicidade. Essas informações podem ser processadas pelo Google e pela Meta conforme as políticas próprias de cada serviço. A página da colinha eleitoral é uma exceção intencional: nela esses scripts não são renderizados, mesmo que uma preferência tenha sido aceita em outra página. Você pode alterar sua decisão pelo link “Preferências de cookies” no rodapé. Guardamos essa escolha em um cookie próprio por até 180 dias.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="font-archivo font-bold text-xl text-brand-navy">
-              4. Direitos do Titular (LGPD)
+              5. Direitos do Titular (LGPD)
             </h2>
             <p className="text-base">
               Conforme o artigo 18 da Lei Geral de Proteção de Dados, você tem o direito de solicitar a qualquer momento a confirmação da existência de tratamento, o acesso aos dados e a eliminação de dados pessoais que tenham sido fornecidos mediante consentimento.
@@ -84,7 +93,7 @@ export default function PoliticaPrivacidadePage() {
 
           <section className="space-y-3">
             <h2 className="font-archivo font-bold text-xl text-brand-navy">
-              5. Contato do Encarregado de Dados (DPO)
+              6. Contato do Encarregado de Dados (DPO)
             </h2>
             <p className="text-base">
               Para dúvidas sobre esta política de privacidade ou solicitações relacionadas aos seus dados, entre em contato pelos nossos canais oficiais de comunicação.

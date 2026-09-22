@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   parseTrackingConsent,
   serializeTrackingConsent,
@@ -21,6 +22,7 @@ function readSavedConsent() {
 }
 
 export function TrackingConsentBanner() {
+  const pathname = usePathname();
   const [ready, setReady] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -48,7 +50,7 @@ export function TrackingConsentBanner() {
     window.location.reload();
   };
 
-  if (!ready || !open) return null;
+  if (!ready || !open || pathname === "/colinha-eleitoral" || pathname?.startsWith("/colinha-eleitoral/")) return null;
 
   return (
     <aside
