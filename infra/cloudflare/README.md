@@ -4,7 +4,7 @@ Esta pasta contém a camada opcional de dados para a funcionalidade de colinha:
 
 - **D1** mantém apenas os campos públicos necessários para buscar candidatos.
 - **R2** mantém as fotos em `candidates/2026/rj/{id}.jpg` e `candidates/2026/br/{id}.jpg`.
-- **Workers** expõe somente leitura pública, com CORS limitado ao site e cache das fotos.
+- **Workers** expõe somente leitura pública, com CORS limitado às origens `https://edsonalbertassi.com` e `https://www.edsonalbertassi.com`, incluindo as fotos do R2 e cache.
 
 O site funciona no modo local com o snapshot versionado em `src/data/election-2026.json`. Quando `NEXT_PUBLIC_ELECTION_ASSETS_BASE_URL` apontar para a URL do Worker, as fotos passam a ser lidas do R2 sem mudar a interface.
 

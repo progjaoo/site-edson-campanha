@@ -4,23 +4,36 @@ export interface Env {
   ALLOWED_ORIGIN?: string;
 }
 
-const JSON_HEADERS = { "content-type": "application/json; charset=utf-8" };
-
 function corsHeaders(request: Request, env: Env) {
   const origin = request.headers.get("Origin");
-  const allowed = env.ALLOWED_ORIGIN || "*";
+  const allowedOrigins = (env.ALLOWED_ORIGIN || "*")
+    .split(",")
+    .map((allowedOrigin) => allowedOrigin.trim())
+    .filter(Boolean);
+  const allowsOrigin = Boolean(
+    origin && (allowedOrigins.includes("*") || allowedOrigins.includes(origin)),
+  );
+
   return {
-    ...JSON_HEADERS,
-    "access-control-allow-origin": allowed === "*" || origin === allowed ? origin || allowed : allowed,
     "access-control-allow-methods": "GET, OPTIONS",
     "access-control-allow-headers": "content-type",
     "access-control-max-age": "86400",
-    "cache-control": "public, max-age=60, stale-while-revalidate=300",
+    "vary": "Origin",
+    ...(allowsOrigin
+      ? { "access-control-allow-origin": allowedOrigins.includes("*") ? "*" : origin! }
+      : {}),
   };
 }
 
 function json(request: Request, env: Env, body: unknown, status = 200) {
-  return new Response(JSON.stringify(body), { status, headers: corsHeaders(request, env) });
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: {
+      ...corsHeaders(request, env),
+      "content-type": "application/json; charset=utf-8",
+      "cache-control": "public, max-age=60, stale-while-revalidate=300",
+    },
+  });
 }
 
 function notFound(request: Request, env: Env) {
@@ -42,6 +55,7 @@ export default {
       const object = await env.ASSETS.get(key);
       if (!object) return notFound(request, env);
       const headers = new Headers({
+        ...corsHeaders(request, env),
         "cache-control": "public, max-age=86400, s-maxage=604800, immutable",
         "content-type": object.httpMetadata?.contentType || "image/jpeg",
         etag: object.httpEtag,

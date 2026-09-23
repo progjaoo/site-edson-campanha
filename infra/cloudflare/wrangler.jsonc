@@ -19,7 +19,7 @@
     }
   ],
   "vars": {
-    "ALLOWED_ORIGIN": "https://edsonalbertassi.com"
+    "ALLOWED_ORIGIN": "https://edsonalbertassi.com,https://www.edsonalbertassi.com"
   },
   "triggers": {
     "crons": ["0 0,6,12,18 * * *"]
