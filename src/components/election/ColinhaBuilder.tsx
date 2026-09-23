@@ -5,7 +5,6 @@ import {
   Check,
   ChevronDown,
   Download,
-  Info,
   Printer,
   RotateCcw,
   Search,
@@ -41,14 +40,20 @@ import { BALLOT_SLOTS } from "@/lib/election/types";
 const STORAGE_KEY = "edson:colinha:2026:rj:v1";
 const NAME_STORAGE_KEY = "edson:colinha:2026:rj:name:v1";
 const DEFAULT_EDSON_ID = "190002538813";
+const FIXED_EDSON_SELECTION: BallotSelection = { kind: "candidate", candidateId: DEFAULT_EDSON_ID };
 const POSTER_WIDTH = 1080;
 const POSTER_HEIGHT = 1920;
 const POSTER_IMAGE = "/images/colinha/colinha-pronta.png?v=94ba3622";
+const BADGE_IMAGE = "/images/colinha/selo-minha-colinha.png";
+const EDSON_POSTER_PHOTO = "/images/optimized/foto-edson-herosec.png";
 const SHARE_URL = "https://edsonalbertassi.com/colinha-eleitoral";
 const SHARE_MESSAGE = "Faça a sua colinha também";
 const POSTER_FILENAME = "colinha-eleitoral-2026.png";
 const PHOTO_BOX = { x: 68, width: 160, height: 180 };
-const TITLE_BOX = { x: 80, y: 258, width: 920, height: 104 };
+const TITLE_BOX = { x: 265, y: 198, width: 770, height: 145 };
+const BADGE_BOX = { x: 58, y: 158, width: 195, height: 195 };
+const FOOTER_BOX = { x: 83, y: 1790, width: 727, height: 112 };
+const FOOTER_TEXT = "Candidatos escolhidos e personalizados pelo eleitor. Acesse edsonalbertassi.com para personalizar a sua, votando em Edson Albertassi para deputado estadual.";
 
 const ART_ROWS: Array<{
   slotId: BallotSlotId;
@@ -150,11 +155,12 @@ function isBallotSelection(value: unknown): value is BallotSelection {
 }
 
 function sanitizeSelections(value: unknown, candidates: ElectionCandidate[]): BallotSelections {
-  if (!value || typeof value !== "object") return {};
+  if (!value || typeof value !== "object") return { deputadoEstadual: FIXED_EDSON_SELECTION };
   const source = value as Record<string, unknown>;
   const result: BallotSelections = {};
 
   for (const slot of BALLOT_SLOTS) {
+    if (slot.id === "deputadoEstadual") continue;
     const selection = source[slot.id];
     if (!isBallotSelection(selection)) continue;
     if (selection.kind === "candidate") {
@@ -170,7 +176,7 @@ function sanitizeSelections(value: unknown, candidates: ElectionCandidate[]): Ba
     if (selection.kind === "legend" && !["6", "7"].includes(slot.officeCode)) continue;
     result[slot.id] = selection;
   }
-  return result;
+  return { ...result, deputadoEstadual: FIXED_EDSON_SELECTION };
 }
 
 function percentRect(rect: { x: number; y: number; width: number; height: number }) {
@@ -186,13 +192,15 @@ function PosterPreview({
   selections,
   candidatesById,
   displayName,
+  nameFontClassName,
 }: {
   selections: BallotSelections;
   candidatesById: Map<string, ElectionCandidate>;
   displayName: string;
+  nameFontClassName: string;
 }) {
-  const title = displayName ? `COLINHA DO ${displayName.toLocaleUpperCase("pt-BR")}` : "MINHA COLINHA";
-  const titleFontSize = `${fitTextSize(title, TITLE_BOX.width, 78, 40) / 10.8}cqw`;
+  const title = displayName ? displayName.toLocaleUpperCase("pt-BR") : "Seu nome";
+  const titleFontSize = `${fitTextSize(title, TITLE_BOX.width, 124, 42) / 10.8}cqw`;
 
   return (
     <div className="colinha-poster print-poster relative mx-auto w-full max-w-[420px] overflow-hidden rounded-xl bg-brand-navy shadow-lg">
@@ -206,13 +214,32 @@ function PosterPreview({
         draggable={false}
       />
 
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={BADGE_IMAGE}
+        alt=""
+        aria-hidden="true"
+        className="absolute z-10 select-none object-contain"
+        style={percentRect(BADGE_BOX)}
+        draggable={false}
+      />
+
       <div
         aria-hidden="true"
-        className="absolute z-10 flex items-center justify-center overflow-hidden text-center font-condensed font-black italic leading-none text-white"
-        style={{ ...percentRect(TITLE_BOX), fontSize: titleFontSize }}
+        className={`colinha-title-overlay absolute z-10 flex items-center overflow-hidden whitespace-nowrap font-black italic leading-none text-white ${nameFontClassName}`}
+        style={{
+          ...percentRect(TITLE_BOX),
+          fontSize: titleFontSize,
+          fontStretch: "62%",
+          fontVariationSettings: '"wdth" 62',
+        }}
       >
-        <span className="colinha-title-overlay whitespace-nowrap">{title}</span>
+        {title}
       </div>
+
+      <p aria-hidden="true" className="colinha-footer absolute z-10 m-0 overflow-hidden font-montserrat font-normal uppercase leading-[1.02] tracking-[-0.07em] text-white" style={{ ...percentRect(FOOTER_BOX), fontSize: "1.95cqw" }}>
+        {FOOTER_TEXT}
+      </p>
 
       {ART_ROWS.map((row) => {
         const selection = selections[row.slotId];
@@ -220,7 +247,7 @@ function PosterPreview({
           selection?.kind === "candidate" ? candidatesById.get(selection.candidateId) : undefined;
         const candidateName = selectionName(selection, candidate);
         const nameFontSize = candidateName
-          ? `${fitTextSize(candidateName, row.nameWidth, 29, 16) / 10.8}cqw`
+          ? `${fitTextSize(candidateName, row.nameWidth, row.slotId === "deputadoEstadual" ? 34 : 29, 16) / 10.8}cqw`
           : "2.4cqw";
         const numberCells = Array.from({ length: row.digitCount }, (_, index) => ({
           x: DIGIT_BOX.x + index * (DIGIT_BOX.width + DIGIT_BOX.gap),
@@ -249,15 +276,15 @@ function PosterPreview({
               {candidateName}
             </div>
             <div
-              className="absolute z-10 overflow-hidden rounded-lg bg-white"
+              className={`absolute z-10 overflow-hidden rounded-lg ${row.slotId === "deputadoEstadual" ? "bg-brand-blue" : "bg-white"}`}
               style={{ ...percentRect({ x: PHOTO_BOX.x, y: row.photoY, width: PHOTO_BOX.width, height: PHOTO_BOX.height }), borderRadius: "0.8cqw" }}
             >
               {candidate ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={photoUrl(candidate)}
+                  src={row.slotId === "deputadoEstadual" ? EDSON_POSTER_PHOTO : photoUrl(candidate)}
                   alt=""
-                  className="h-full w-full object-cover object-top"
+                  className={row.slotId === "deputadoEstadual" ? "absolute -left-1/4 -top-[15%] h-[150%] w-[150%] max-w-none object-cover object-top" : "h-full w-full object-cover object-top"}
                   draggable={false}
                 />
               ) : null}
@@ -266,11 +293,11 @@ function PosterPreview({
             {numberCells.map((cell, index) => (
               <div
                 key={`${row.slotId}-${index}`}
-                className="absolute z-10 flex items-center justify-center rounded-lg bg-white font-black leading-none text-black"
+                className={`absolute z-10 flex items-center justify-center rounded-lg font-black leading-none ${row.slotId === "deputadoEstadual" ? "bg-brand-blue text-white" : "bg-white text-black"}`}
                 style={{
                   ...percentRect(cell),
                   borderRadius: "0.8cqw",
-                  fontSize: "clamp(11px, 6.7cqw, 72px)",
+                  fontSize: row.slotId === "deputadoEstadual" ? "clamp(11px, 7.3cqw, 80px)" : "clamp(11px, 6.7cqw, 72px)",
                   fontFamily: '"Arial Black", Arial, sans-serif',
                 }}
               >
@@ -346,13 +373,37 @@ function drawCoverImage(
   y: number,
   width: number,
   height: number,
+  zoom = 1,
 ) {
-  const scale = Math.max(width / image.naturalWidth, height / image.naturalHeight);
+  const scale = Math.max(width / image.naturalWidth, height / image.naturalHeight) * zoom;
   const sourceWidth = width / scale;
   const sourceHeight = height / scale;
   const sourceX = (image.naturalWidth - sourceWidth) / 2;
-  const sourceY = 0;
+  const sourceY = zoom > 1 ? 180 : 0;
   context.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, x, y, width, height);
+}
+
+function drawWrappedFooter(context: CanvasRenderingContext2D, fontFamily: string) {
+  context.save();
+  context.fillStyle = "#ffffff";
+  context.font = `400 21px ${fontFamily}`;
+  context.textAlign = "left";
+  context.textBaseline = "top";
+  const words = FOOTER_TEXT.toLocaleUpperCase("pt-BR").split(" ");
+  const lines: string[] = [];
+  let line = "";
+  for (const word of words) {
+    const next = line ? `${line} ${word}` : word;
+    if (line && context.measureText(next).width > FOOTER_BOX.width) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = next;
+    }
+  }
+  if (line) lines.push(line);
+  lines.forEach((text, index) => context.fillText(text, FOOTER_BOX.x, FOOTER_BOX.y + index * 22));
+  context.restore();
 }
 
 async function createPosterPng(
@@ -370,14 +421,19 @@ async function createPosterPng(
   context.drawImage(baseImage, 0, 0, POSTER_WIDTH, POSTER_HEIGHT);
   await document.fonts.ready;
 
-  const title = displayName ? `COLINHA DO ${displayName.toLocaleUpperCase("pt-BR")}` : "MINHA COLINHA";
+  const title = displayName.toLocaleUpperCase("pt-BR");
   const condensedFont = getComputedStyle(document.querySelector(".colinha-title-overlay")!).fontFamily;
-  const titleFontPx = fitTextSize(title, TITLE_BOX.width, 78, 40);
+  const montserratFont = getComputedStyle(document.querySelector(".colinha-footer")!).fontFamily;
+  const titleFontPx = fitTextSize(title, TITLE_BOX.width, 124, 42);
+  const badgeImage = await loadCanvasImage(BADGE_IMAGE);
+  context.drawImage(badgeImage, BADGE_BOX.x, BADGE_BOX.y, BADGE_BOX.width, BADGE_BOX.height);
   context.font = `900 italic ${titleFontPx}px ${condensedFont}`;
-  context.textAlign = "center";
+  context.fontStretch = "extra-condensed";
+  context.textAlign = "left";
   context.textBaseline = "middle";
   context.fillStyle = "#ffffff";
-  context.fillText(title, TITLE_BOX.x + TITLE_BOX.width / 2, TITLE_BOX.y + TITLE_BOX.height / 2, TITLE_BOX.width);
+  context.fillText(title, TITLE_BOX.x, TITLE_BOX.y + TITLE_BOX.height / 2, TITLE_BOX.width);
+  drawWrappedFooter(context, montserratFont);
 
   const candidatesToDraw = ART_ROWS.flatMap((row) => {
     const selection = selections[row.slotId];
@@ -385,7 +441,7 @@ async function createPosterPng(
     const candidate = candidatesById.get(selection.candidateId);
     return candidate ? [{ row, candidate }] : [];
   });
-  const photos = await Promise.all(candidatesToDraw.map(({ candidate }) => loadCanvasImage(photoUrl(candidate))));
+  const photos = await Promise.all(candidatesToDraw.map(({ row, candidate }) => loadCanvasImage(row.slotId === "deputadoEstadual" ? EDSON_POSTER_PHOTO : photoUrl(candidate))));
 
   for (const row of ART_ROWS) {
     const selection = selections[row.slotId];
@@ -393,7 +449,7 @@ async function createPosterPng(
     const candidateName = selectionName(selection, candidate);
     const nameY = row.photoY - 3;
     if (candidateName) {
-      const nameFontPx = fitTextSize(candidateName, row.nameWidth, 29, 16);
+      const nameFontPx = fitTextSize(candidateName, row.nameWidth, row.slotId === "deputadoEstadual" ? 34 : 29, 16);
       context.font = `900 italic ${nameFontPx}px ${condensedFont}`;
       context.textAlign = "left";
       context.textBaseline = "middle";
@@ -401,7 +457,7 @@ async function createPosterPng(
       context.fillText(candidateName.toLocaleUpperCase("pt-BR"), row.nameX, nameY + 19, row.nameWidth);
     }
     const { x, width, height } = PHOTO_BOX;
-    context.fillStyle = "#ffffff";
+    context.fillStyle = row.slotId === "deputadoEstadual" ? "#1256ce" : "#ffffff";
     context.beginPath();
     context.roundRect(x, row.photoY, width, height, 10);
     context.fill();
@@ -412,7 +468,7 @@ async function createPosterPng(
       context.beginPath();
       context.roundRect(x, row.photoY, width, height, 10);
       context.clip();
-      drawCoverImage(context, photos[imageIndex], x, row.photoY, width, height);
+      drawCoverImage(context, photos[imageIndex], x, row.photoY, width, height, row.slotId === "deputadoEstadual" ? 1.5 : 1);
       context.restore();
     }
 
@@ -420,7 +476,7 @@ async function createPosterPng(
       x: DIGIT_BOX.x + index * (DIGIT_BOX.width + DIGIT_BOX.gap),
       y: row.numberY,
     }));
-    context.fillStyle = "#ffffff";
+    context.fillStyle = row.slotId === "deputadoEstadual" ? "#1256ce" : "#ffffff";
     for (const cell of cells) {
       context.beginPath();
       context.roundRect(cell.x, cell.y, DIGIT_BOX.width, DIGIT_BOX.height, 9);
@@ -429,8 +485,8 @@ async function createPosterPng(
 
     if (candidate) {
       const digits = candidate.ballotNumber.replace(/\D/g, "").slice(-row.digitCount).padStart(row.digitCount, "0");
-      context.fillStyle = "#050505";
-      context.font = '900 72px "Arial Black", Arial, sans-serif';
+      context.fillStyle = row.slotId === "deputadoEstadual" ? "#ffffff" : "#050505";
+      context.font = `900 ${row.slotId === "deputadoEstadual" ? 80 : 72}px "Arial Black", Arial, sans-serif`;
       context.textAlign = "center";
       context.textBaseline = "middle";
       digits.split("").forEach((digit, index) => {
@@ -449,13 +505,20 @@ async function createPosterPng(
   });
 }
 
-export function ColinhaBuilder({ candidates }: { candidates: ElectionCandidate[] }) {
+export function ColinhaBuilder({
+  candidates,
+  nameFontClassName = "font-condensed",
+}: {
+  candidates: ElectionCandidate[];
+  nameFontClassName?: string;
+}) {
   const [selections, setSelections] = useState<BallotSelections>({
     deputadoEstadual: { kind: "candidate", candidateId: DEFAULT_EDSON_ID },
   });
   const [activeSlot, setActiveSlot] = useState<BallotSlotId | null>(null);
   const [query, setQuery] = useState("");
   const [displayName, setDisplayName] = useState("");
+  const [nameError, setNameError] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
   const [generating, setGenerating] = useState(false);
@@ -519,13 +582,14 @@ export function ColinhaBuilder({ candidates }: { candidates: ElectionCandidate[]
   const selectedCount = BALLOT_SLOTS.filter((slot) => selections[slot.id]).length;
 
   const openPicker = (slotId: BallotSlotId) => {
+    if (slotId === "deputadoEstadual") return;
     setNotice(null);
     setQuery("");
     setActiveSlot(slotId);
   };
 
   const choose = (selection: BallotSelection) => {
-    if (!activeSlot) return;
+    if (!activeSlot || activeSlot === "deputadoEstadual") return;
     if (selection.kind === "candidate") {
       const duplicateSlot = BALLOT_SLOTS.find(
         (slot) => slot.id !== activeSlot && selections[slot.id]?.kind === "candidate" &&
@@ -542,8 +606,9 @@ export function ColinhaBuilder({ candidates }: { candidates: ElectionCandidate[]
   };
 
   const reset = () => {
-    setSelections({ deputadoEstadual: { kind: "candidate", candidateId: DEFAULT_EDSON_ID } });
+    setSelections({ deputadoEstadual: FIXED_EDSON_SELECTION });
     setDisplayName("");
+    setNameError(false);
     try {
       window.localStorage.removeItem(STORAGE_KEY);
       window.localStorage.removeItem(NAME_STORAGE_KEY);
@@ -555,13 +620,24 @@ export function ColinhaBuilder({ candidates }: { candidates: ElectionCandidate[]
 
   const changeDisplayName = (value: string) => {
     setDisplayName(value.replace(/[\u0000-\u001f\u007f]/g, "").slice(0, 20));
+    if (value.trim()) setNameError(false);
+  };
+
+  const requireName = () => {
+    const name = displayName.trim();
+    if (name) return name;
+    setNameError(true);
+    document.getElementById("colinha-display-name")?.focus();
+    return null;
   };
 
   const download = async () => {
+    const name = requireName();
+    if (!name) return;
     setGenerating(true);
     setNotice(null);
     try {
-      const blob = await createPosterPng(selections, candidatesById, displayName.trim());
+      const blob = await createPosterPng(selections, candidatesById, name);
       downloadPosterBlob(blob);
       setNotice("Colinha baixada em PNG.");
     } catch (error) {
@@ -572,10 +648,12 @@ export function ColinhaBuilder({ candidates }: { candidates: ElectionCandidate[]
   };
 
   const shareColinha = async () => {
+    const name = requireName();
+    if (!name) return;
     setGenerating(true);
     setNotice(null);
     try {
-      const blob = await createPosterPng(selections, candidatesById, displayName.trim());
+      const blob = await createPosterPng(selections, candidatesById, name);
       const file = new File([blob], POSTER_FILENAME, { type: "image/png" });
 
       if (typeof navigator.share === "function" && canShareFile(file)) {
@@ -623,16 +701,6 @@ export function ColinhaBuilder({ candidates }: { candidates: ElectionCandidate[]
         </div>
       </div>
 
-      <div className="mb-5 flex flex-col gap-3 rounded-xl border border-brand-blue/15 bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="flex items-start gap-2 text-xs leading-relaxed text-slate-600">
-          <Info className="mt-0.5 h-4 w-4 shrink-0 text-brand-blue" aria-hidden="true" />
-          Dados públicos do TSE atualizados em 22/09/2026. Confira a situação dos candidatos no site oficial antes de votar.
-        </p>
-        <Button type="button" variant="ghost" size="sm" onClick={reset} className="shrink-0">
-          <RotateCcw className="h-4 w-4" aria-hidden="true" /> Restaurar exemplo
-        </Button>
-      </div>
-
       {notice && !activeDefinition ? (
         <p role="status" className="mb-4 rounded-lg border border-brand-blue/20 bg-white px-4 py-3 text-sm font-semibold text-brand-navy">
           {notice}
@@ -643,12 +711,14 @@ export function ColinhaBuilder({ candidates }: { candidates: ElectionCandidate[]
         <section aria-labelledby="candidate-list-heading">
           <Card>
             <CardHeader className="border-b border-slate-200 pb-4">
-              <div className="flex items-start justify-between gap-3">
+              <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <CardTitle id="candidate-list-heading" className="font-archivo text-2xl uppercase">Escolha seus candidatos</CardTitle>
                   <CardDescription>Selecione um cargo para buscar ou trocar o candidato.</CardDescription>
                 </div>
-                <Badge variant="muted">2026</Badge>
+                <Button type="button" variant="ghost" size="sm" onClick={reset} className="shrink-0">
+                  <RotateCcw className="h-4 w-4" aria-hidden="true" /> Restaurar exemplo
+                </Button>
               </div>
             </CardHeader>
             <CardContent className="divide-y divide-slate-200 p-0">
@@ -680,23 +750,25 @@ export function ColinhaBuilder({ candidates }: { candidates: ElectionCandidate[]
                         <p className="text-xs text-slate-500">Ainda não escolhido</p>
                       )}
                     </div>
-                    <Button
-                      type="button"
-                      variant={candidate || selection ? "outline" : "default"}
-                      size="sm"
-                      onClick={() => openPicker(slot.id)}
-                      className="shrink-0"
-                    >
-                      {candidate || selection ? "Trocar" : "Escolher"}
-                      <ChevronDown className="h-4 w-4" aria-hidden="true" />
-                    </Button>
+                    {slot.id !== "deputadoEstadual" ? (
+                      <Button
+                        type="button"
+                        variant={candidate || selection ? "outline" : "default"}
+                        size="sm"
+                        onClick={() => openPicker(slot.id)}
+                        className="shrink-0"
+                      >
+                        {candidate || selection ? "Trocar" : "Escolher"}
+                        <ChevronDown className="h-4 w-4" aria-hidden="true" />
+                      </Button>
+                    ) : null}
                   </div>
                 );
               })}
             </CardContent>
             <div className="border-t border-slate-200 bg-brand-light/70 px-4 py-3 sm:px-5">
               <p className="text-xs leading-relaxed text-slate-600">
-                Edson Albertassi aparece pré-selecionado apenas como exemplo. Você pode trocar essa escolha.
+                Faça a sua colinha para votar em Albertassi para Deputado Estadual e para os demais cargos de sua escolha.
               </p>
             </div>
           </Card>
@@ -709,13 +781,12 @@ export function ColinhaBuilder({ candidates }: { candidates: ElectionCandidate[]
                 <div>
                   <Badge variant="outline" className="uppercase tracking-wide">Prévia ao vivo</Badge>
                   <CardTitle id="poster-heading" className="mt-2 font-archivo text-2xl uppercase">Sua colinha pronta</CardTitle>
-                  <CardDescription>Fotos, nomes e números mudam conforme suas escolhas. “Passar Cola” compartilha a imagem e o link com o aplicativo que você selecionar.</CardDescription>
                 </div>
                 <div className="no-print flex shrink-0 flex-col gap-2 sm:flex-row">
                   <Button type="button" variant="outline" size="sm" onClick={download} disabled={generating} aria-label="Baixar colinha como imagem PNG">
                     <Download className="h-4 w-4" aria-hidden="true" /> {generating ? "Gerando" : "Baixar"}
                   </Button>
-                  <Button type="button" variant="secondary" size="sm" onClick={() => window.print()}>
+                  <Button type="button" variant="secondary" size="sm" onClick={() => { if (requireName()) window.print(); }}>
                     <Printer className="h-4 w-4" aria-hidden="true" /> Imprimir
                   </Button>
                   <Button type="button" variant="default" size="sm" onClick={shareColinha} disabled={generating} aria-label="Passar colinha">
@@ -727,18 +798,21 @@ export function ColinhaBuilder({ candidates }: { candidates: ElectionCandidate[]
 
             <CardContent className="space-y-4">
               <div className="no-print space-y-2">
-                <Label htmlFor="colinha-display-name">Nome na colinha (opcional)</Label>
+                <Label htmlFor="colinha-display-name">Nome na colinha (obrigatório)</Label>
                 <Input
                   id="colinha-display-name"
                   value={displayName}
                   onChange={(event) => changeDisplayName(event.target.value)}
-                  placeholder="Ex.: João"
+                  placeholder="Ex.: João Matuto"
                   maxLength={20}
                   autoComplete="off"
-                  aria-describedby="colinha-name-help"
+                  required
+                  aria-invalid={nameError}
+                  aria-describedby={nameError ? "colinha-name-error" : "colinha-name-help"}
                 />
+                {nameError ? <p id="colinha-name-error" role="alert" className="text-xs font-semibold text-red-700">Digite seu nome para baixar, imprimir ou passar a colinha.</p> : null}
                 <p id="colinha-name-help" className="text-xs text-slate-500">
-                  Será salvo somente neste aparelho. Deixe vazio para usar “MINHA COLINHA”.
+                  “Seu Nome” aparece só como exemplo na prévia. Seu nome fica salvo somente neste aparelho.
                 </p>
               </div>
 
@@ -748,6 +822,7 @@ export function ColinhaBuilder({ candidates }: { candidates: ElectionCandidate[]
                     selections={selections}
                     candidatesById={candidatesById}
                     displayName={displayNameForPoster}
+                    nameFontClassName={nameFontClassName}
                   />
                 </div>
               </div>

@@ -54,6 +54,7 @@ const config: Config = {
       fontFamily: {
         archivo: ["var(--font-archivo)", "sans-serif"],
         condensed: ["var(--font-archivo-condensed)", "sans-serif"],
+        montserrat: ["var(--font-montserrat)", "sans-serif"],
       },
       keyframes: {
         shimmer: {

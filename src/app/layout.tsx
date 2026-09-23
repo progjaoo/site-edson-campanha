@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, Archivo_Narrow } from "next/font/google";
+import { Archivo, Archivo_Narrow, Montserrat } from "next/font/google";
 import { cookies } from "next/headers";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -26,6 +26,13 @@ const archivoCondensed = Archivo_Narrow({
   variable: "--font-archivo-condensed",
   display: "swap",
   weight: ["500", "600", "700"],
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+  weight: ["400"],
 });
 
 const socialImage = "/images/optimized/foto-edson-herosec.png";
@@ -159,7 +166,7 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang="pt-BR" className={`${archivo.variable} ${archivoCondensed.variable}`}>
+    <html lang="pt-BR" className={`${archivo.variable} ${archivoCondensed.variable} ${montserrat.variable}`}>
       <head>
         <JsonLd data={jsonLd} />
         <meta
