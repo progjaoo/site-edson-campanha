@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, Camera } from "lucide-react";
+import { Menu, X, Camera, Vote } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MobileMenu } from "./MobileMenu";
 
@@ -18,6 +18,7 @@ export function Header() {
       pathname === "/redes-sociais" ||
       pathname === "/jingle" ||
       pathname === "/faca-sua-foto" ||
+      pathname === "/colinha-eleitoral" ||
       pathname === "/historia" ||
       pathname === "/noticias");
 
@@ -33,6 +34,7 @@ export function Header() {
     { label: "REDES", href: "/redes-sociais" },
     { label: "JINGLE", href: "/jingle" },
     { label: "FAÇA SUA FOTO", href: "/faca-sua-foto", highlight: true, icon: Camera },
+    { label: "COLINHA", href: "/colinha-eleitoral", highlight: true, icon: Vote },
     { label: "HISTÓRIA", href: "/historia" },
     { label: "NOTÍCIAS", href: "/noticias" },
   ];
@@ -129,11 +131,11 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-4 lg:flex xl:gap-7">
             {navLinks.map((item) => {
-              const isFacaSuaFoto = item.highlight;
+              const Icon = item.icon;
               // Every navigation item now points to a real public route.
               const isActive = item.href !== "/" && pathname === item.href;
 
-              if (isFacaSuaFoto) {
+              if (item.highlight) {
                 return (
                   <Link
                     key={item.label}
@@ -143,7 +145,7 @@ export function Header() {
                       "bg-[#FBE502] text-black hover:bg-white hover:text-[#003967] shadow-md hover:shadow-lg hover:scale-105 active:scale-95"
                     )}
                   >
-                    <Camera className="w-4 h-4" />
+                    {Icon ? <Icon className="w-4 h-4" aria-hidden="true" /> : null}
                     <span>{item.label}</span>
                   </Link>
                 );

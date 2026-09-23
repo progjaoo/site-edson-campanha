@@ -1,0 +1,27 @@
+{
+  "name": "campanha-edson-eleicoes-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-22",
+  "workers_dev": true,
+  "observability": { "enabled": false },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "campanha-edson-eleicoes",
+      "database_id": "64b141f1-78e2-4408-b051-c76fefe5618e",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "ASSETS",
+      "bucket_name": "campanha-edson"
+    }
+  ],
+  "vars": {
+    "ALLOWED_ORIGIN": "https://edsonalbertassi.com"
+  },
+  "triggers": {
+    "crons": ["0 0,6,12,18 * * *"]
+  }
+}
