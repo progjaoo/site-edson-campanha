@@ -104,8 +104,12 @@ export const metadata: Metadata = {
     images: [absoluteUrl(socialImage)],
   },
   icons: {
-    icon: "/images/logos/logo-header.svg",
-    apple: "/images/logos/logo-header.svg",
+    icon: [
+      { url: "/favicon.png", type: "image/png", sizes: "512x512" },
+      { url: "/images/logoherosection.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
 };
 

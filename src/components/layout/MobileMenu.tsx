@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { Facebook, Instagram, Youtube, X, Camera, LucideIcon } from "lucide-react";
+import { Facebook, Instagram, Youtube, X, LucideIcon } from "lucide-react";
 
 interface NavLinkItem {
   label: string;
@@ -111,6 +111,8 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
               <nav className="mt-8 flex flex-col gap-4">
                 {orderedLinks.map((item) => {
                   if (item.highlight) {
+                    const Icon = item.icon;
+
                     return (
                       <Link
                         key={item.label}
@@ -118,7 +120,7 @@ export function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
                         onClick={onClose}
                         className="flex items-center justify-center gap-3 w-full py-3.5 px-4 rounded-xl bg-brand-yellow text-brand-dark font-extrabold text-sm uppercase tracking-wider shadow-lg hover:bg-white transition-all duration-200"
                       >
-                        <Camera className="w-5 h-5" />
+                        {Icon ? <Icon className="h-5 w-5" aria-hidden="true" /> : null}
                         <span>{item.label}</span>
                       </Link>
                     );

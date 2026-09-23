@@ -31,6 +31,9 @@ yarn-error.log*
 .env*.local
 .env
 
+# CSVs originais do TSE contêm identificadores pessoais e ficam fora do Git
+/csv_fotos_candidatos/
+
 # vercel
 .vercel
 

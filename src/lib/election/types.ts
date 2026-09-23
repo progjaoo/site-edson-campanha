@@ -48,10 +48,10 @@ export const BALLOT_SLOTS: Array<{
   scope: ElectionScope;
   required: boolean;
 }> = [
-  { id: "presidente", label: "Presidente", officeCode: "1", scope: "BR", required: true },
-  { id: "governador", label: "Governador", officeCode: "3", scope: "RJ", required: true },
-  { id: "senador1", label: "Senador 1", officeCode: "5", scope: "RJ", required: true },
-  { id: "senador2", label: "Senador 2", officeCode: "5", scope: "RJ", required: false },
   { id: "deputadoFederal", label: "Deputado Federal", officeCode: "6", scope: "RJ", required: true },
   { id: "deputadoEstadual", label: "Deputado Estadual", officeCode: "7", scope: "RJ", required: true },
+  { id: "senador1", label: "1º Senador", officeCode: "5", scope: "RJ", required: true },
+  { id: "senador2", label: "2º Senador", officeCode: "5", scope: "RJ", required: false },
+  { id: "governador", label: "Governador", officeCode: "3", scope: "RJ", required: true },
+  { id: "presidente", label: "Presidente", officeCode: "1", scope: "BR", required: true },
 ];

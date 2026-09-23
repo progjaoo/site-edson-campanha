@@ -58,7 +58,7 @@ export default function PoliticaPrivacidadePage() {
               3. Colinha eleitoral (tratamento local)
             </h2>
             <p className="text-base">
-              A página <strong>/colinha-eleitoral</strong> foi criada para consulta pessoal e não carrega Google Analytics, Meta Pixel, anúncios ou outros serviços de medição. A lista de candidatos é uma cópia de dados públicos do TSE; sua escolha fica no armazenamento local do navegador para que você possa voltar, imprimir ou baixar a colinha. Não há login, formulário, perfil de eleitor ou envio automático dessas escolhas para a campanha. Se você limpar os dados do navegador, a seleção local poderá ser apagada.
+              A página <strong>/colinha-eleitoral</strong> foi criada para consulta pessoal e não carrega Google Analytics, Meta Pixel, anúncios ou outros serviços de medição, mesmo que você tenha autorizado essas ferramentas em outra página. A lista de candidatos reproduz dados públicos do TSE. As escolhas e o nome opcional usado para personalizar a arte ficam no armazenamento local deste navegador; não são enviados à campanha pela ferramenta. Ao usar “Passar Cola”, você escolhe o aplicativo para o qual enviar a imagem e o link. Se o compartilhamento de arquivos não estiver disponível, a imagem é baixada e o WhatsApp abre com a mensagem e o link para você anexá-la. A campanha não recebe cópia; o uso pelo aplicativo escolhido segue as regras desse serviço. Não há login, formulário ou perfil de eleitor. O botão “Restaurar exemplo” apaga o nome salvo e volta às seleções iniciais. Para apagar as escolhas por completo, limpe os dados deste site nas configurações do navegador.
             </p>
           </section>
 
@@ -78,7 +78,16 @@ export default function PoliticaPrivacidadePage() {
               4. Coleta de Dados e Finalidade
             </h2>
             <p className="text-base">
-              Em páginas gerais do site, usamos o Google Analytics 4 para estatísticas de audiência e o Meta Pixel para medir visitas relacionadas aos anúncios da campanha. Essas ferramentas opcionais só são carregadas quando você aceita os cookies opcionais; ao aceitar, ambas são ativadas, e ao recusar, ambas permanecem desativadas. Quando ativadas, podem receber informações sobre páginas visitadas, interações, navegador e dispositivo, além de usar cookies ou identificadores de publicidade. Essas informações podem ser processadas pelo Google e pela Meta conforme as políticas próprias de cada serviço. A página da colinha eleitoral é uma exceção intencional: nela esses scripts não são renderizados, mesmo que uma preferência tenha sido aceita em outra página. Você pode alterar sua decisão pelo link “Preferências de cookies” no rodapé. Guardamos essa escolha em um cookie próprio por até 180 dias.
+              Nas páginas institucionais, o Google Analytics 4 pode medir audiência e o Meta Pixel pode medir visitas relacionadas aos anúncios da campanha. São finalidades opcionais e independentes: nenhum desses scripts é carregado antes de uma escolha afirmativa para sua categoria. Você pode aceitar ou recusar cada categoria separadamente, recusar todas sem perder acesso ao site e mudar ou revogar a decisão pelo botão “Gerenciar cookies” no rodapé. Um cookie próprio guarda as preferências escolhidas por até 180 dias. Na página da colinha eleitoral, o Google Analytics e o Meta Pixel permanecem desativados qualquer que seja essa escolha. Para detalhes sobre cookies e proteção de dados, consulte também o{" "}
+              <a
+                href="https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia_orientativo_cookies_e_protecao_de_dados_pessoais"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-brand-blue underline underline-offset-2"
+              >
+                Guia Orientativo da ANPD
+              </a>
+              .
             </p>
           </section>
 
