@@ -297,7 +297,7 @@ function PosterPreview({
                 style={{
                   ...percentRect(cell),
                   borderRadius: "0.8cqw",
-                  fontSize: row.slotId === "deputadoEstadual" ? "clamp(11px, 8cqw, 88px)" : "clamp(11px, 6.7cqw, 72px)",
+                  fontSize: row.slotId === "deputadoEstadual" ? "clamp(18px, 10.5cqw, 128px)" : "clamp(11px, 6.7cqw, 72px)",
                   fontFamily: '"Arial Black", Arial, sans-serif',
                 }}
               >
@@ -486,7 +486,7 @@ async function createPosterPng(
     if (candidate) {
       const digits = candidate.ballotNumber.replace(/\D/g, "").slice(-row.digitCount).padStart(row.digitCount, "0");
       context.fillStyle = row.slotId === "deputadoEstadual" ? "#ffffff" : "#050505";
-      context.font = `900 ${row.slotId === "deputadoEstadual" ? 88 : 72}px "Arial Black", Arial, sans-serif`;
+      context.font = `900 ${row.slotId === "deputadoEstadual" ? 128 : 72}px "Arial Black", Arial, sans-serif`;
       context.textAlign = "center";
       context.textBaseline = "middle";
       digits.split("").forEach((digit, index) => {
