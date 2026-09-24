@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Check,
   ChevronDown,
@@ -133,10 +133,6 @@ function CandidatePhoto({
       decoding="async"
     />
   );
-}
-
-function specialSelection(kind: "blank" | "null" | "legend"): BallotSelection {
-  return { kind };
 }
 
 function isCandidateSelection(selection: BallotSelection | undefined, candidateId: string) {
@@ -522,6 +518,7 @@ export function ColinhaBuilder({
   const [notice, setNotice] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
   const [generating, setGenerating] = useState(false);
+  const pickerTitleRef = useRef<HTMLHeadingElement>(null);
   const candidatesById = useMemo(
     () => new Map(candidates.map((candidate) => [candidate.candidateId, candidate])),
     [candidates],
@@ -860,13 +857,19 @@ export function ColinhaBuilder({
         }}
       >
         {activeDefinition ? (
-          <DialogContent className="grid h-[min(82dvh,760px)] max-w-6xl grid-rows-[auto_minmax(0,1fr)_auto] gap-0 p-0 lg:grid-rows-1 lg:grid-cols-[minmax(250px,0.82fr)_minmax(390px,1.1fr)_minmax(220px,0.68fr)]">
+          <DialogContent
+            className="grid h-[min(90dvh,760px)] max-w-5xl grid-rows-[auto_minmax(0,1fr)] gap-0 p-0 lg:grid-rows-1 lg:grid-cols-[minmax(250px,0.8fr)_minmax(390px,1.2fr)]"
+            onOpenAutoFocus={(event) => {
+              event.preventDefault();
+              pickerTitleRef.current?.focus({ preventScroll: true });
+            }}
+          >
             <section className="flex min-h-0 flex-col border-b border-slate-200 px-5 py-5 pr-14 sm:px-6 lg:border-b-0 lg:border-r">
               <DialogHeader>
                 <p className="text-[10px] font-black uppercase tracking-[0.16em] text-brand-blue">
                   {activeDefinition.scope === "BR" ? "Candidatos à Presidência · Brasil" : "Candidatos do Rio de Janeiro"}
                 </p>
-                <DialogTitle className="mt-1 font-archivo uppercase">{activeDefinition.label}</DialogTitle>
+                <DialogTitle ref={pickerTitleRef} tabIndex={-1} className="mt-1 font-archivo uppercase">{activeDefinition.label}</DialogTitle>
                 <DialogDescription>
                   {activeCandidates.length} candidatos exibidos. Busque por nome, número ou partido.
                 </DialogDescription>
@@ -878,11 +881,10 @@ export function ColinhaBuilder({
                   <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
                   <Input
                     id="candidate-search"
-                    autoFocus
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
                     placeholder="Busque por nome, número ou partido"
-                    className="pl-10"
+                    className="pl-10 text-base sm:text-sm"
                   />
                 </div>
               </div>
@@ -923,18 +925,6 @@ export function ColinhaBuilder({
                 <p className="py-16 text-center text-sm text-slate-500">Nenhum candidato encontrado. Tente outro termo.</p>
               ) : null}
             </ScrollArea>
-            </section>
-
-            <section className="border-t border-slate-200 bg-slate-50 px-4 py-4 sm:px-5 lg:border-t-0 lg:px-5 lg:py-6">
-              <p className="text-sm font-bold text-brand-navy">Outras opções</p>
-              <p className="mb-4 mt-1 text-xs leading-relaxed text-slate-500">Escolha uma opção de voto para este cargo.</p>
-              <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
-                <Button type="button" variant="outline" className="w-full justify-center" onClick={() => choose(specialSelection("blank"))}>Voto em branco</Button>
-                <Button type="button" variant="outline" className="w-full justify-center" onClick={() => choose(specialSelection("null"))}>Voto nulo</Button>
-                {["6", "7"].includes(activeDefinition.officeCode) ? (
-                  <Button type="button" variant="outline" className="w-full justify-center" onClick={() => choose(specialSelection("legend"))}>Voto de legenda</Button>
-                ) : null}
-              </div>
             </section>
           </DialogContent>
         ) : null}

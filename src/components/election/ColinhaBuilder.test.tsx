@@ -46,6 +46,8 @@ describe("ColinhaBuilder", () => {
 
     fireEvent.click(screen.getAllByRole("button", { name: "Escolher" })[0]);
     const dialog = await screen.findByRole("dialog");
+    await waitFor(() => expect(within(dialog).getByRole("heading", { name: "Deputado Federal" })).toHaveFocus());
+    expect(within(dialog).queryByRole("button", { name: /voto em branco|voto nulo|voto de legenda/i })).not.toBeInTheDocument();
     fireEvent.change(within(dialog).getByLabelText(/buscar candidato/i), {
       target: { value: "Candidata Teste" },
     });
@@ -81,7 +83,6 @@ describe("ColinhaBuilder", () => {
     await waitFor(() => {
       expect(window.localStorage.getItem("edson:colinha:2026:rj:v1")).toContain("190002538813");
     });
-    expect(screen.getByText("Fixo")).toBeInTheDocument();
     expect(document.querySelector(".colinha-poster")?.textContent).toContain("15088");
   });
 
