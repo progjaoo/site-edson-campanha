@@ -5,7 +5,6 @@ import {
   Check,
   ChevronDown,
   Download,
-  Printer,
   RotateCcw,
   Search,
   Send,
@@ -44,9 +43,9 @@ const FIXED_EDSON_SELECTION: BallotSelection = { kind: "candidate", candidateId:
 const POSTER_WIDTH = 1080;
 const POSTER_HEIGHT = 1920;
 const POSTER_IMAGE = "/images/colinha/colinha-pronta.png?v=94ba3622";
-const BADGE_IMAGE = "/images/colinha/selo-minha-colinha.png";
+const BADGE_IMAGE = "/images/colinha/urna-voto-15088.png";
 const EDSON_POSTER_PHOTO = "/images/optimized/foto-edson-herosec.png";
-const SHARE_URL = "https://edsonalbertassi.com/colinha-eleitoral";
+const SHARE_URL = "https://edsonalbertassi.com/colinha-eleitoral?nova=1";
 const SHARE_MESSAGE = "Faça a sua colinha também";
 const POSTER_FILENAME = "colinha-eleitoral-2026.png";
 const PHOTO_BOX = { x: 68, width: 160, height: 180 };
@@ -525,10 +524,24 @@ export function ColinhaBuilder({
   );
 
   useEffect(() => {
+    const url = new URL(window.location.href);
+    const startFresh = url.searchParams.get("nova") === "1";
+    if (startFresh) {
+      url.searchParams.delete("nova");
+      window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
+    }
+
     try {
-      const saved = window.localStorage.getItem(STORAGE_KEY);
-      if (saved) setSelections(sanitizeSelections(JSON.parse(saved), candidates));
-      setDisplayName(window.localStorage.getItem(NAME_STORAGE_KEY)?.slice(0, 20) ?? "");
+      if (startFresh) {
+        window.localStorage.removeItem(STORAGE_KEY);
+        window.localStorage.removeItem(NAME_STORAGE_KEY);
+        setSelections({ deputadoEstadual: FIXED_EDSON_SELECTION });
+        setDisplayName("");
+      } else {
+        const saved = window.localStorage.getItem(STORAGE_KEY);
+        if (saved) setSelections(sanitizeSelections(JSON.parse(saved), candidates));
+        setDisplayName(window.localStorage.getItem(NAME_STORAGE_KEY)?.slice(0, 20) ?? "");
+      }
     } catch {
       // The colinha remains usable in memory when storage is unavailable.
     } finally {
@@ -575,8 +588,6 @@ export function ColinhaBuilder({
     const selection = selections[slotId];
     return selection?.kind === "candidate" ? candidatesById.get(selection.candidateId) ?? null : null;
   };
-
-  const selectedCount = BALLOT_SLOTS.filter((slot) => selections[slot.id]).length;
 
   const openPicker = (slotId: BallotSlotId) => {
     if (slotId === "deputadoEstadual") return;
@@ -638,7 +649,7 @@ export function ColinhaBuilder({
       downloadPosterBlob(blob);
       setNotice("Colinha baixada em PNG.");
     } catch (error) {
-      setNotice(error instanceof Error ? `${error.message} Você ainda pode imprimir ou salvar como PDF.` : "Falha ao gerar a imagem. Você ainda pode imprimir ou salvar como PDF.");
+      setNotice(error instanceof Error ? `${error.message} Tente baixar novamente.` : "Falha ao gerar a imagem. Tente baixar novamente.");
     } finally {
       setGenerating(false);
     }
@@ -683,7 +694,7 @@ export function ColinhaBuilder({
 
   return (
     <div className="mx-auto max-w-[1440px] px-4 font-archivo sm:px-6 lg:px-8">
-      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <div className="mb-5">
         <div>
           <h1 className="font-archivo text-3xl font-black uppercase leading-none text-brand-navy sm:text-4xl">
             Monte sua colinha
@@ -691,10 +702,6 @@ export function ColinhaBuilder({
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
             Escolha seus candidatos e confira a arte pronta ao lado.
           </p>
-        </div>
-        <div className="flex items-center gap-3 rounded-xl border border-brand-blue/15 bg-white px-4 py-3 shadow-sm">
-          <span className="text-xs text-slate-600">Suas escolhas ficam neste aparelho</span>
-          <Badge variant="outline" className="shrink-0">{selectedCount}/{BALLOT_SLOTS.length}</Badge>
         </div>
       </div>
 
@@ -714,7 +721,7 @@ export function ColinhaBuilder({
                   <CardDescription>Selecione um cargo para buscar ou trocar o candidato.</CardDescription>
                 </div>
                 <Button type="button" variant="ghost" size="sm" onClick={reset} className="shrink-0">
-                  <RotateCcw className="h-4 w-4" aria-hidden="true" /> Restaurar exemplo
+                  <RotateCcw className="h-4 w-4" aria-hidden="true" /> Nova colinha
                 </Button>
               </div>
             </CardHeader>
@@ -763,9 +770,23 @@ export function ColinhaBuilder({
                 );
               })}
             </CardContent>
-            <div className="border-t border-slate-200 bg-brand-light/70 px-4 py-3 sm:px-5">
-              <p className="text-xs leading-relaxed text-slate-600">
-                Faça a sua colinha para votar em Albertassi para Deputado Estadual e para os demais cargos de sua escolha.
+            <div className="space-y-2 border-t border-slate-200 bg-brand-light/70 px-4 py-4 sm:px-5">
+              <Label htmlFor="colinha-display-name">Escreva seu nome aqui (obrigatório)</Label>
+              <Input
+                id="colinha-display-name"
+                value={displayName}
+                onChange={(event) => changeDisplayName(event.target.value)}
+                placeholder="Seu nome"
+                maxLength={20}
+                autoComplete="off"
+                required
+                aria-invalid={nameError}
+                aria-describedby={nameError ? "colinha-name-error" : "colinha-name-help"}
+                className="text-base sm:text-sm"
+              />
+              {nameError ? <p id="colinha-name-error" role="alert" className="text-xs font-semibold text-red-700">Digite seu nome para baixar ou passar a colinha.</p> : null}
+              <p id="colinha-name-help" className="text-xs text-slate-500">
+                Seu nome fica salvo somente neste aparelho.
               </p>
             </div>
           </Card>
@@ -783,9 +804,6 @@ export function ColinhaBuilder({
                   <Button type="button" variant="outline" size="sm" onClick={download} disabled={generating} aria-label="Baixar colinha como imagem PNG">
                     <Download className="h-4 w-4" aria-hidden="true" /> {generating ? "Gerando" : "Baixar"}
                   </Button>
-                  <Button type="button" variant="secondary" size="sm" onClick={() => { if (requireName()) window.print(); }}>
-                    <Printer className="h-4 w-4" aria-hidden="true" /> Imprimir
-                  </Button>
                   <Button type="button" variant="default" size="sm" onClick={shareColinha} disabled={generating} aria-label="Passar colinha">
                     <Send className="h-4 w-4" aria-hidden="true" /> {generating ? "Preparando" : "Passar Cola"}
                   </Button>
@@ -794,25 +812,6 @@ export function ColinhaBuilder({
             </CardHeader>
 
             <CardContent className="space-y-4">
-              <div className="no-print space-y-2">
-                <Label htmlFor="colinha-display-name">Nome na colinha (obrigatório)</Label>
-                <Input
-                  id="colinha-display-name"
-                  value={displayName}
-                  onChange={(event) => changeDisplayName(event.target.value)}
-                  placeholder="Seu nome"
-                  maxLength={20}
-                  autoComplete="off"
-                  required
-                  aria-invalid={nameError}
-                  aria-describedby={nameError ? "colinha-name-error" : "colinha-name-help"}
-                />
-                {nameError ? <p id="colinha-name-error" role="alert" className="text-xs font-semibold text-red-700">Digite seu nome para baixar, imprimir ou passar a colinha.</p> : null}
-                <p id="colinha-name-help" className="text-xs text-slate-500">
-                  “Seu nome” aparece só como exemplo na prévia. Seu nome fica salvo somente neste aparelho.
-                </p>
-              </div>
-
               <div className="print-sheet rounded-xl border border-brand-blue/15 bg-brand-light p-2 sm:p-3">
                 <div className="colinha-print-root">
                   <PosterPreview
