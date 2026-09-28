@@ -126,14 +126,14 @@ export function HeroSection() {
             {/* Botões Amarelos em Destaque */}
             <motion.div
               variants={fadeInUp}
-              className="-mb-2 flex flex-col items-center justify-center gap-2 pt-0 sm:mb-0 sm:flex-row sm:flex-wrap lg:justify-start"
+              className="-mb-2 flex flex-col items-center justify-center gap-2 pt-0 sm:mb-0 sm:flex-row sm:flex-wrap lg:grid lg:w-full lg:max-w-xl lg:grid-cols-2 lg:items-stretch lg:justify-start lg:gap-3"
             >
               {/* Botão 1: Entre para o Grupo do WhatsApp */}
               <a
                 href="https://chat.whatsapp.com/KErXZ76O2rRAaMXOd58pvj?s=cl&p=i&mlu=0&ilr=0&amv=1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-11 w-full max-w-[280px] scale-[0.94] items-center justify-center bg-[#FBE502] px-3 py-2 font-archivo text-[14px] font-black uppercase tracking-wider text-black shadow-lg transition-all duration-200 hover:bg-white hover:text-[#003967] hover:scale-[0.98] active:scale-[0.92] sm:w-auto sm:max-w-none sm:scale-100 sm:px-8 sm:py-4 sm:text-base sm:hover:scale-105 sm:active:scale-95"
+                className="inline-flex min-h-11 w-full max-w-[280px] scale-[0.94] items-center justify-center bg-[#FBE502] px-3 py-2 font-archivo text-[14px] font-black uppercase tracking-wider text-black shadow-lg transition-all duration-200 hover:bg-white hover:text-[#003967] hover:scale-[0.98] active:scale-[0.92] sm:w-auto sm:max-w-none sm:scale-100 sm:px-8 sm:py-4 sm:text-base sm:hover:scale-105 sm:active:scale-95 lg:col-span-2 lg:min-h-14 lg:w-full lg:justify-center lg:px-8 lg:py-3 lg:hover:scale-[1.02]"
               >
                 ENTRE PARA O GRUPO
               </a>
@@ -141,7 +141,7 @@ export function HeroSection() {
               {/* Botão 2: Faça sua Colinha */}
               <Link
                 href="/colinha-eleitoral?nova=1"
-                className="inline-flex min-h-11 w-full max-w-[280px] scale-[0.94] items-center justify-center bg-[#FBE502] px-3 py-2 font-archivo text-[14px] font-black uppercase tracking-wider text-black shadow-lg transition-all duration-200 hover:bg-white hover:text-[#003967] hover:scale-[0.98] active:scale-[0.92] sm:w-auto sm:max-w-none sm:scale-100 sm:px-8 sm:py-4 sm:text-base sm:hover:scale-105 sm:active:scale-95"
+                className="inline-flex min-h-11 w-full max-w-[280px] scale-[0.94] items-center justify-center bg-[#FBE502] px-3 py-2 font-archivo text-[14px] font-black uppercase tracking-wider text-black shadow-lg transition-all duration-200 hover:bg-white hover:text-[#003967] hover:scale-[0.98] active:scale-[0.92] sm:w-auto sm:max-w-none sm:scale-100 sm:px-8 sm:py-4 sm:text-base sm:hover:scale-105 sm:active:scale-95 lg:min-h-14 lg:w-full lg:max-w-none lg:scale-100 lg:px-8 lg:py-3 lg:hover:scale-[1.02]"
               >
                 FAÇA SUA COLINHA
               </Link>
@@ -149,7 +149,7 @@ export function HeroSection() {
               {/* Botão 3: Faça sua Foto */}
               <Link
                 href="/faca-sua-foto"
-                className="inline-flex min-h-11 w-full max-w-[280px] scale-[0.94] items-center justify-center bg-[#FBE502] px-3 py-2 font-archivo text-[14px] font-black uppercase tracking-wider text-black shadow-lg transition-all duration-200 hover:bg-white hover:text-[#003967] hover:scale-[0.98] active:scale-[0.92] sm:w-auto sm:max-w-none sm:scale-100 sm:px-8 sm:py-4 sm:text-base sm:hover:scale-105 sm:active:scale-95"
+                className="inline-flex min-h-11 w-full max-w-[280px] scale-[0.94] items-center justify-center bg-[#FBE502] px-3 py-2 font-archivo text-[14px] font-black uppercase tracking-wider text-black shadow-lg transition-all duration-200 hover:bg-white hover:text-[#003967] hover:scale-[0.98] active:scale-[0.92] sm:w-auto sm:max-w-none sm:scale-100 sm:px-8 sm:py-4 sm:text-base sm:hover:scale-105 sm:active:scale-95 lg:min-h-14 lg:w-full lg:max-w-none lg:scale-100 lg:px-8 lg:py-3 lg:hover:scale-[1.02]"
               >
                 FAÇA SUA FOTO
               </Link>
