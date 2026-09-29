@@ -42,38 +42,48 @@ const DEFAULT_EDSON_ID = "190002538813";
 const FIXED_EDSON_SELECTION: BallotSelection = { kind: "candidate", candidateId: DEFAULT_EDSON_ID };
 const POSTER_WIDTH = 1080;
 const POSTER_HEIGHT = 1920;
-const POSTER_IMAGE = "/images/colinha/colinha-pronta.png?v=94ba3622";
-const BADGE_IMAGE = "/images/colinha/urna-voto-15088.png";
-const EDSON_POSTER_PHOTO = "/images/optimized/foto-edson-herosec.png";
+const POSTER_TEXTURE = "/images/colinha/textura-fundo-figma.svg";
+const EDSON_POSTER_PHOTO = "/images/colinha/edson-recortado-figma.png";
 const SHARE_URL = "https://edsonalbertassi.com/colinha-eleitoral?nova=1";
 const SHARE_MESSAGE = "Faça a sua colinha também";
 const POSTER_FILENAME = "colinha-eleitoral-2026.png";
 const PHOTO_BOX = { x: 68, width: 160, height: 180 };
-const TITLE_BOX = { x: 265, y: 198, width: 770, height: 145 };
-const BADGE_BOX = { x: 58, y: 158, width: 195, height: 195 };
-const FOOTER_BOX = { x: 83, y: 1790, width: 727, height: 112 };
-const FOOTER_TEXT = "Candidatos escolhidos e personalizados pelo eleitor. Acesse edsonalbertassi.com para personalizar a sua, votando em Edson Albertassi para deputado estadual.";
+const PANEL_BOX = { x: 238, width: 748, height: 128 };
+const TITLE_BOX = { x: 160, y: 212, width: 775, height: 105 };
+const FOOTER_BOX = { x: 190, y: 1688, width: 700, height: 92 };
+const FOOTER_LINES = [
+  "CANDIDATOS ESCOLHIDOS E PERSONALIZADOS PELO ELEITOR. ACESSE",
+  "EDSONALBERTASSI.COM PARA PERSONALIZAR A SUA, VOTANDO EM",
+  "EDSON ALBERTASSI PARA DEPUTADO ESTADUAL.",
+];
+const CAMPAIGN_LEGAL_TEXT = "PROPAGANDA ELEITORAL 2026 - CNPJ (EDSON ALBERTASSI): 68.437.296/0001-46";
 
 const ART_ROWS: Array<{
   slotId: BallotSlotId;
   digitCount: number;
   photoY: number;
-  numberY: number;
-  nameX: number;
-  nameWidth: number;
+  role: string;
 }> = [
-  { slotId: "deputadoFederal", digitCount: 4, photoY: 420, numberY: 470, nameX: 460, nameWidth: 540 },
-  { slotId: "deputadoEstadual", digitCount: 5, photoY: 626, numberY: 676, nameX: 473, nameWidth: 527 },
-  { slotId: "senador1", digitCount: 3, photoY: 832, numberY: 882, nameX: 382, nameWidth: 618 },
-  { slotId: "senador2", digitCount: 3, photoY: 1038, numberY: 1088, nameX: 382, nameWidth: 618 },
-  { slotId: "governador", digitCount: 2, photoY: 1244, numberY: 1294, nameX: 402, nameWidth: 520 },
-  { slotId: "presidente", digitCount: 2, photoY: 1450, numberY: 1500, nameX: 387, nameWidth: 365 },
+  { slotId: "deputadoFederal", digitCount: 4, photoY: 370, role: "DEPUTADO FEDERAL" },
+  { slotId: "deputadoEstadual", digitCount: 5, photoY: 576, role: "DEPUTADO ESTADUAL" },
+  { slotId: "senador1", digitCount: 3, photoY: 782, role: "1º SENADOR" },
+  { slotId: "senador2", digitCount: 3, photoY: 988, role: "2º SENADOR" },
+  { slotId: "governador", digitCount: 2, photoY: 1194, role: "GOVERNADOR" },
+  { slotId: "presidente", digitCount: 2, photoY: 1400, role: "PRESIDENTE" },
 ];
 
-const DIGIT_BOX = { x: 238, y: 0, width: 113, height: 130, gap: 10 };
+const PANEL_TEXT = { x: PANEL_BOX.x + 26, width: 348 };
+const NUMBER_BOX = { x: 624, width: 340 };
+const DEFAULT_POSTER_TITLE = "MEUS CANDIDATOS";
 
-function fitTextSize(text: string, width: number, max: number, min: number) {
-  return Math.max(min, Math.min(max, (width - 12) / (text.length * 0.55)));
+function fitTextSize(text: string, width: number, max: number, min: number, averageCharacterWidth = 0.46) {
+  return Math.max(min, Math.min(max, (width - 12) / (text.length * averageCharacterWidth)));
+}
+
+const CANDIDATE_NAME_BASE_SIZE = fitTextSize("DOUGLAS RUAS", PANEL_TEXT.width, 52, 24, 0.56);
+
+function candidateNameScaleX(text: string, width: number) {
+  return Math.min(1, (width - 12) / (text.length * CANDIDATE_NAME_BASE_SIZE * 0.56));
 }
 
 function normalize(value: string) {
@@ -92,22 +102,23 @@ function selectionLabel(selection: BallotSelection | undefined) {
   return "Candidato selecionado";
 }
 
-function selectionShortLabel(selection: BallotSelection) {
-  if (selection.kind === "blank") return "BRANCO";
-  if (selection.kind === "null") return "NULO";
-  if (selection.kind === "legend") return "LEGENDA";
-  return "";
-}
-
 function selectionName(
   selection: BallotSelection | undefined,
   candidate: ElectionCandidate | undefined,
+  row: (typeof ART_ROWS)[number],
 ) {
   if (selection?.kind === "candidate") return candidate?.ballotName ?? "";
   if (selection?.kind === "blank") return "VOTO EM BRANCO";
   if (selection?.kind === "null") return "VOTO NULO";
   if (selection?.kind === "legend") return "VOTO DE LEGENDA";
-  return "";
+  switch (row.slotId) {
+    case "deputadoFederal": return "ESCOLHA SEU FEDERAL";
+    case "senador1": return "ESCOLHA SEU 1º SENADOR";
+    case "senador2": return "ESCOLHA SEU 2º SENADOR";
+    case "governador": return "ESCOLHA SEU GOVERNADOR";
+    case "presidente": return "ESCOLHA SEU PRESIDENTE";
+    case "deputadoEstadual": return "EDSON ALBERTASSI";
+  }
 }
 
 function photoUrl(candidate: ElectionCandidate) {
@@ -194,125 +205,113 @@ function PosterPreview({
   displayName: string;
   nameFontClassName: string;
 }) {
-  const title = displayName ? displayName.toLocaleUpperCase("pt-BR") : "Seu nome";
-  const titleFontSize = `${fitTextSize(title, TITLE_BOX.width, 124, 42) / 10.8}cqw`;
+  const title = displayName ? displayName.toLocaleUpperCase("pt-BR") : DEFAULT_POSTER_TITLE;
+  const titleFontSize = `${fitTextSize(title, TITLE_BOX.width, 122, 60, 0.45) / 10.8}cqw`;
 
   return (
-    <div className="colinha-poster print-poster relative mx-auto w-full max-w-[420px] overflow-hidden rounded-xl bg-brand-navy shadow-lg">
-      {/* This local artwork is decorative; the accessible candidate list follows the image. */}
+    <div
+      className="colinha-poster print-poster relative mx-auto w-full max-w-[420px] overflow-hidden rounded-xl shadow-lg"
+      style={{ background: "linear-gradient(41.6335deg, #003967 15.255%, #1256ce 84.745%)" }}
+    >
+      {/* The new artwork uses the Figma texture over a CSS gradient. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={POSTER_IMAGE}
+        src={POSTER_TEXTURE}
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 h-full w-full select-none object-cover"
-        draggable={false}
-      />
-
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={BADGE_IMAGE}
-        alt=""
-        aria-hidden="true"
-        className="absolute z-10 select-none object-contain"
-        style={percentRect(BADGE_BOX)}
+        className="pointer-events-none absolute -inset-[80%] z-0 h-[260%] w-[260%] rotate-[-110deg] select-none object-cover opacity-25 mix-blend-overlay"
         draggable={false}
       />
 
       <div
         aria-hidden="true"
-        className={`colinha-title-overlay absolute z-10 flex items-center overflow-hidden whitespace-nowrap font-black italic leading-none text-white ${nameFontClassName}`}
-        style={{
-          ...percentRect(TITLE_BOX),
-          fontSize: titleFontSize,
-          fontStretch: "62%",
-          fontVariationSettings: '"wdth" 62',
-        }}
+        className={`absolute z-10 flex items-center justify-center overflow-hidden whitespace-nowrap font-black italic uppercase leading-none text-brand-blue ${nameFontClassName}`}
+        style={{ ...percentRect({ ...TITLE_BOX, x: TITLE_BOX.x + 7, y: TITLE_BOX.y + 8 }), fontSize: titleFontSize, letterSpacing: "-0.44cqw", fontVariationSettings: '"wdth" 62' }}
+      >
+        {title}
+      </div>
+      <div
+        aria-hidden="true"
+        className={`colinha-title-overlay absolute z-10 flex items-center justify-center overflow-hidden whitespace-nowrap font-black italic uppercase leading-none text-white ${nameFontClassName}`}
+        style={{ ...percentRect(TITLE_BOX), fontSize: titleFontSize, letterSpacing: "-0.44cqw", fontVariationSettings: '"wdth" 62' }}
       >
         {title}
       </div>
 
-      <p aria-hidden="true" className="colinha-footer absolute z-10 m-0 overflow-hidden font-montserrat font-normal uppercase leading-[1.02] tracking-[-0.07em] text-white" style={{ ...percentRect(FOOTER_BOX), fontSize: "1.95cqw" }}>
-        {FOOTER_TEXT}
+      <p
+        aria-hidden="true"
+        className="colinha-legal absolute z-10 m-0 whitespace-nowrap font-condensed text-white"
+        style={{ right: "2.7%", top: "31%", fontSize: "1.75cqw", writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+      >
+        {CAMPAIGN_LEGAL_TEXT}
+      </p>
+
+      <p
+        aria-hidden="true"
+        className="colinha-footer absolute z-10 m-0 flex items-center justify-center overflow-hidden text-center font-montserrat font-normal uppercase leading-[1.02] tracking-[-0.07em] text-white"
+        style={{ ...percentRect(FOOTER_BOX), fontSize: "1.95cqw" }}
+      >
+        <span>{FOOTER_LINES.map((line) => <span key={line} className="block">{line}</span>)}</span>
       </p>
 
       {ART_ROWS.map((row) => {
         const selection = selections[row.slotId];
         const candidate =
           selection?.kind === "candidate" ? candidatesById.get(selection.candidateId) : undefined;
-        const candidateName = selectionName(selection, candidate);
-        const nameFontSize = candidateName
-          ? `${fitTextSize(candidateName, row.nameWidth, row.slotId === "deputadoEstadual" ? 34 : 29, 16) / 10.8}cqw`
-          : "2.4cqw";
-        const numberCells = Array.from({ length: row.digitCount }, (_, index) => ({
-          x: DIGIT_BOX.x + index * (DIGIT_BOX.width + DIGIT_BOX.gap),
-          y: row.numberY,
-          width: DIGIT_BOX.width,
-          height: DIGIT_BOX.height,
-        }));
+        const candidateName = selectionName(selection, candidate, row);
+        const nameFontPx = candidate
+          ? CANDIDATE_NAME_BASE_SIZE
+          : fitTextSize(candidateName, PANEL_TEXT.width, 52, 24, 0.56);
+        const nameFontSize = `${nameFontPx / 10.8}cqw`;
+        const nameScaleX = candidate ? candidateNameScaleX(candidateName, PANEL_TEXT.width) : 1;
+        const panelY = row.photoY + 24;
         const digits = candidate
           ? candidate.ballotNumber.replace(/\D/g, "").slice(-row.digitCount).padStart(row.digitCount, "0")
-          : "";
+          : "0".repeat(row.digitCount);
 
         return (
           <div key={row.slotId} aria-hidden="true">
             <div
-              className="colinha-candidate-name absolute z-10 flex items-center overflow-hidden whitespace-nowrap font-condensed font-black italic uppercase leading-none text-white"
-              style={{
-                ...percentRect({
-                  x: row.nameX,
-                  y: row.photoY - 3,
-                  width: row.nameWidth,
-                  height: 38,
-                }),
-                fontSize: nameFontSize,
-              }}
+              className="absolute z-[1] rounded-lg bg-white"
+              style={{ ...percentRect({ x: PANEL_BOX.x, y: panelY, width: PANEL_BOX.width, height: PANEL_BOX.height }), borderRadius: "1.5cqw" }}
             >
-              {candidateName}
             </div>
             <div
-              className={`absolute z-10 overflow-hidden rounded-lg ${row.slotId === "deputadoEstadual" ? "bg-brand-blue" : "bg-white"}`}
-              style={{ ...percentRect({ x: PHOTO_BOX.x, y: row.photoY, width: PHOTO_BOX.width, height: PHOTO_BOX.height }), borderRadius: "0.8cqw" }}
+              className="absolute z-[1] overflow-hidden rounded-lg bg-white"
+              style={{ ...percentRect({ x: PHOTO_BOX.x, y: row.photoY, width: PHOTO_BOX.width, height: PHOTO_BOX.height }), borderRadius: "1.5cqw" }}
             >
               {candidate ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={row.slotId === "deputadoEstadual" ? EDSON_POSTER_PHOTO : photoUrl(candidate)}
                   alt=""
-                  className={row.slotId === "deputadoEstadual" ? "absolute -left-1/4 -top-[15%] h-[150%] w-[150%] max-w-none object-cover object-top" : "h-full w-full object-cover object-top"}
+                  className={row.slotId === "deputadoEstadual" ? "absolute inset-0 h-full w-full scale-[1.45] object-contain object-bottom" : "absolute inset-0 h-full w-full object-cover object-top"}
                   draggable={false}
                 />
               ) : null}
             </div>
-
-            {numberCells.map((cell, index) => (
-              <div
-                key={`${row.slotId}-${index}`}
-                className={`absolute z-10 flex items-center justify-center rounded-lg font-black leading-none ${row.slotId === "deputadoEstadual" ? "bg-brand-blue text-white" : "bg-white text-black"}`}
-                style={{
-                  ...percentRect(cell),
-                  borderRadius: "0.8cqw",
-                  fontSize: row.slotId === "deputadoEstadual" ? "clamp(18px, 10.5cqw, 128px)" : "clamp(11px, 6.7cqw, 72px)",
-                  fontFamily: '"Arial Black", Arial, sans-serif',
-                }}
-              >
-                {digits[index] ?? ""}
-              </div>
-            ))}
-
-            {selection && selection.kind !== "candidate" ? (
-              <div
-                className="absolute z-20 flex items-center justify-center rounded-lg bg-white px-1 font-archivo text-center text-[clamp(8px,2.2cqw,23px)] font-black uppercase leading-tight text-brand-dark"
-                style={percentRect({
-                  x: DIGIT_BOX.x,
-                  y: row.numberY,
-                  width: row.digitCount * DIGIT_BOX.width + (row.digitCount - 1) * DIGIT_BOX.gap,
-                  height: DIGIT_BOX.height,
-                })}
-              >
-                {selectionShortLabel(selection)}
-              </div>
-            ) : null}
+            <div
+              className={`absolute z-10 flex items-center overflow-hidden whitespace-nowrap font-black italic uppercase leading-none text-brand-blue ${nameFontClassName}`}
+              style={{ ...percentRect({ x: PANEL_TEXT.x, y: panelY + 14, width: PANEL_TEXT.width, height: 30 }), fontSize: "2.6cqw", fontVariationSettings: '"wdth" 62' }}
+            >
+              {row.role}
+            </div>
+            <div
+              className={`colinha-candidate-name absolute z-10 flex items-center overflow-hidden whitespace-nowrap font-black italic uppercase leading-none text-brand-dark ${nameFontClassName}`}
+              style={{ ...percentRect({ x: PANEL_TEXT.x, y: panelY + 47, width: PANEL_TEXT.width, height: 62 }), fontSize: nameFontSize, fontVariationSettings: '"wdth" 62' }}
+            >
+              {candidate ? (
+                <span className="inline-block" style={{ transform: `scaleX(${nameScaleX})`, transformOrigin: "left center" }}>
+                  {candidateName}
+                </span>
+              ) : candidateName}
+            </div>
+            <div
+              className="absolute z-10 flex items-center justify-end overflow-hidden whitespace-nowrap font-black leading-none text-brand-dark"
+              style={{ ...percentRect({ x: NUMBER_BOX.x, y: panelY + 12, width: NUMBER_BOX.width, height: 104 }), fontFamily: '"Arial Black", Arial, sans-serif', fontSize: row.digitCount === 5 ? "9.2cqw" : "10.1cqw" }}
+            >
+              {digits}
+            </div>
           </div>
         );
       })}
@@ -369,35 +368,53 @@ function drawCoverImage(
   width: number,
   height: number,
   zoom = 1,
+  verticalAlignment: "top" | "center" = "top",
 ) {
   const scale = Math.max(width / image.naturalWidth, height / image.naturalHeight) * zoom;
   const sourceWidth = width / scale;
   const sourceHeight = height / scale;
   const sourceX = (image.naturalWidth - sourceWidth) / 2;
-  const sourceY = zoom > 1 ? 180 : 0;
+  // Candidate photos use `object-position: top`; the background texture uses the default center.
+  const sourceY = verticalAlignment === "top" ? 0 : (image.naturalHeight - sourceHeight) / 2;
   context.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, x, y, width, height);
+}
+
+function drawContainImage(
+  context: CanvasRenderingContext2D,
+  image: HTMLImageElement,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  zoom = 1,
+) {
+  const containScale = Math.min(width / image.naturalWidth, height / image.naturalHeight);
+  const drawWidth = image.naturalWidth * containScale;
+  const drawHeight = image.naturalHeight * containScale;
+  const centerX = x + width / 2;
+  const centerY = y + height / 2;
+  const scaledWidth = drawWidth * zoom;
+  const scaledHeight = drawHeight * zoom;
+  const scaledX = centerX + ((width - drawWidth) / 2 - width / 2) * zoom;
+  const scaledY = centerY + (height - drawHeight - height / 2) * zoom;
+  context.drawImage(image, scaledX, scaledY, scaledWidth, scaledHeight);
+}
+
+function roundedRect(context: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius: number) {
+  context.beginPath();
+  context.roundRect(x, y, width, height, radius);
 }
 
 function drawWrappedFooter(context: CanvasRenderingContext2D, fontFamily: string) {
   context.save();
   context.fillStyle = "#ffffff";
   context.font = `400 21px ${fontFamily}`;
-  context.textAlign = "left";
-  context.textBaseline = "top";
-  const words = FOOTER_TEXT.toLocaleUpperCase("pt-BR").split(" ");
-  const lines: string[] = [];
-  let line = "";
-  for (const word of words) {
-    const next = line ? `${line} ${word}` : word;
-    if (line && context.measureText(next).width > FOOTER_BOX.width) {
-      lines.push(line);
-      line = word;
-    } else {
-      line = next;
-    }
-  }
-  if (line) lines.push(line);
-  lines.forEach((text, index) => context.fillText(text, FOOTER_BOX.x, FOOTER_BOX.y + index * 22));
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.letterSpacing = "-1.47px";
+  const lineHeight = 22;
+  const firstLineY = FOOTER_BOX.y + FOOTER_BOX.height / 2 - ((FOOTER_LINES.length - 1) * lineHeight) / 2;
+  FOOTER_LINES.forEach((text, index) => context.fillText(text, FOOTER_BOX.x + FOOTER_BOX.width / 2, firstLineY + index * lineHeight, FOOTER_BOX.width));
   context.restore();
 }
 
@@ -412,22 +429,60 @@ async function createPosterPng(
   const context = canvas.getContext("2d");
   if (!context) throw new Error("Seu navegador não conseguiu preparar a imagem.");
 
-  const baseImage = await loadCanvasImage(POSTER_IMAGE);
-  context.drawImage(baseImage, 0, 0, POSTER_WIDTH, POSTER_HEIGHT);
+  const background = context.createLinearGradient(0, POSTER_HEIGHT, POSTER_WIDTH, 0);
+  background.addColorStop(0, "#003967");
+  background.addColorStop(0.15, "#003967");
+  background.addColorStop(0.85, "#1256ce");
+  background.addColorStop(1, "#1256ce");
+  context.fillStyle = background;
+  context.fillRect(0, 0, POSTER_WIDTH, POSTER_HEIGHT);
+
+  const texture = await loadCanvasImage(POSTER_TEXTURE);
+  context.save();
+  context.globalCompositeOperation = "overlay";
+  context.globalAlpha = 0.25;
+  context.translate(POSTER_WIDTH / 2, POSTER_HEIGHT / 2);
+  context.rotate((-110 * Math.PI) / 180);
+  drawCoverImage(
+    context,
+    texture,
+    -POSTER_WIDTH * 1.3,
+    -POSTER_HEIGHT * 1.3,
+    POSTER_WIDTH * 2.6,
+    POSTER_HEIGHT * 2.6,
+    1,
+    "center",
+  );
+  context.restore();
+
   await document.fonts.ready;
 
-  const title = displayName.toLocaleUpperCase("pt-BR");
+  const title = (displayName.trim() || DEFAULT_POSTER_TITLE).toLocaleUpperCase("pt-BR");
   const condensedFont = getComputedStyle(document.querySelector(".colinha-title-overlay")!).fontFamily;
   const montserratFont = getComputedStyle(document.querySelector(".colinha-footer")!).fontFamily;
-  const titleFontPx = fitTextSize(title, TITLE_BOX.width, 124, 42);
-  const badgeImage = await loadCanvasImage(BADGE_IMAGE);
-  context.drawImage(badgeImage, BADGE_BOX.x, BADGE_BOX.y, BADGE_BOX.width, BADGE_BOX.height);
+  const titleFontPx = fitTextSize(title, TITLE_BOX.width, 122, 60, 0.45);
+  context.save();
   context.font = `900 italic ${titleFontPx}px ${condensedFont}`;
   context.fontStretch = "extra-condensed";
-  context.textAlign = "left";
+  context.textAlign = "center";
   context.textBaseline = "middle";
+  context.letterSpacing = "-4.76px";
+  context.fillStyle = "#1256ce";
+  context.fillText(title, TITLE_BOX.x + TITLE_BOX.width / 2 + 7, TITLE_BOX.y + TITLE_BOX.height / 2 + 8, TITLE_BOX.width);
   context.fillStyle = "#ffffff";
-  context.fillText(title, TITLE_BOX.x, TITLE_BOX.y + TITLE_BOX.height / 2, TITLE_BOX.width);
+  context.fillText(title, TITLE_BOX.x + TITLE_BOX.width / 2, TITLE_BOX.y + TITLE_BOX.height / 2, TITLE_BOX.width);
+  context.restore();
+
+  context.save();
+  context.fillStyle = "#ffffff";
+  context.font = `italic 19px ${condensedFont}`;
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.translate(1038, 954);
+  context.rotate(-Math.PI / 2);
+  context.fillText(CAMPAIGN_LEGAL_TEXT, 0, 0, 630);
+  context.restore();
+
   drawWrappedFooter(context, montserratFont);
 
   const candidatesToDraw = ART_ROWS.flatMap((row) => {
@@ -441,58 +496,62 @@ async function createPosterPng(
   for (const row of ART_ROWS) {
     const selection = selections[row.slotId];
     const candidate = selection?.kind === "candidate" ? candidatesById.get(selection.candidateId) : undefined;
-    const candidateName = selectionName(selection, candidate);
-    const nameY = row.photoY - 3;
-    if (candidateName) {
-      const nameFontPx = fitTextSize(candidateName, row.nameWidth, row.slotId === "deputadoEstadual" ? 34 : 29, 16);
-      context.font = `900 italic ${nameFontPx}px ${condensedFont}`;
-      context.textAlign = "left";
-      context.textBaseline = "middle";
-      context.fillStyle = "#ffffff";
-      context.fillText(candidateName.toLocaleUpperCase("pt-BR"), row.nameX, nameY + 19, row.nameWidth);
-    }
+    const candidateName = selectionName(selection, candidate, row).toLocaleUpperCase("pt-BR");
+    const digits = candidate
+      ? candidate.ballotNumber.replace(/\D/g, "").slice(-row.digitCount).padStart(row.digitCount, "0")
+      : "0".repeat(row.digitCount);
+    const panelY = row.photoY + 24;
+
+    context.fillStyle = "#ffffff";
+    roundedRect(context, PANEL_BOX.x, panelY, PANEL_BOX.width, PANEL_BOX.height, 16);
+    context.fill();
+
     const { x, width, height } = PHOTO_BOX;
-    context.fillStyle = row.slotId === "deputadoEstadual" ? "#1256ce" : "#ffffff";
-    context.beginPath();
-    context.roundRect(x, row.photoY, width, height, 10);
+    context.fillStyle = "#ffffff";
+    roundedRect(context, x, row.photoY, width, height, 12);
     context.fill();
 
     if (candidate) {
       const imageIndex = candidatesToDraw.findIndex(({ candidate: item }) => item.candidateId === candidate.candidateId);
       context.save();
-      context.beginPath();
-      context.roundRect(x, row.photoY, width, height, 10);
+      roundedRect(context, x, row.photoY, width, height, 12);
       context.clip();
-      drawCoverImage(context, photos[imageIndex], x, row.photoY, width, height, row.slotId === "deputadoEstadual" ? 1.5 : 1);
+      if (row.slotId === "deputadoEstadual") {
+        drawContainImage(context, photos[imageIndex], x, row.photoY, width, height, 1.45);
+      } else {
+        drawCoverImage(context, photos[imageIndex], x, row.photoY, width, height);
+      }
       context.restore();
     }
 
-    const cells = Array.from({ length: row.digitCount }, (_, index) => ({
-      x: DIGIT_BOX.x + index * (DIGIT_BOX.width + DIGIT_BOX.gap),
-      y: row.numberY,
-    }));
-    context.fillStyle = row.slotId === "deputadoEstadual" ? "#1256ce" : "#ffffff";
-    for (const cell of cells) {
-      context.beginPath();
-      context.roundRect(cell.x, cell.y, DIGIT_BOX.width, DIGIT_BOX.height, 9);
-      context.fill();
-    }
+    context.textAlign = "left";
+    context.textBaseline = "top";
+    context.fillStyle = "#1256ce";
+    context.font = `900 italic 28px ${condensedFont}`;
+    context.fontStretch = "extra-condensed";
+    context.fillText(row.role, PANEL_TEXT.x, panelY + 17, PANEL_TEXT.width);
 
-    if (candidate) {
-      const digits = candidate.ballotNumber.replace(/\D/g, "").slice(-row.digitCount).padStart(row.digitCount, "0");
-      context.fillStyle = row.slotId === "deputadoEstadual" ? "#ffffff" : "#050505";
-      context.font = `900 ${row.slotId === "deputadoEstadual" ? 128 : 72}px "Arial Black", Arial, sans-serif`;
-      context.textAlign = "center";
-      context.textBaseline = "middle";
-      digits.split("").forEach((digit, index) => {
-        context.fillText(digit, cells[index].x + DIGIT_BOX.width / 2, row.numberY + DIGIT_BOX.height / 2, DIGIT_BOX.width - 6);
-      });
-    } else if (selection) {
-      const spanWidth = row.digitCount * DIGIT_BOX.width + (row.digitCount - 1) * DIGIT_BOX.gap;
-      context.fillStyle = "#051a33";
-      context.font = "900 24px Archivo, sans-serif";
-      context.fillText(selectionShortLabel(selection), DIGIT_BOX.x + spanWidth / 2, row.numberY + DIGIT_BOX.height / 2, spanWidth - 16);
+    const nameFontPx = candidate
+      ? CANDIDATE_NAME_BASE_SIZE
+      : fitTextSize(candidateName, PANEL_TEXT.width, 52, 24, 0.56);
+    context.fillStyle = "#003967";
+    context.font = `900 italic ${nameFontPx}px ${condensedFont}`;
+    context.fontStretch = "extra-condensed";
+    context.save();
+    context.translate(PANEL_TEXT.x, panelY + 49);
+    if (candidate) context.scale(candidateNameScaleX(candidateName, PANEL_TEXT.width), 1);
+    context.fillText(candidateName, 0, 0);
+    context.restore();
+
+    context.fillStyle = "#003967";
+    const numberFontSize = row.digitCount === 5 ? 99 : 109;
+    context.font = `900 ${numberFontSize}px "Arial Black", Arial, sans-serif`;
+    context.textAlign = "right";
+    context.textBaseline = "middle";
+    if (context.measureText(digits).width > NUMBER_BOX.width) {
+      context.font = `900 ${Math.floor(numberFontSize * NUMBER_BOX.width / context.measureText(digits).width)}px "Arial Black", Arial, sans-serif`;
     }
+    context.fillText(digits, NUMBER_BOX.x + NUMBER_BOX.width, panelY + PANEL_BOX.height / 2, NUMBER_BOX.width);
   }
 
   return new Promise<Blob>((resolve, reject) => {
@@ -513,7 +572,6 @@ export function ColinhaBuilder({
   const [activeSlot, setActiveSlot] = useState<BallotSlotId | null>(null);
   const [query, setQuery] = useState("");
   const [displayName, setDisplayName] = useState("");
-  const [nameError, setNameError] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
   const [generating, setGenerating] = useState(false);
@@ -616,7 +674,6 @@ export function ColinhaBuilder({
   const reset = () => {
     setSelections({ deputadoEstadual: FIXED_EDSON_SELECTION });
     setDisplayName("");
-    setNameError(false);
     try {
       window.localStorage.removeItem(STORAGE_KEY);
       window.localStorage.removeItem(NAME_STORAGE_KEY);
@@ -628,24 +685,13 @@ export function ColinhaBuilder({
 
   const changeDisplayName = (value: string) => {
     setDisplayName(value.replace(/[\u0000-\u001f\u007f]/g, "").slice(0, 20));
-    if (value.trim()) setNameError(false);
-  };
-
-  const requireName = () => {
-    const name = displayName.trim();
-    if (name) return name;
-    setNameError(true);
-    document.getElementById("colinha-display-name")?.focus();
-    return null;
   };
 
   const download = async () => {
-    const name = requireName();
-    if (!name) return;
     setGenerating(true);
     setNotice(null);
     try {
-      const blob = await createPosterPng(selections, candidatesById, name);
+      const blob = await createPosterPng(selections, candidatesById, displayNameForPoster);
       downloadPosterBlob(blob);
       setNotice("Colinha baixada em PNG.");
     } catch (error) {
@@ -656,12 +702,10 @@ export function ColinhaBuilder({
   };
 
   const shareColinha = async () => {
-    const name = requireName();
-    if (!name) return;
     setGenerating(true);
     setNotice(null);
     try {
-      const blob = await createPosterPng(selections, candidatesById, name);
+      const blob = await createPosterPng(selections, candidatesById, displayNameForPoster);
       const file = new File([blob], POSTER_FILENAME, { type: "image/png" });
 
       if (typeof navigator.share === "function" && canShareFile(file)) {
@@ -771,22 +815,19 @@ export function ColinhaBuilder({
               })}
             </CardContent>
             <div className="space-y-2 border-t border-slate-200 bg-brand-light/70 px-4 py-4 sm:px-5">
-              <Label htmlFor="colinha-display-name">Escreva seu nome aqui (obrigatório)</Label>
+              <Label htmlFor="colinha-display-name">Personalize o título (opcional)</Label>
               <Input
                 id="colinha-display-name"
                 value={displayName}
                 onChange={(event) => changeDisplayName(event.target.value)}
-                placeholder="Seu nome"
+                placeholder={DEFAULT_POSTER_TITLE}
                 maxLength={20}
                 autoComplete="off"
-                required
-                aria-invalid={nameError}
-                aria-describedby={nameError ? "colinha-name-error" : "colinha-name-help"}
+                aria-describedby="colinha-name-help"
                 className="text-base sm:text-sm"
               />
-              {nameError ? <p id="colinha-name-error" role="alert" className="text-xs font-semibold text-red-700">Digite seu nome para baixar ou passar a colinha.</p> : null}
               <p id="colinha-name-help" className="text-xs text-slate-500">
-                Seu nome fica salvo somente neste aparelho.
+                Deixe em branco para usar MEUS CANDIDATOS. Se personalizar, o texto fica salvo somente neste aparelho.
               </p>
             </div>
           </Card>

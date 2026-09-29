@@ -44,8 +44,9 @@ describe("ColinhaBuilder", () => {
     window.history.replaceState(null, "", "/colinha-eleitoral");
   });
 
-  it("selects a candidate, updates the artwork, and stores the required name locally", async () => {
+  it("selects a candidate, updates the artwork, and stores an optional title locally", async () => {
     render(<ColinhaBuilder candidates={candidates} />);
+    expect(document.querySelector(".colinha-title-overlay")?.textContent).toBe("MEUS CANDIDATOS");
 
     fireEvent.click(screen.getAllByRole("button", { name: "Escolher" })[0]);
     const dialog = await screen.findByRole("dialog");
@@ -62,7 +63,7 @@ describe("ColinhaBuilder", () => {
     expect(poster?.textContent).toContain("1234");
     expect(poster?.textContent).toContain("Candidata Teste");
 
-    fireEvent.change(screen.getByLabelText(/escreva seu nome aqui/i), {
+    fireEvent.change(screen.getByLabelText(/personalize o título/i), {
       target: { value: "João" },
     });
     expect(document.querySelector(".colinha-title-overlay")?.textContent).toBe("JOÃO");
@@ -89,12 +90,16 @@ describe("ColinhaBuilder", () => {
     expect(document.querySelector(".colinha-poster")?.textContent).toContain("15088");
   });
 
-  it("requires a name before generating the poster", () => {
+  it("shows the placeholder candidate instructions and allows an empty title", () => {
     render(<ColinhaBuilder candidates={candidates} />);
-    fireEvent.click(screen.getByRole("button", { name: /baixar colinha/i }));
 
-    expect(screen.getByRole("alert")).toHaveTextContent(/digite seu nome/i);
-    expect(screen.getByLabelText(/escreva seu nome aqui/i)).toHaveFocus();
+    const poster = document.querySelector(".colinha-poster");
+    expect(poster?.textContent).toContain("ESCOLHA SEU FEDERAL");
+    expect(poster?.textContent).toContain("ESCOLHA SEU 1º SENADOR");
+    expect(poster?.textContent).toContain("0000");
+    expect(poster?.textContent).toContain("000");
+    expect(document.querySelector(".colinha-title-overlay")?.textContent).toBe("MEUS CANDIDATOS");
+    expect(screen.getByLabelText(/personalize o título/i)).not.toBeRequired();
     expect(screen.queryByRole("button", { name: /imprimir/i })).not.toBeInTheDocument();
   });
 
@@ -109,7 +114,7 @@ describe("ColinhaBuilder", () => {
     render(<ColinhaBuilder candidates={candidates} />);
 
     await waitFor(() => {
-      expect(screen.getByLabelText(/escreva seu nome aqui/i)).toHaveValue("");
+      expect(screen.getByLabelText(/personalize o título/i)).toHaveValue("");
       expect(window.localStorage.getItem("edson:colinha:2026:rj:name:v1")).toBeNull();
       expect(JSON.parse(window.localStorage.getItem("edson:colinha:2026:rj:v1") ?? "{}")).toEqual({
         deputadoEstadual: { kind: "candidate", candidateId: "190002538813" },
