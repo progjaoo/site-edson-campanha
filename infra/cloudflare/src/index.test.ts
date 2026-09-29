@@ -1,7 +1,12 @@
 import { describe, expect, it, vi } from "vitest";
 import worker, { type Env } from "./index";
 
-const allowedOrigins = "https://edsonalbertassi.com,https://www.edsonalbertassi.com";
+const allowedOrigins = [
+  "https://edsonalbertassi.com",
+  "https://www.edsonalbertassi.com",
+  "https://edsonalbertassi.com.br",
+  "https://www.edsonalbertassi.com.br",
+].join(",");
 
 function createEnv() {
   const object = {
@@ -23,7 +28,12 @@ function createEnv() {
 }
 
 describe("candidate asset CORS", () => {
-  it.each(["https://edsonalbertassi.com", "https://www.edsonalbertassi.com"])(
+  it.each([
+    "https://edsonalbertassi.com",
+    "https://www.edsonalbertassi.com",
+    "https://edsonalbertassi.com.br",
+    "https://www.edsonalbertassi.com.br",
+  ])(
     "allows the campaign origin %s to export the image canvas",
     async (origin) => {
       const response = await worker.fetch(
