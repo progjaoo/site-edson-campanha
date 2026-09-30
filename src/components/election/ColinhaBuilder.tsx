@@ -337,6 +337,13 @@ function canShareFile(file: File) {
   }
 }
 
+function isMobileDevice() {
+  return (
+    /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+  );
+}
+
 function downloadPosterBlob(blob: Blob) {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -692,6 +699,33 @@ export function ColinhaBuilder({
     setNotice(null);
     try {
       const blob = await createPosterPng(selections, candidatesById, displayNameForPoster);
+
+      if (isMobileDevice()) {
+        const file = new File([blob], POSTER_FILENAME, { type: "image/png" });
+
+        if (typeof navigator.share === "function" && canShareFile(file)) {
+          try {
+            await navigator.share({
+              title: "Salvar minha colinha eleitoral",
+              text: "Para guardar na galeria, escolha Salvar imagem ou Fotos no menu do aparelho.",
+              files: [file],
+            });
+            setNotice("Colinha pronta. No menu do aparelho, escolha Salvar imagem ou Fotos para guardá-la na galeria.");
+            return;
+          } catch (error) {
+            if (error instanceof DOMException && error.name === "AbortError") {
+              setNotice("Salvamento cancelado. Nenhuma imagem foi salva.");
+              return;
+            }
+            // If the native save/share sheet is unavailable, keep the browser download as fallback.
+          }
+        }
+
+        downloadPosterBlob(blob);
+        setNotice("Colinha baixada. Abra Downloads ou Arquivos e use a opção de salvar a imagem na galeria.");
+        return;
+      }
+
       downloadPosterBlob(blob);
       setNotice("Colinha baixada em PNG.");
     } catch (error) {
