@@ -8,6 +8,7 @@ import {
   RotateCcw,
   Search,
   Send,
+  Trash2,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -678,6 +679,18 @@ export function ColinhaBuilder({
     setNotice(null);
   };
 
+  const clearCandidate = (slotId: BallotSlotId) => {
+    if (slotId === "deputadoEstadual" || selections[slotId]?.kind !== "candidate") return;
+
+    setSelections((current) => {
+      if (current[slotId]?.kind !== "candidate") return current;
+      const next = { ...current };
+      delete next[slotId];
+      return next;
+    });
+    setNotice("Candidato apagado da colinha.");
+  };
+
   const reset = () => {
     setSelections({ deputadoEstadual: FIXED_EDSON_SELECTION });
     setDisplayName("");
@@ -833,16 +846,31 @@ export function ColinhaBuilder({
                       )}
                     </div>
                     {slot.id !== "deputadoEstadual" ? (
-                      <Button
-                        type="button"
-                        variant={candidate || selection ? "outline" : "default"}
-                        size="sm"
-                        onClick={() => openPicker(slot.id)}
-                        className="shrink-0"
-                      >
-                        {candidate || selection ? "Trocar" : "Escolher"}
-                        <ChevronDown className="h-4 w-4" aria-hidden="true" />
-                      </Button>
+                      <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+                        {selection?.kind === "candidate" ? (
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={() => clearCandidate(slot.id)}
+                            aria-label={`Apagar candidato de ${slot.label}`}
+                            className="border-red-200 px-2 text-red-700 hover:bg-red-50 hover:text-red-800 sm:px-3"
+                          >
+                            <Trash2 className="h-4 w-4" aria-hidden="true" />
+                            Apagar
+                          </Button>
+                        ) : null}
+                        <Button
+                          type="button"
+                          variant={candidate || selection ? "outline" : "default"}
+                          size="sm"
+                          onClick={() => openPicker(slot.id)}
+                          className="shrink-0 px-2 sm:px-3"
+                        >
+                          {candidate || selection ? "Trocar" : "Escolher"}
+                          <ChevronDown className="h-4 w-4" aria-hidden="true" />
+                        </Button>
+                      </div>
                     ) : null}
                   </div>
                 );

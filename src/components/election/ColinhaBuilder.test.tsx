@@ -90,6 +90,27 @@ describe("ColinhaBuilder", () => {
     expect(document.querySelector(".colinha-poster")?.textContent).toContain("15088");
   });
 
+  it("lets the voter erase a selected candidate while keeping Edson fixed", async () => {
+    render(<ColinhaBuilder candidates={candidates} />);
+
+    expect(screen.queryByRole("button", { name: "Apagar candidato de Deputado Estadual" })).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getAllByRole("button", { name: "Escolher" })[0]);
+    const dialog = await screen.findByRole("dialog");
+    fireEvent.click(await within(dialog).findByRole("button", { name: /Candidata Teste/ }));
+
+    const eraseButton = await screen.findByRole("button", { name: "Apagar candidato de Deputado Federal" });
+    expect(eraseButton).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Apagar candidato de Deputado Estadual" })).not.toBeInTheDocument();
+
+    fireEvent.click(eraseButton);
+
+    expect(await screen.findByRole("status")).toHaveTextContent("Candidato apagado da colinha.");
+    expect(screen.getAllByText("Ainda não escolhido").length).toBeGreaterThan(0);
+    expect(screen.queryByRole("button", { name: "Apagar candidato de Deputado Federal" })).not.toBeInTheDocument();
+    expect(document.querySelector(".colinha-poster")?.textContent).toContain("ESCOLHA SEU FEDERAL");
+  });
+
   it("shows the placeholder candidate instructions and allows an empty title", () => {
     render(<ColinhaBuilder candidates={candidates} />);
 
