@@ -8,6 +8,7 @@ import {
   RotateCcw,
   Search,
   Send,
+  Trash2,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -259,11 +260,8 @@ function PosterPreview({
         const candidate =
           selection?.kind === "candidate" ? candidatesById.get(selection.candidateId) : undefined;
         const candidateName = selectionName(selection, candidate, row);
-        const nameFontPx = candidate
-          ? CANDIDATE_NAME_BASE_SIZE
-          : fitTextSize(candidateName, PANEL_TEXT.width, 52, 24, 0.56);
-        const nameFontSize = `${nameFontPx / 10.8}cqw`;
-        const nameScaleX = candidate ? candidateNameScaleX(candidateName, PANEL_TEXT.width) : 1;
+        const nameFontSize = `${CANDIDATE_NAME_BASE_SIZE / 10.8}cqw`;
+        const nameScaleX = candidateNameScaleX(candidateName, PANEL_TEXT.width);
         const panelY = row.photoY + 24;
         const digits = candidate
           ? candidate.ballotNumber.replace(/\D/g, "").slice(-row.digitCount).padStart(row.digitCount, "0")
@@ -272,12 +270,12 @@ function PosterPreview({
         return (
           <div key={row.slotId} aria-hidden="true">
             <div
-              className="absolute z-[1] rounded-lg bg-white"
+              className={`absolute z-[1] rounded-lg ${candidate ? "bg-white" : "bg-brand-navy"}`}
               style={{ ...percentRect({ x: PANEL_BOX.x, y: panelY, width: PANEL_BOX.width, height: PANEL_BOX.height }), borderRadius: "1.5cqw" }}
             >
             </div>
             <div
-              className="absolute z-[1] overflow-hidden rounded-lg bg-white"
+              className={`absolute z-[1] overflow-hidden rounded-lg ${candidate ? "bg-white" : "bg-brand-navy"}`}
               style={{ ...percentRect({ x: PHOTO_BOX.x, y: row.photoY, width: PHOTO_BOX.width, height: PHOTO_BOX.height }), borderRadius: "1.5cqw" }}
             >
               {candidate ? (
@@ -297,17 +295,15 @@ function PosterPreview({
               {row.role}
             </div>
             <div
-              className={`colinha-candidate-name absolute z-10 flex items-center overflow-hidden whitespace-nowrap font-black italic uppercase leading-none text-brand-dark ${nameFontClassName}`}
+              className={`colinha-candidate-name absolute z-10 flex items-center overflow-hidden whitespace-nowrap font-black italic uppercase leading-none ${candidate ? "text-brand-dark" : "text-brand-blue"} ${nameFontClassName}`}
               style={{ ...percentRect({ x: PANEL_TEXT.x, y: panelY + 47, width: PANEL_TEXT.width, height: 62 }), fontSize: nameFontSize, fontVariationSettings: '"wdth" 62' }}
             >
-              {candidate ? (
-                <span className="inline-block" style={{ transform: `scaleX(${nameScaleX})`, transformOrigin: "left center" }}>
-                  {candidateName}
-                </span>
-              ) : candidateName}
+              <span className="inline-block" style={{ transform: `scaleX(${nameScaleX})`, transformOrigin: "left center" }}>
+                {candidateName}
+              </span>
             </div>
             <div
-              className="absolute z-10 flex items-center justify-end overflow-hidden whitespace-nowrap font-black leading-none text-brand-dark"
+              className={`absolute z-10 flex items-center justify-end overflow-hidden whitespace-nowrap font-black leading-none ${candidate ? "text-brand-dark" : "text-brand-blue"}`}
               style={{ ...percentRect({ x: NUMBER_BOX.x, y: panelY + 12, width: NUMBER_BOX.width, height: 104 }), fontFamily: '"Arial Black", Arial, sans-serif', fontSize: row.digitCount === 5 ? "9.2cqw" : "10.1cqw" }}
             >
               {digits}
@@ -509,12 +505,12 @@ async function createPosterPng(
       : "0".repeat(row.digitCount);
     const panelY = row.photoY + 24;
 
-    context.fillStyle = "#ffffff";
+    context.fillStyle = candidate ? "#ffffff" : "#003967";
     roundedRect(context, PANEL_BOX.x, panelY, PANEL_BOX.width, PANEL_BOX.height, 16);
     context.fill();
 
     const { x, width, height } = PHOTO_BOX;
-    context.fillStyle = "#ffffff";
+    context.fillStyle = candidate ? "#ffffff" : "#003967";
     roundedRect(context, x, row.photoY, width, height, 12);
     context.fill();
 
@@ -538,19 +534,16 @@ async function createPosterPng(
     context.fontStretch = "extra-condensed";
     context.fillText(row.role, PANEL_TEXT.x, panelY + 17, PANEL_TEXT.width);
 
-    const nameFontPx = candidate
-      ? CANDIDATE_NAME_BASE_SIZE
-      : fitTextSize(candidateName, PANEL_TEXT.width, 52, 24, 0.56);
-    context.fillStyle = "#003967";
-    context.font = `900 italic ${nameFontPx}px ${condensedFont}`;
+    context.fillStyle = candidate ? "#003967" : "#1256ce";
+    context.font = `900 italic ${CANDIDATE_NAME_BASE_SIZE}px ${condensedFont}`;
     context.fontStretch = "extra-condensed";
     context.save();
     context.translate(PANEL_TEXT.x, panelY + 49);
-    if (candidate) context.scale(candidateNameScaleX(candidateName, PANEL_TEXT.width), 1);
+    context.scale(candidateNameScaleX(candidateName, PANEL_TEXT.width), 1);
     context.fillText(candidateName, 0, 0);
     context.restore();
 
-    context.fillStyle = "#003967";
+    context.fillStyle = candidate ? "#003967" : "#1256ce";
     const numberFontSize = row.digitCount === 5 ? 99 : 109;
     context.font = `900 ${numberFontSize}px "Arial Black", Arial, sans-serif`;
     context.textAlign = "right";
@@ -676,6 +669,18 @@ export function ColinhaBuilder({
     setSelections((current) => ({ ...current, [activeSlot]: selection }));
     setActiveSlot(null);
     setNotice(null);
+  };
+
+  const clearCandidate = (slotId: BallotSlotId) => {
+    if (slotId === "deputadoEstadual" || selections[slotId]?.kind !== "candidate") return;
+
+    setSelections((current) => {
+      if (current[slotId]?.kind !== "candidate") return current;
+      const next = { ...current };
+      delete next[slotId];
+      return next;
+    });
+    setNotice("Candidato apagado da colinha.");
   };
 
   const reset = () => {
@@ -833,16 +838,31 @@ export function ColinhaBuilder({
                       )}
                     </div>
                     {slot.id !== "deputadoEstadual" ? (
-                      <Button
-                        type="button"
-                        variant={candidate || selection ? "outline" : "default"}
-                        size="sm"
-                        onClick={() => openPicker(slot.id)}
-                        className="shrink-0"
-                      >
-                        {candidate || selection ? "Trocar" : "Escolher"}
-                        <ChevronDown className="h-4 w-4" aria-hidden="true" />
-                      </Button>
+                      <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+                        {selection?.kind === "candidate" ? (
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={() => clearCandidate(slot.id)}
+                            aria-label={`Apagar candidato de ${slot.label}`}
+                            className="border-red-200 px-2 text-red-700 hover:bg-red-50 hover:text-red-800 sm:px-3"
+                          >
+                            <Trash2 className="h-4 w-4" aria-hidden="true" />
+                            Apagar
+                          </Button>
+                        ) : null}
+                        <Button
+                          type="button"
+                          variant={candidate || selection ? "outline" : "default"}
+                          size="sm"
+                          onClick={() => openPicker(slot.id)}
+                          className="shrink-0 px-2 sm:px-3"
+                        >
+                          {candidate || selection ? "Trocar" : "Escolher"}
+                          <ChevronDown className="h-4 w-4" aria-hidden="true" />
+                        </Button>
+                      </div>
                     ) : null}
                   </div>
                 );
